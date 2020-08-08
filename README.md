@@ -160,6 +160,7 @@ DATABASES = {
 
 ```
 
+
 <br>
 <br>
 
@@ -170,11 +171,45 @@ DATABASES = {
 
 ---
 
-### 에러 발생 
+## 에러 발생 
+
+작업 진행중 발생한 에러 
+
+<br>
+
+### [에러발생] 1. `python manage.py check ` or `python manage.py makemigrations` 를 진행했는데 아래와 같은 애러발생
+
+[참고링크](https://stackoverflow.com/questions/49189402/auth-user-groups-fields-e304-reverse-accessor-for-user-groups-clashes-with)
+
+<br>
+
+```py
+
+SystemCheckError: System check identified some issues:
+ERRORS:
+ToyMain.join.groups: (fields.E304) Reverse accessor for 'modelsClassName.groups' clashes with reverse accessor for 'User.groups'.
+        HINT: Add or change a related_name argument to the definition for 'modelsClassName.groups' or 'User.groups'.
+ToyMain.join.user_permissions: (fields.E304) Reverse accessor for 'modelsClassName.user_permissions' clashes with reverse accessor for 'User.user_permissions'.
+        HINT: Add or change a related_name argument to the definition for 'modelsClassName.user_permissions' or 'User.user_permissions'.
+auth.User.groups: (fields.E304) Reverse accessor for 'User.groups' clashes with reverse accessor for 'modelsClassName.groups'.
+        HINT: Add or change a related_name argument to the definition for 'User.groups' or 'modelsClassName.groups'.
+auth.User.user_permissions: (fields.E304) Reverse accessor for 'User.user_permissions' clashes with reverse accessor for 'modelsClassName.user_permissions'.
+        HINT: Add or change a related_name argument to the definition for 'User.user_permissions' or 'modelsClassName.user_permissions'.
+
+
+# [해결] 만약 모델을 만든다면 만든 모델 명시!!! -> 아니면 에러발생 
+# AUTH_USER_MODEL = 'YourAppName.modelsClassName'
+
+```
+
+<br>
+
 
 ```
 ```
 
+<br>
+<br>
 
 ---
 
