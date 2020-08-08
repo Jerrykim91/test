@@ -4,6 +4,8 @@
 
 ## 1차 - 배포(deployment)테스트
 
+기본적으로 장고 세팅은 혼자 할 수 있다는 가정하에 진행한다.
+
 ##### 실제로는 3번째 테스트 
 
 git 이 있으면 그냥 진행 없으면 설치 작업 진행 
@@ -27,7 +29,7 @@ git 이 있으면 그냥 진행 없으면 설치 작업 진행
 
 <br>
 
-## 네비바에 콘솔(Consoles)창 이동
+## 네비바에 콘솔(`Consoles`)창 이동
 
 가입할때 사용한 내 아이디가 주소가 된다. 
 
@@ -35,9 +37,10 @@ git 이 있으면 그냥 진행 없으면 설치 작업 진행
 
 거기서 기본세팅을 할것이다. 
 
+<br>
+
 콘솔창을 띄운후 
 
-<br>
 
 ```bash
 git clone 주소.git 
@@ -51,13 +54,13 @@ git clone 주소.git
 
 가상환경을 만든다. `$ virtualenv --python=python버.전 가상환경이름`
 
-가상환경을 활성화 시킨다.  `$ source 가상환경이름/bin/activate` or `workon 가상환경이름`
+가상환경을 활성화 시킨다. `$ source 가상환경이름/bin/activate` or `workon 가상환경이름`
 
 중간중간 패키지 설치하고 `pip install 모듈`
 
 데이터베이스 초기화 `$ python manage.py migrate` -> `(가상환경이름) $ python manage.py createsuperuser`
 
-정적파일 수집( 서버가 찾을 수 있는 장소에 집합 ) `python manage.py collectstatic`
+정적파일 수집( 서버가 찾을 수 있는 장소에 집합 ) `python manage.py collectstatic` -> 안될 경우 있음 그럴때는 일단 패스 
 
 <br>
 
@@ -65,13 +68,17 @@ git clone 주소.git
 
 Add a new web app 클릭한다.
 
-그다음은 manual configuration 클릭한 후 파이썬 버전을 선택한다 (1차 세팅 완료) 
+그다음은 manual configuration 클릭한 후 파이썬 버전을 선택한다. (1차 세팅 완료) 
 
 가상환경 경로를 설정해준다. 
 
 <br>
 
-## WSGI 설정 파일(WSGI configuration file) 설정
+## WSGI 설정 파일(WSGI configuration file) 설정 
+
+<br>
+
+참고로 장고 아님 PythonAnywhere Web 에서의 설정임 
 
 ```py
 
@@ -102,6 +109,7 @@ application = StaticFilesHandler(get_wsgi_application())
 |:----:|:----------------------------------------:|
 |`/static/`|`/home/아이디/폴더이름/static`|
 |`/templates/`|`/home/아이디/폴더이름/templates`|
+
 <br>
 
 일단 완료 -> 템플릿 설정 없이 성공 
@@ -109,17 +117,78 @@ application = StaticFilesHandler(get_wsgi_application())
 <br>
 <br>
 
+## 데이터 베이스 설정 하기 
+
+<br>
+
+MySQL 이기 때문에 모듈 설치를 하고 -> `pip install mysqlclient `
+
+장고폴더.setting.py 에 들어가서 데이터 베이스 설정을 진행한다.
+
+
+```py
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+DATABASES = {
+
+    # 초기설정
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    #     }
+
+    # mysql
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '유저계정이름$데이터베이스이름',
+        'USER': '유저계정이름',
+        'PASSWORD': '데이터 베이스 생성시 PW',
+        'HOST': '유저계정이름.mysql.pythonanywhere-services.com' # 데이터 베이스 생성하면 주는 호스트이름 ,
+    }
+
+    # mysql 가이드 
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'NAME': '<your_username>$<your_database_name>',
+    #         'USER': '<your_username>',
+    #         'PASSWORD': '<your_mysql_password>',
+    #         'HOST': '<your_mysql_hostname>',
+    #           }
+}
+
+```
+
+<br>
+<br>
+
+## SECRET_KEY 의 보안을 위한 재설정 
+
+
+(추후)
+
+---
+
+### 에러 발생 
+
+```
+```
+
+
 ---
 
 #### 완료하기 전 에러 
 
-이것 말고 기존에 있는 작업물로 진행하려다 하루를 날렸는데 
-장고가 2버전에서 3 버전으로 변경되면서 os을 이용하는 방식에서 
-path 모듈이용방식으로 바뀌었다. 
-이부분을 재설정해주니까 탬플릿을 찾지못하는 에러가 해결되었고 ... 여기서만 
+이것 말고 기존에 있는 작업물로 진행하려다 하루를 날렸는데     
 
-이 프로젝트 같은경우 가상환경안에서 장고 프로젝트 폴더를 생성하고 한것이라 
-기존에 있는 실패?한 프로젝트를 하나씩 엎어가면서 오류를 찾아보고자 한다. 
+오늘 작업하다 확인한것이 Django 버전이 2.x 에서 3.x로 바뀌면서     
+os 모듈을 이용하는 방식에서 path 모듈이용방식으로 바뀌었다. 
+
+이부분을 재설정해주니까 탬플릿의 경로를 찾지 못하는 에러가 해결되었다(여기서만...)
+
+이 프로젝트 같은경우 가상환경안에서 Django 프로젝트 폴더를 생성하고 한것이라 
+기존에 있는 실패?한 프로젝트를 하나씩 엎어 가면서 오류를 찾아보고자 한다. 
 
 역시 컴퓨터는 죄가 없다.... 내가 죄지... 모르는죄 크흡.....
 
