@@ -11,7 +11,7 @@ from django.contrib.auth import logout as logout
 from django.contrib.auth import get_user_model
 
 # db
-# from .models import join # 모델 호출 
+from .models import join # 모델 호출 
 User = get_user_model() # 변수 선언
 
 # Create your views here.
