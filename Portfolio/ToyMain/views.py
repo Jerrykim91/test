@@ -16,19 +16,27 @@ User = get_user_model() # 변수 선언
 
 # Create your views here.
 
-txt = """
+# txt = """
 
-    <html>
-    <head><title>%s</title></head>
-    <body>
-    <h1>%s</h1><p>%s</p>
-    </body>
-    </html>
-      """% (
-'제리 | test 진행중',
-'정상동작 합니다.',
-'다음 스탭으로 진행합니다!'
-)
+#     <html>
+#     <head><title>%s</title></head>
+#     <body>
+#     <h1>%s</h1><p>%s</p>
+#     </body>
+#     </html>
+#       """% (
+# '제리 | test 진행중',
+# '정상동작 합니다.',
+# '다음 스탭으로 진행합니다!'
+# )
+
+
+# @csrf_exempt
+# def Main(request):
+#     '''
+#     테스트 버전 Dummy
+#     '''
+#     return HttpResponse(txt)
 
 
 @csrf_exempt
@@ -36,6 +44,5 @@ def Main(request):
     '''
     Main 
     '''
-    # if request.method == 'GET':
-        # return render(request,'Main.html')
-    return HttpResponse(txt)
+    if request.method == 'GET':
+        return render(request,'Main.html')
