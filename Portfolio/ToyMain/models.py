@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser, UserManager
 
 
 # Create your models here
-# 일단 주석 
 
 class join(AbstractUser): 
 
