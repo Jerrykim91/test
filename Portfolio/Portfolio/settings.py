@@ -75,23 +75,23 @@ WSGI_APPLICATION = 'Portfolio.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    #     }
-
-        # mysql
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jerrykim91$default',
-        'USER': 'jerrykim91',
-        'PASSWORD': 'wldms7873',
-        'HOST': 'jerrykim91.mysql.pythonanywhere-services.com',
-        'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-                 # 'sql_mode': 'traditional'
-            },
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        }
+
+    #     # mysql
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'jerrykim91$default',
+    #     'USER': 'jerrykim91',
+    #     'PASSWORD': 'wldms7873',
+    #     'HOST': 'jerrykim91.mysql.pythonanywhere-services.com',
+    #     'OPTIONS': {
+    #             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+    #              # 'sql_mode': 'traditional'
+    #         },
+    # }
 }
 
 
