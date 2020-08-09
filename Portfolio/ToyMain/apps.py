@@ -1,5 +1,5 @@
-from django.apps import AppConfig
+# from django.apps import AppConfig
 
 
-class ToymainConfig(AppConfig):
-    name = 'ToyMain'
+# class ToymainConfig(AppConfig):
+#     name = 'ToyMain'
