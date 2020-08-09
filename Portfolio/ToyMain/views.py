@@ -19,6 +19,34 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 
+
+"""
+서버를 어떤 방식으로 만들지 생각 해보자 
+일단을 프로젝트들을 업로드 할건데 
+
+로그인이 필요한 작업은 음식, gdp 그외에는 결과만 보여주면 되는 구조 
+
+결과만 보여주는거는 어떻게 보여 줄건데 -> 분석이나 시각화는 되어 있어야하는데 ... 
+
+
+템플릿 사이트 
+https://html5up.net/
+https://mdbootstrap.com/freebies/
+
+[참고용] https://all-free-download.com/free-website-templates/
+
+"""
+
+@csrf_exempt
+def Main(request):
+    '''
+    Main 
+    '''
+    if request.method == 'GET':
+        return render(request,'index_kr.html')
+
+
+
 # txt = """
 
 #     <html>
@@ -42,10 +70,3 @@ from django.contrib.auth import get_user_model
 #     return HttpResponse(txt)
 
 
-@csrf_exempt
-def Main(request):
-    '''
-    Main 
-    '''
-    if request.method == 'GET':
-        return render(request,'Main.html')
