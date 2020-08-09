@@ -12,10 +12,10 @@ from django.contrib.auth import get_user_model
 
 
 # db
-from django.db import connection
-cursor = connection.cursor()
-from .models import join # 모델 호출 
-User = get_user_model() # 변수 선언
+# from django.db import connection
+# cursor = connection.cursor()
+# from .models import join # 모델 호출 
+# User = get_user_model() # 변수 선언
 
 # Create your views here.
 
