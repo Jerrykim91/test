@@ -83,7 +83,7 @@ DATABASES = {
         # mysql
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jerrykim91$testdb',
+        'NAME': 'jerrykim91$default',
         'USER': 'jerrykim91',
         'PASSWORD': 'wldms7873',
         'HOST': 'jerrykim91.mysql.pythonanywhere-services.com',
@@ -100,7 +100,7 @@ DATABASES = {
 
 # 만든 모델 명시
 # AUTH_USER_MODEL = 'YourAppName.YourClassName'
-AUTH_USER_MODEL = "ToyMain.join"
+# AUTH_USER_MODEL = "ToyMain.join"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -122,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko'
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Seoul'
