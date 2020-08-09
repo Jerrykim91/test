@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser, UserManager
 class join(AbstractUser): 
 
     objects    = UserManager() 
-    name       = models.CharField( 'Name', max_length=30, blank=True ) # 본명
+    name       = models.CharField( Name , max_length=30, blank=True ) # 본명
 
     
 
