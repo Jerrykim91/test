@@ -83,7 +83,7 @@ DATABASES = {
         # mysql
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jerrykim91$mydb',
+        'NAME': 'jerrykim91$testdb',
         'USER': 'jerrykim91',
         'PASSWORD': 'wldms7873',
         'HOST': 'jerrykim91.mysql.pythonanywhere-services.com',
