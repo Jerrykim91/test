@@ -204,8 +204,24 @@ auth.User.user_permissions: (fields.E304) Reverse accessor for 'User.user_permis
 
 <br>
 
+### [에러발생] 2. Strict Mode가 데이터베이스 연결 'default'에 대해 설정되지 않았습니다.
 
-```
+`python manage.py migrate ` 작업 수행 시 발생
+
+[참고링크](https://stackoverflow.com/questions/23022858/force-strict-sql-mode-in-django)
+
+```py
+(mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+        HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/3.1/ref/databases/#mysql-sql-mode
+
+# settings.py에서 Databases 항목에서 아래의 옵션 cnrk
+
+DATABASES = { 
+	...
+	'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+             # 'sql_mode': 'traditional'
+        },
 ```
 
 <br>
