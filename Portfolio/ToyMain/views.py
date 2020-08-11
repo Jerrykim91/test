@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
@@ -38,15 +37,21 @@ https://mdbootstrap.com/freebies/
 """
 
 @csrf_exempt
-def Main(request):
+def MainKr(request):
     '''
-    Main 
+    MainKr - 기본값 
     '''
     if request.method == 'GET':
         return render(request,'index_kr.html')
 
 
-
+@csrf_exempt
+def MainEn(request):
+    '''
+    MainEn - 영어
+    '''
+    if request.method == 'GET':
+        return render(request,'index_en.html')
 # txt = """
 
 #     <html>
