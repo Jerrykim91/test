@@ -18,6 +18,9 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 
+# context = {
+#     'GDP': posts,
+# }
 
 """
 서버를 어떤 방식으로 만들지 생각 해보자 
@@ -39,7 +42,7 @@ https://mdbootstrap.com/freebies/
 @csrf_exempt
 def MainKr(request):
     '''
-    MainKr - 기본값 
+    MainKr - 기본값 -> 나중에 하나로 묶을 예정 
     '''
     if request.method == 'GET':
         return render(request,'index_kr.html')
@@ -52,6 +55,42 @@ def MainEn(request):
     '''
     if request.method == 'GET':
         return render(request,'index_en.html')
+
+def GDP(request):
+    """
+    GDP
+    """
+    if request.method == 'GET':
+        PageName='GDP'
+        return render(request,'GDP.html', {"PageName":PageName}) 
+
+
+def Vegetable(request):
+    """
+    Vegetable amount prediction
+    """
+    if request.method == 'GET':
+        return render(request,'index_en.html')
+
+
+def Food(request):
+    """
+    음식 이미지 분석 -> 
+    """
+    if request.method == 'GET':
+        return render(request,'index_en.html')
+
+
+def PostCovid(request):
+    """
+    포스트 코로나
+    """
+    if request.method == 'GET':
+        return render(request,'index_en.html')
+
+
+###########더미################################33
+
 # txt = """
 
 #     <html>
