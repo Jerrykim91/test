@@ -19,8 +19,9 @@ from django.contrib.auth import get_user_model
 # Create your views here.
 
 # context = {
-#     'GDP': posts,
-# }
+#         "PageName":PageName, 
+#         'test':' 테스트 - 한국어'
+#         }
 
 """
 서버를 어떤 방식으로 만들지 생각 해보자 
@@ -62,7 +63,7 @@ def GDP(request):
     """
     if request.method == 'GET':
         PageName='GDP'
-        return render(request,'GDP.html', {"PageName":PageName}) 
+        return render(request,'Base.html', {"PageName":PageName}) 
 
 
 def Vegetable(request):
@@ -70,7 +71,9 @@ def Vegetable(request):
     Vegetable amount prediction
     """
     if request.method == 'GET':
-        return render(request,'index_en.html')
+        PageName='Vegetable'
+        
+        return render(request,'Base.html', {"PageName":PageName, 'test':' 테스트 - 한국어'})
 
 
 def Food(request):
@@ -78,7 +81,8 @@ def Food(request):
     음식 이미지 분석 -> 
     """
     if request.method == 'GET':
-        return render(request,'index_en.html')
+        PageName='Food'
+        return render(request,'Base.html', {"PageName":PageName})
 
 
 def PostCovid(request):
@@ -86,7 +90,8 @@ def PostCovid(request):
     포스트 코로나
     """
     if request.method == 'GET':
-        return render(request,'index_en.html')
+        PageName='PostCovid'
+        return render(request,'Base.html', {"PageName":PageName})
 
 
 ###########더미################################33

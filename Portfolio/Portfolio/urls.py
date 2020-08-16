@@ -19,7 +19,7 @@ from ToyMain import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', include('ToyMain.urls')),
+    path('Main/', include('ToyMain.urls') , name='Main'),
     path('', views.MainKr, name='MainKr'),   # 한국어
     path('en', views.MainEn, name='MainEn'), # 영어
 ]
