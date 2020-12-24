@@ -55,7 +55,7 @@ def MainEn(request):
     MainEn - 영어
     '''
     if request.method == 'GET':
-        return render(request,'index_en.html')
+        return render(request,'blog/index.html')
 
 def GDP(request):
     """
