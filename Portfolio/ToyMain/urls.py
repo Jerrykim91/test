@@ -5,7 +5,6 @@ from . import views
 
 # ToyMain 
 urlpatterns = [
-
     path('GDP', views.GDP, name ='GDP' ), # GDP
     path('Vegetable', views.Vegetable), # Vegetable
     path('Food', views.Food),  # Food
