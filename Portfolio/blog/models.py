@@ -50,6 +50,9 @@ class Post(models.Model):
         return self.get_previous_by_modify_dt()
     
     def get_next(self):
+        """
+        # get_next_by_필드명()은 Django의 내장함수
+        """
         return self.get_next_by_modify_dt()
 
 

@@ -20,3 +20,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# id: jerrykim91 / gkdnjs4131
+# 메일 : sun4131@gmail.com
+#지4131
