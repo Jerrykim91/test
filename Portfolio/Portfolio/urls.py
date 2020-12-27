@@ -19,14 +19,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from ToyMain import views
-
+from blog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls), # 관리자 계정
-    path('Main/', include('ToyMain.urls') , name='Main'),
-    path('', views.MainKr, name='MainKr'),   # 한국어
-    
+    # path('Main/', include('ToyMain.urls') , name='Main'),
+    # path('', views.MainKr, name='MainKr'),   # 한국어
+
+    # # 진행중 
+    # path('home/', include('blog.urls'), name='Home'), # blog
+
     # 진행중 
+    
+    path('', views.main, name='main'),   # blog
     path('home/', include('blog.urls'), name='Home'), # blog
 ]
 

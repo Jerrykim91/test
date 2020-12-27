@@ -44,9 +44,7 @@ https://mdbootstrap.com/freebies/
 
 """
 
-
-
-@csrf_exempt
+# @csrf_exempt
 def test(request):
     '''
     test - 글쓰기
@@ -55,7 +53,7 @@ def test(request):
         return render(request,'blog/test.html')
 
 
-@csrf_exempt
+# @csrf_exempt
 def blog(request):
     '''
     blog - blogs
@@ -66,7 +64,7 @@ def blog(request):
         return render(request,'blog/blog.html')
 
 
-@csrf_exempt
+# @csrf_exempt
 def posting(request):
     '''
     posting 
@@ -77,7 +75,7 @@ def posting(request):
         return render(request,'blog/blog-single.html')
 
 
-@csrf_exempt
+# @csrf_exempt
 def about_me(request):
     '''
     about_me - 나에 대해서 
@@ -86,10 +84,63 @@ def about_me(request):
         return render(request,'blog/about.html')
 
 
-@csrf_exempt
+# @csrf_exempt
 def main(request):
     '''
     main - 블로그 메인
     '''
     if request.method == 'GET':
         return render(request,'blog/index.html')
+
+# @csrf_exempt
+# def test(request):
+#     '''
+#     test - counselor
+#     '''
+#     if request.method == 'GET':
+#         PageName='test'
+#         return render(request,'blog/counselor.html',{"PageName":PageName})
+
+
+# @csrf_exempt
+# def blog(request):
+#     '''
+#     blog - blogs
+#     post -> blog single
+#     # 여기서부터 골머리 시작 
+#     '''
+#     if request.method == 'GET':
+#         PageName='blog'
+#         return render(request,'blog/blog.html',{"PageName":PageName})
+
+
+# @csrf_exempt
+# def posting(request):
+#     '''
+#     posting 
+#     post -> blog single
+#     # 여기서부터 골머리 시작 
+#     '''
+#     if request.method == 'GET':
+#         PageName='post'
+#         return render(request,'blog/blog-single.html', {"PageName":PageName})
+
+
+# @csrf_exempt
+# def about_me(request):
+#     '''
+#     about_me - 나에 대해서 
+#     '''
+#     if request.method == 'GET':
+#         PageName='about'
+       
+#         return render(request,'blog/about.html',{"PageName":PageName})
+
+
+# @csrf_exempt
+# def main(request):
+#     '''
+#     main - 블로그 메인
+#     '''
+#     if request.method == 'GET':
+#         return render(request,'blog/index.html')
