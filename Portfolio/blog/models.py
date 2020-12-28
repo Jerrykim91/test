@@ -57,7 +57,7 @@ class Post(models.Model):
 
 
 
-# 아직 동작안함 
+# 게시는 글 작업해보고 올리자!
 
 # 참고 :  https://amamov.tistory.com/107
 # on_delete=models.CASCADE 구문이 어떤 동작을 하는지 : https://hashcode.co.kr/questions/1673/%EC%9E%A5%EA%B3%A0-%EA%B5%AC%EB%AC%B8-%EC%A7%88%EB%AC%B8-%EC%9E%85%EB%8B%88%EB%8B%A4

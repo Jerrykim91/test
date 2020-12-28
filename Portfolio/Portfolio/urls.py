@@ -17,8 +17,8 @@ Including another URLconf
 
 
 from django.contrib import admin
-from django.urls import path , include
-from ToyMain import views
+from django.urls import path, include
+# from ToyMain import views
 from blog import views
 
 urlpatterns = [
@@ -31,8 +31,9 @@ urlpatterns = [
 
     # 진행중 
     
-    path('', views.main, name='main'),   # blog
-    path('home/', include('blog.urls'), name='Home'), # blog
+    # path('', views.main, name='main'),   # blog
+    path('blog/', include('blog.urls')), # blog
+    # path('home/', include('blog.urls'), name='Home'), # blog
 ]
 
 
