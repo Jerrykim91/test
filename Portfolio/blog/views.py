@@ -23,6 +23,11 @@ from django.views.generic.dates import DayArchiveView, TodayArchiveView
 from blog.models import Post
 
 
+import datetime
+
+now = datetime.datetime.now()
+
+
 
 #ListView
 class PostLV(ListView):
