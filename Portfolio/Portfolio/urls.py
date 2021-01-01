@@ -18,9 +18,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-# from blog import views
+from blog.views import HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls), # 관리자 계정
+
+    # 커스텀
+    path('', HomeView.as_view(), name='home'),
     path('blog/', include('blog.urls')), # blog
+    
 ]

@@ -27,7 +27,14 @@ import datetime
 
 now = datetime.datetime.now()
 
+from django.views.generic import TemplateView
 
+# TemplateView
+class HomeView(TemplateView):
+    """
+    docstring
+    """
+    template_name = 'blog/home.html'
 
 #ListView
 class PostLV(ListView):
@@ -80,6 +87,7 @@ class PostTAV(TodayArchiveView):
 """
 https://velog.io/@hwang-eunji/django-views-%ED%95%A8%EC%88%98%ED%98%95-vs-%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%A0%9C%EB%84%A4%EB%A6%AD
 """
+
 
 # db
 # from django.db import connection
