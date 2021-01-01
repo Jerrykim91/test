@@ -18,34 +18,9 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-# from ToyMain import views
-from blog import views
+# from blog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls), # 관리자 계정
-    # path('Main/', include('ToyMain.urls') , name='Main'),
-    # path('', views.MainKr, name='MainKr'),   # 한국어
-
-    # # 진행중 
-    # path('home/', include('blog.urls'), name='Home'), # blog
-
-    # 진행중 
-    
-    # path('', views.main, name='main'),   # blog
     path('blog/', include('blog.urls')), # blog
-    # path('home/', include('blog.urls'), name='Home'), # blog
 ]
-
-
-# path('blogMain', views.test, name ='blogMain' ), # blogMain
-
-# path('en', views.MainEn, name='MainEn'), # 영어
-
-
-"""
-자 일단 blog 정리 
-
-일단 기본 페이지부터 타고갈수있게 세팅 하자 
-
-# 조건 ! 파이썬 방식을 고수하자 !! 
-"""
