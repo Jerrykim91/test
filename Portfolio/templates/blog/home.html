@@ -1,58 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<!-- head  -->
-{% include '../main/blog_head.html' %}
 
-<body style="padding-top: 90px;">
-    <!-- nav -->
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light fixed-top" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="/">Jerry's BLOG</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
+{% extends 'blog/base.html'%}
 
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
+{% block title %}home.html{% endblock %}
 
-                    <!-- <li class="nav-item active"><a href="main" class="nav-link">Home</a></li> -->
-                    <li class="nav-item"><a href="/home/about" class="nav-link">AboutMe</a></li>
-                    <li class="nav-item"><a href="/home/blog" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="/home/test" class="nav-link">Test Posting</a></li>
+{% block content %}
+<a>뭐가 중한디</a>
+{% endblock %}
 
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="wrap ">
+{% block footer%}
+<footer class="fixed-bottom navbar-light bg-light">
+    <div class="container-fluid px-0 py-1 bg-black" style="background-color:#000000;">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 d-flex align-items-center">
-                    <p class="mb-0 phone pl-md-2">
-                        <a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+                <div class="col-md-12">
+                    <p class="mb-0" style="color:#FFFFFF;">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright © Template is made by Jerry
                     </p>
-                </div>
-                <div class="col-md-6 d-flex justify-content-md-end">
-                    <div class="social-media">
-                        <p class="mb-0 d-flex">
-                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                    class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
-                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                    class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-                            <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                    class="fa fa-github"><i class="sr-only">GitHub</i></span></a>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- END nav -->
-
-    
-
-</body>
-
-</html>
+</footer>
+{% endblock %}
