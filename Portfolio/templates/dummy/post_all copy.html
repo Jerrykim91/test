@@ -1,0 +1,121 @@
+
+
+{% extends '../blog/sample.html' %}
+
+{% block content %}
+
+    <br>
+    <h1>Bolg test</h1>
+    <br>
+
+    {% for post in posts %}
+    <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    {{ post.modify_dt|date:'N d, Y' }}
+    <P>{{ post.description }}</P>
+    {% endfor %}
+
+    <br />
+
+    <div>
+        <span>
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+            {% endif %}
+
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}
+
+<!-- <h1>Post List</h1>
+{% for post in posts %}
+    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+    {{ post.modify_dt|date:'N d, Y' }}
+    <p>{{ post.description }}</p>
+{% endfor %}
+
+<br/>
+
+<div>
+    <span>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+        {% endif %}
+
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+        {% endif %}
+    </span>
+</div> -->
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+{% include '../main/blog_head.html' %}
+
+<body>
+    {% include '../main/nav.html' %}
+
+    <br>
+    <h1>Bolg test</h1>
+    <br>
+
+    {% for post in posts %}
+    <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    {{ post.modify_dt|date:'N d, Y' }}
+    <P>{{ post.description }}</P>
+    {% endfor %}
+
+    <br />
+
+    <div>
+        <span>
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+            {% endif %}
+
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <br>
+
+    {% include '../main/footer.html' %}
+    {% include '../main/loader.html' %}
+
+</body>
+
+</html> -->
+
+
+
+{% extends 'blog/base.html'%}
+
+{% load static %}
+{% block title %}home.html{% endblock %}
+
+{% block content %}
+
+<a>뭐가 중한디</a>
+
+{% endblock %}
+
+{% block footer%}
+<footer class="fixed-bottom bg-black">
+    <div class="text-black font-italic text-right mr-5"> Copyright &copy; by Jerry</div>
+</footer>
+{% endblock %}

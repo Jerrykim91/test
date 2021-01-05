@@ -23,9 +23,8 @@ from django.views.generic.dates import DayArchiveView, TodayArchiveView
 from blog.models import Post
 
 
-import datetime
-
-now = datetime.datetime.now()
+# import datetime
+# now = datetime.datetime.now()
 
 from django.views.generic import TemplateView
 
