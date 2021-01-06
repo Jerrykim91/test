@@ -6,7 +6,7 @@
 
 {% load static %}
 <!-- title -->
-{% block title %}Post List{% endblock %}
+{% block title %}Post Archive Year{% endblock %}
 
 <!-- contents -->
 {% block content %}
@@ -15,24 +15,19 @@
 
 <br>
 <h1>Post Archives for {{ year|date:'Y' }}</h1>
-<ul>
+{% for date in date_list %}
 
-    {% for date in date_list %}
-    <li style="display: inline;">
-        <a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b' %}">{{ date|date:'F' }}</a>
-    </li>
-    &nbsp;&nbsp;
-    {% endfor %}
-</ul>
-<br />
+<a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b' %}" class="btn btn-outline-success btn-sm mx-1">{{date|date:'F' }}</a>
+{% endfor %}
 
 
+<br><br>
 
 
 <div>
     <ul>
         {% for post in object_list %}
-        <li>
+        <li class="h5">
             {{ post.modify_dt|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
             <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a>
         </li>

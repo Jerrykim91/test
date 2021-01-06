@@ -14,16 +14,16 @@
 
 <p>
     {% if object.get_next %}
-    <a href=" {{object.get_next.get_absolute_url }}" title="View previous post"><i
-            class="fas fa-arrow-circle-left"></i>{{ object.get_next }}
+    <a href=" {{object.get_next.get_absolute_url }}" title="View previous post">
+        <i class="fas fa-angle-double-left"></i>&nbsp;&nbsp;{{ object.get_next }}
     </a>
     {% endif %}
 
-    &nbsp;&nbsp;
+    &nbsp;
 
     {% if object.get_previous %}
-    | <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">{{ object.get_previous }}<i
-            class="fas fa-arrow-circle-right"></i></a>
+    | &nbsp; <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">{{ object.get_previous }}&nbsp;&nbsp;<i
+            class="fas fa-angle-double-right"></i></a>
     {% endif %}
 </p>
 
