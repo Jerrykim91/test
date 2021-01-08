@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'fontawesome-free',
+    'taggit.apps.TaggitAppConfig',
+    'taggit_templatetags2',
     
 ]
 
@@ -156,6 +158,13 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+# TAG
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+
+TAGGIT_CASE_INSENSITIVE= True
+TAGGIT_LIMIT = 50 
 
 # STATIC_URL  = '/static_test/'
 # STATICFILES_DIRS = [BASE_DIR / 'static_test']
