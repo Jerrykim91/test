@@ -7,39 +7,39 @@
 
 <!-- contents -->
 {% block content %}
+<div id="main">
+    <div class="container">
+        <div id="content" class="8u skel-cell-important">
+            <br>
+            <h1>Bolg test</h1>
+            <br>
 
-<br>
-<h1>Bolg test</h1>
-<br>
+            {% for post in posts %}
 
-{% for post in posts %}
+            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            {{ post.modify_dt|date:'N d, Y' }}
 
-<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-{{ post.modify_dt|date:'N d, Y' }}
+            <P>{{ post.description }}</P>
 
-<P>{{ post.description }}</P>
+            {% endfor %}
 
-{% endfor %}
+            <br />
 
-<br />
-<div>
-    <span>
-        {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
-        {% endif %}
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+            {% endif %}
 
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
 
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
-        {% endif %}
-    </span>
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}
 
 
-{% block footer%}
-<footer class="fixed-bottom bg-black">
-    <div class="text-black font-italic text-right mr-5"> Copyright &copy; by Jerry</div>
-</footer>
-{% endblock %}
+{% block footer%}{% endblock %}
+
+

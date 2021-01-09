@@ -15,9 +15,10 @@ from django.contrib.auth import get_user_model
 
 # 클래스형 제네릭뷰
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
+
 
 # 테이블 조회를 위한 모델 임포트
 from blog.models import Post
@@ -82,6 +83,38 @@ class PostTAV(TodayArchiveView):
     """
     model = Post
     date_field = 'modify_dt'
+
+
+# TAG
+
+class TagCloudTV(TemplateView):
+    """
+    docstring
+    """
+    template_name = 'blog/taggit/taggit_cloud.html'
+
+
+class TaggedObjectLV(ListView):
+    """
+    docstring
+    """
+    template_name = 'blog/taggit/taggit_post_list.html'
+    model = Post
+
+    def get_queryset(self):
+        """
+        docstring
+        """
+        return Post.objects.filter(tags__name= self.kwargs.get('tag'))
+
+
+    def get_context_data(self, **kwargs):
+        """
+        docstring
+        """
+        context = super().get_context_data(**kwargs)    
+        context['tagname'] = self.kwargs['tag']
+        return context
 
 """
 https://velog.io/@hwang-eunji/django-views-%ED%95%A8%EC%88%98%ED%98%95-vs-%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%A0%9C%EB%84%A4%EB%A6%AD
