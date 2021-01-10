@@ -10,50 +10,52 @@
 {% block content %}
 <div id="main">
     <div class="container">
-        <div id="content" class="8u skel-cell-important">
+        <div class="row">
+            <div id="content" class="12u skel-cell-important">
+                <section>
+                    <h1>{{ object.title }}</h1>
+                    <br>
 
-            <h1>{{ object.title }}</h1>
-            <br>
+                    <p>
+                        {% if object.get_next %}
+                        <a href=" {{object.get_next.get_absolute_url }}" title="View previous post">
+                            <i class="fas fa-angle-double-left"></i>&nbsp;&nbsp;{{ object.get_next }}
+                        </a>
+                        {% endif %}
 
-            <p>
-                {% if object.get_next %}
-                <a href=" {{object.get_next.get_absolute_url }}" title="View previous post">
-                    <i class="fas fa-angle-double-left"></i>&nbsp;&nbsp;{{ object.get_next }}
-                </a>
-                {% endif %}
+                        &nbsp;
 
-                &nbsp;
+                        {% if object.get_previous %}
+                        | &nbsp; <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">
+                            {{object.get_previous }}&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
+                        {% endif %}
+                    </p>
 
-                {% if object.get_previous %}
-                | &nbsp; <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">
-                    {{object.get_previous }}&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
-                {% endif %}
-            </p>
+                    <p class="date">
+                        {{ object.modify_dt|date:'j F Y' }}
+                    </p>
 
-            <p class="date">
-                {{ object.modify_dt|date:'j F Y' }}
-            </p>
+                    <div class="body">
+                        {{ object.content|linebreaks }}
+                    </div>
+                    <br>
 
-            <div class="body">
-                {{ object.content|linebreaks }}
+                    <div>
+                        <b>TAGS</b> <i class="fas fa-tag"></i>
+                        {% load taggit_templatetags2_tags %}
+                        {% get_tags_for_object object as "tags"%}
+                        {% for tag in tags %}
+                        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+                        {% endfor %}
+
+                        &emsp;
+
+                        <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
+                </section>
             </div>
-            <br>
-
-            <div>
-                <b>TAGS</b> <i class="fas fa-tag"></i>
-                {% load taggit_templatetags2_tags %}
-                {% get_tags_for_object object as "tags"%}
-                {% for tag in tags %}
-                <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
-                {% endfor %}
-
-                &emsp;
-
-                <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
-            </div>
-
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
 
