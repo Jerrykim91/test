@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
     'django.contrib.sites',
+
     
 ]
 
@@ -171,14 +172,14 @@ TAGGIT_CASE_INSENSITIVE= True
 TAGGIT_LIMIT = 50 
 
 # 뎃글
-
+DISQUS_WEBSITE_SHORTNAME = "http-127-0-0-1-8000-yssnmdadoy"
 DISQUS_SHORTNAME = "http-127-0-0-1-8000-yssnmdadoy"
 DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000/'
 
 # STATIC_URL  = '/static_test/'
 # STATICFILES_DIRS = [BASE_DIR / 'static_test']
 
-
+SITE_ID = 1
 ########################################################
 
 

@@ -11,7 +11,7 @@
 <div id="main">
     <div class="container">
         <div class="row">
-            <div id="content" class="12u skel-cell-important">
+            <div id="content">
                 <section>
                     <h1>{{ object.title }}</h1>
                     <br>
@@ -54,7 +54,10 @@
 
                 </section>
                 <br>
-                <div id="disqus_thread"></div>
+                {% load disqus_tags %}
+                <div  id="disqus_thread">
+                    {% disqus_show_comments %}
+                </div>
             </div>
         </div>
     </div>
