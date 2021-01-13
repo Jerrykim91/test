@@ -19,6 +19,8 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
+# comment
+from django.conf import settings
 
 # 테이블 조회를 위한 모델 임포트
 from blog.models import Post
@@ -46,6 +48,17 @@ class PostLV(ListView):
 # DetailView
 class PostDV(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        """
+        docstring
+        """
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.slug}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}" #ex)http://127.0.0.1:8000/blog/post/99
+        context['disqus_title'] = f"{self.object.slug}"
+        return context
 
 # ArchiveView
 class PostAV(ArchiveIndexView):
@@ -115,6 +128,8 @@ class TaggedObjectLV(ListView):
         context = super().get_context_data(**kwargs)    
         context['tagname'] = self.kwargs['tag']
         return context
+
+
 
 """
 https://velog.io/@hwang-eunji/django-views-%ED%95%A8%EC%88%98%ED%98%95-vs-%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%A0%9C%EB%84%A4%EB%A6%AD

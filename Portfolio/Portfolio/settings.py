@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'disqus',
     'fontawesome-free',
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
+    'django.contrib.sites',
     
 ]
 
@@ -148,6 +150,8 @@ USE_TZ = True
 # STATIC_URL  = '/static/'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR,'config','static')]
 
+
+#shkim
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -166,6 +170,11 @@ MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 TAGGIT_CASE_INSENSITIVE= True
 TAGGIT_LIMIT = 50 
 
+# 뎃글
+
+DISQUS_SHORTNAME = "http-127-0-0-1-8000-yssnmdadoy"
+DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000/'
+
 # STATIC_URL  = '/static_test/'
 # STATICFILES_DIRS = [BASE_DIR / 'static_test']
 
@@ -180,3 +189,7 @@ TAGGIT_LIMIT = 50
 
 # MEDIA_URL = '/files/' # 업로드 할 경로
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'files')
+
+
+# 코맨트 에러 잡기 
+# https://chagokx2.tistory.com/82, https://developer-ankiwoong.tistory.com/920
