@@ -1,7 +1,7 @@
 
 # Create your views here.
 
-from django.shortcuts import render, redirect
+from django.shortcuts import  redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 
@@ -13,23 +13,27 @@ from django.contrib.auth import login as login
 from django.contrib.auth import logout as logout
 from django.contrib.auth import get_user_model
 
-# 클래스형 제네릭뷰
+# 1. 클래스형 제네릭뷰
 
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
-# comment
-from django.conf import settings
-
-# 테이블 조회를 위한 모델 임포트
+# 2-1. 테이블 조회를 위한 모델 임포트
 from blog.models import Post
 
-
-# import datetime
-# now = datetime.datetime.now()
-
+# 2-2. 템플릿 뷰
 from django.views.generic import TemplateView
+
+# 3. comment
+from django.conf import settings
+
+# 4. search
+from django.views.generic import FormView
+from blog.forms import PostSearchForm
+from django.db.models import Q
+from django.shortcuts import render # render : 위에 제거하고 다시 작성 
+
 
 # TemplateView
 class HomeView(TemplateView):
@@ -38,12 +42,14 @@ class HomeView(TemplateView):
     """
     template_name = 'blog/home.html'
 
+
 #ListView
 class PostLV(ListView):
     model = Post
     template_name = 'blog/post_all.html'
     context_object_name = 'posts'
     paginate_by = 2
+
 
 # DetailView
 class PostDV(DetailView):
@@ -59,6 +65,7 @@ class PostDV(DetailView):
         context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}" #ex)http://127.0.0.1:8000/blog/post/99
         context['disqus_title'] = f"{self.object.slug}"
         return context
+
 
 # ArchiveView
 class PostAV(ArchiveIndexView):
@@ -99,7 +106,6 @@ class PostTAV(TodayArchiveView):
 
 
 # TAG
-
 class TagCloudTV(TemplateView):
     """
     docstring
@@ -130,6 +136,28 @@ class TaggedObjectLV(ListView):
         return context
 
 
+# Search
+class SearchFormView(FormView):     
+    """
+    docstring
+    """
+    form_class = PostSearchForm
+    template_name = 'blog/post_search.html'
+
+    def form_valid(self,form):
+        """
+        docstring
+        """
+        searchWord = form.cleaned_data['search_word']
+        post_list = Post.objects.filter(Q(title__icontains = searchWord) | Q(description__icontains = searchWord) | Q(content__icontains = searchWord)).distinct()
+
+        context = {}
+        context['form'] = form
+        context['search_term'] = searchWord
+        context['object_list'] = post_list
+
+
+        return render(self.request, self.template_name, context) # No Redirection
 
 """
 https://velog.io/@hwang-eunji/django-views-%ED%95%A8%EC%88%98%ED%98%95-vs-%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%A0%9C%EB%84%A4%EB%A6%AD

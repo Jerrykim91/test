@@ -54,21 +54,26 @@
                 <li><a href="{% url 'blog:index' %}">MELOG</a></li>
                 <li><a href="{% url 'blog:post_archive' %}">Archive</a></li>
                 <!-- <li><a href="#">Photo</a></li> -->
-                <!-- <li><a href="#">Search</a></li> -->
                 <li><a href="{% url 'admin:index' %}">Admin</a></li>
+
             </ul>
             <ul class="icons">
                 <!-- <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li> -->
+
                 <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
                 <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
                 <li><a href="https://github.com/jerrykim91" class="icon brands fa-github"><span
                             class="label">GitHub</span></a></li>
+                <li><a href="{% url 'blog:search' %}" class=" icon solid fa-search"><span
+                            class="label">Search</span></a></li>
             </ul>
         </nav>
         {% block content %}
 
 
         {% endblock %}
+
+        {% block footer%}
         <!-- Footer -->
         <footer id="footer">
             <!-- <section>
@@ -127,8 +132,9 @@
                 <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
             </ul>
         </div>
-
+        {% endblock %}
     </div>
+
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
