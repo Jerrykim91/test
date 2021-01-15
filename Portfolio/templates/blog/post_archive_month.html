@@ -11,11 +11,13 @@
 
 {% block content %}
 <div id="main">
-    <div class="container">
-        <div id="content" class="8u skel-cell-important">
+        <section class="post">
+            <header class="major">
+                <!-- <span class="date">{{ object.modify_dt|date:'j F Y' }}</span> // 오늘 날자 쓸수 있으면 좋겠다-->
+                <h2> Post Archives for {{ month|date:'N , Y' }}</h2>
 
-            <br>
-            <h1>Post Archives for {{ month|date:'N , Y' }}</h1>
+            </header>
+
             <br><br>
             <div>
                 <ul>
@@ -28,12 +30,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </section>
 </div>
-{% endblock %}
 
-{% block footer%}
-<footer class="fixed-bottom bg-black">
-    <div class="text-black font-italic text-right mr-5"> Copyright &copy; by Jerry</div>
-</footer>
 {% endblock %}
