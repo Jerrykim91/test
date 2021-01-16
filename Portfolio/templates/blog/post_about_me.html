@@ -15,11 +15,11 @@
     <!-- Post -->
     <section class="post">
         <header class="major">
-            <h2>{{ object.title }}</h2>
+            <h2>{{ meposts.title }}</h2>
             <!-- 다음글 -->
 
             <div class="image main"><img src="{% static 'images/pic01.jpg' %}" alt="" /></div>
-            <p>{{ object.content|linebreaks }}</p>
+            <p>{{ meposts.body|linebreaks }}</p>
         </header>
     </section>
 

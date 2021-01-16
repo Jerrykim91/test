@@ -13,6 +13,7 @@ $ python manage.py makemigrations blog
 
 """
 
+
 class Post(models.Model):
 
     title        = models.CharField(verbose_name='TITLE', max_length=100)
