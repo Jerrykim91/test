@@ -28,3 +28,21 @@ class Melog(models.Model):
         docstring
         """
         return self.title
+
+    # def get_absolute_url(self):
+    #     """
+    #     docstring
+    #     """
+    #     return reverse('melog:index', args=(self.id,))
+
+    # def get_previous(self):
+    #     """
+    #     get_previous_by_modify_dt: 장고의 내장함수로 modify_dt()를 기준으로 최신포스트를 반환
+    #     """
+    #     return self.get_previous_by_modify_dt()
+    
+    # def get_next(self):
+    #     """
+    #     # get_next_by_필드명()은 Django의 내장함수
+    #     """
+    #     return self.get_next_by_modify_dt()

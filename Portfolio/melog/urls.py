@@ -9,8 +9,8 @@ app_name = 'melog'
 urlpatterns = [
 
     # MELOG
-    path('', TemplateView.as_view(template_name = 'blog/post_about_me.html')),  # /melog/
-    path('', views.PostML.as_view(), name='index'),  # /melog/
+    # path('', TemplateView.as_view(template_name = 'blog/post_about_me.html')),  # /melog/
+    path('', views.MelogView.as_view(), name='index'),  # /melog/
 
 
     ##################################################

@@ -24,32 +24,20 @@ from melog.models import Melog
 # 2-2. 템플릿 뷰
 from django.views.generic import TemplateView
 
-# 3. comment
-from django.conf import settings
-
 # 4. search
 from django.views.generic import FormView
 from blog.forms import PostSearchForm
-from django.db.models import Q
 from django.shortcuts import render  # render : 위에 제거하고 다시 작성
 
 
 
 # Create your views here.
 
- # TemplateView
-
-# DetailView - Melog
-class PostML(DetailView):
-    """
-    docstring
-    """
+class MelogView(TemplateView):
+    
     model = Melog
+    template_name = 'blog/post_about_me.html'
 
     def get_context_data(self, **kwargs):
-            """
-            docstring
-            """
-            context = super().get_context_data(**kwargs)
-
-            return context
+        context = super(MelogView, self).get_context_data(**kwargs)
+        return context
