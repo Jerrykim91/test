@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'melog',
+    'port',
     'disqus',
     'fontawesome-free',
     'taggit.apps.TaggitAppConfig',
