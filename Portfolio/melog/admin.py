@@ -1,13 +1,28 @@
 from django.contrib import admin
-from melog.models import Melog
+from melog.models import Album, Photo
 
 # # Register your models here.
-@ admin.register(Melog) # 데코레이터
-class MelogAdmin(admin.ModelAdmin):
+
+class PhotoInline(admin.StackedInline):
     """
-    admin 사이트에서 어떤모습으로 
-    보여줄지를 정의하는 클래스
+    docstring
     """
-    list_display = ('id', 'title', 'modify_dt') 
-    list_filter = ('modify_dt',)
-    search_fields = ('title', 'body')
+    model = Photo
+    extra = 2
+
+
+@admin.register(Album)
+class AlbumAdmin(admin.ModelAdmin):
+    """
+    docstring
+    """
+    inlines = (PhotoInline,)
+    list_display = ('id', 'name', 'description')
+
+
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
+    """
+    docstring
+    """
+    list_display = ('id', 'title', 'upload_dt')

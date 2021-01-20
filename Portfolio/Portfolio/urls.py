@@ -26,6 +26,6 @@ urlpatterns = [
     # 커스텀
     path('', HomeView.as_view(), name='home'),
     path('blog/', include('blog.urls')), # blog
-    path('melog/', include('melog.urls')), # blog
+    # path('melog/', include('melog.urls')), # blog
     
 ]

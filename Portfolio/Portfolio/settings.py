@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'melog',
+    'melog.apps.MelogConfig',
     # 'port',
     'disqus',
     'fontawesome-free',
