@@ -17,6 +17,7 @@ class ThumbnailImageFieldFile(ImageFieldFile):
         parts.insert(-1, "thumb")
         if parts[-1].lower() not in ['jpeg', 'jpg']:
             parts[-1] = 'jpg'
+            print(parts)
         return ".".join(parts)
 
     @property

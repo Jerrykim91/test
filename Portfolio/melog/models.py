@@ -1,7 +1,5 @@
 from django.db import models
 from django.urls import reverse  # 빨간색 책 139page + 검색해보기 # URL 패턴을 만들어 주는 내장함수
-
-
 from melog.fields import ThumbnailImageField
 
 # Create your models here.
@@ -13,8 +11,7 @@ class Album(models.Model):
     """
 
     name = models.CharField(max_length=50)
-    description = models.CharField(
-        'One Line Description', max_length=100, blank=True)  # 설명
+    description = models.CharField('One Line Description', max_length=100, blank=True)  # 설명
 
     class Meta:
         """
@@ -22,11 +19,11 @@ class Album(models.Model):
         """
         ordering = ('name',)
 
-    def __ste__(self):
+    def __str__(self):
         """
         docstring
         """
-        return self.title
+        return self.name
 
     def get_absolute_url(self):
         """
@@ -39,11 +36,11 @@ class Photo(models.Model):
     """
     docstring
     """
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    title = models.CharField('TITLE', max_length=30)
+    album       = models.ForeignKey(Album, on_delete=models.CASCADE)
+    title       = models.CharField('TITLE', max_length=30)
     description = models.TextField('Photo Description', blank=True)
-    image = ThumbnailImageField(upload_to='melog/%y/%m')
-    upload_dt = models.DateTimeField('Upload Date', auto_now_add=True)
+    image       = ThumbnailImageField(upload_to='photo/%y/%m')
+    upload_dt   = models.DateTimeField('Upload Date', auto_now_add=True)
 
     class Meta:
         """
