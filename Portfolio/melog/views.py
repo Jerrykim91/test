@@ -13,13 +13,13 @@
 
 # # 1. 클래스형 제네릭뷰
 
-# from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView
 # from django.views.generic.dates import ArchiveIndexView
 # # from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 # # from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
 # # 2-1. 테이블 조회를 위한 모델 임포트
-# from melog.models import Melog
+from melog.models import Album, Photo
 
 # # 2-2. 템플릿 뷰
 # from django.views.generic import TemplateView
@@ -30,14 +30,19 @@
 # from django.shortcuts import render  # render : 위에 제거하고 다시 작성
 
 
-
 # # Create your views here.
 
-# class MelogView(TemplateView):
-    
-#     model = Melog
-#     template_name = 'blog/post_about_me.html'
+"""
+urls.py 에서 바로 model 지정가능 함 책 207 페이지 참조 
+"""
 
-#     def get_context_data(self, **kwargs):
-#         context = super(MelogView, self).get_context_data(**kwargs)
-#         return context
+class AlbumLV(ListView):
+    model = Album
+
+
+class AlbumDV(DetailView):
+    model = Album
+
+
+class PhotoDV(DetailView):
+    model = Photo
