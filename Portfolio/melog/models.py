@@ -29,7 +29,7 @@ class Album(models.Model):
         """
         docstring
         """
-        return reverse('melog:album_detail', args=(self.id,))
+        return reverse('photo:album_detail', args=(self.id,))
 
 
 class Photo(models.Model):
@@ -58,7 +58,7 @@ class Photo(models.Model):
         """
         docstring
         """
-        return reverse('melog:photo_detail', args=(self.id,))
+        return reverse('photo:photo_detail', args=(self.id,))
 
 
 

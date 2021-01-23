@@ -4,7 +4,7 @@
 
 <!-- title -->
 {% block title %}Album_list{% endblock %}
-
+{% load static %}
 
 <!-- contents -->
 {% block content %}
@@ -26,11 +26,11 @@
         </div>
 
         <div class="row">
-            {% for photo in item.photo_set.all | slice:":5" %}
+            {% for photo in item.photo_set.all|slice:":5" %}
             <div class="ml-5">
                 <div class="thumbnail">
                     <a href=" {{photo.get_absolute_url }}">
-                        <img src="{{ photo.image.tumb_url }}">
+                        <img src="{{ photo.image.thumb_url }}">
                     </a>
                 </div>
             </div>
