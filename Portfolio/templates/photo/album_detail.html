@@ -3,7 +3,7 @@
 
 
 <!-- title -->
-{% block title %}Album_list{% endblock %}
+{% block title %}Album_detail{% endblock %}
 {% load static %}
 
 <!-- contents -->
@@ -15,30 +15,30 @@
     <section class="post">
         <header class="major">
             <!-- <span class="date">{{ object.modify_dt|date:'j F Y' }}</span> // 오늘 날자 쓸수 있으면 좋겠다-->
-            <h2> Album LIST </h2>
+            <h2> Album Detail </h2>
         </header>
-
-        {% for item in object_list%}
         <div class="mt-5">
-            <a class="h2" href="{% url 'photo:album_detail' item.id %}">
-                {{ item.name }}</a>&emsp;
-            <span class="h5">{{ item.description }}</span>
+            <span class="h2">{{ object.name }}</span>&emsp;
+            <span class="h5">{{ object.description }}</span>
         </div>
 
         <hr style="margin: 0 0 20px 0;">
 
         <div class="row">
-            {% for photo in item.photo_set.all|slice:":5" %}
-            <div class="ml-5">
+            {% for photo in object.photo_set.all %}
+            <div class=" col-md-3 mb-5">
                 <div class="thumbnail">
-                    <a href=" {{photo.get_absolute_url }}">
-                        <img src="{{ photo.image.thumb_url }}" style="width: 100%;">
+                    <a href=" {{ photo.get_absolute_url }}">
+                        <img src="{{ photo.image.thumb_url }}" style="width:100%;">
                     </a>
                 </div>
+                <ul>
+                    <li>Title : {{ photo.title }}</li>
+                    <li>Date : {{ photo.upload_dt|date:"Y-m-d" }}</li>
+                </ul>
             </div>
             {% endfor %}
         </div>
-        {% endfor %}
     </section>
 </div>
 

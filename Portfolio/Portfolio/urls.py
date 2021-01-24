@@ -36,4 +36,4 @@ urlpatterns = [
     path('blog/', include('blog.urls')), # blog
     path('photo/', include('melog.urls')), # blog
     
-] + static(settings.MEDIA_URL, ducument_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

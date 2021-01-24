@@ -20,7 +20,6 @@
     <noscript>
         <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
     </noscript>
-
 </head>
 
 <body class="is-preload">
@@ -52,7 +51,7 @@
                 <!-- <li><a href="elements.html">Elements Reference</a></li> -->
                 <!-- <li><a href="{% url 'blog:index' %}">MELOG</a></li> -->
                 <li><a href="{% url 'blog:post_archive' %}">Archive</a></li>
-                <!-- <li><a href="#">Photo</a></li> -->
+                <li><a href="{% url 'photo:index' %}">Photo</a></li>
                 <li><a href="{% url 'admin:index' %}">Admin</a></li>
 
             </ul>
@@ -67,10 +66,8 @@
                             class="label">Search</span></a></li>
             </ul>
         </nav>
-        {% block content %}
 
-
-        {% endblock %}
+        {% block content %}{% endblock %}
 
         {% block footer%}
         <!-- Footer -->

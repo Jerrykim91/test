@@ -42,8 +42,10 @@ class AlbumLV(ListView):
 
 
 class AlbumDV(DetailView):
+    template_name = 'photo/album_detail.html'
     model = Album
 
 
 class PhotoDV(DetailView):
+    template_name = 'photo/photo_detail.html'
     model = Photo

@@ -9,7 +9,7 @@ class ThumbnailImageFieldFile(ImageFieldFile):
     """
     docstring
     """
-    def _add_thumb(s,self):
+    def _add_thumb(self, s):
         """
         docstring
         """
