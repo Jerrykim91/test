@@ -22,29 +22,28 @@
         </div> -->
 
         <h2 class="font-italic mt-5"> 바로: {{ object.title }}</h2>
+        <li class="h4"> Album : <a href="{% url 'photo:album_detail' object.album.id %}"> {{ object.album.name }}</a>
+        </li>
         <!--  -->
-<hr class="mt-3" style="margin: 0 0 20px 0;">
+        <hr class="mt-3" style="margin: 0 0 20px 0;">
 
-        <div class="row">
-            <div class="col-md-5">
-                <a class="ml-5" href="{{ object.image.url }}">
-                    <img src="{{ object.image.url }}" style="width: 100%;">
+        <div class="wrapper">
+            <div>
+                <a href="{{ object.image.url }}">
+                    <img class="three" src="{{ object.image.url }}" style=" height: 250px; width: 300px;">
                 </a>
             </div>
 
-            <ul class="col-md-3 mt-3">
-                <li class="h5">Photo Description</li>
+            <ul class="two">
+                <li class="h4">Photo Description.</li>
                 {% if object.description %}
-                    <p>{{ object.description|linebreaks }}</p>
-                {% else %} 
-                    <p>(blank)</p>
+                <p>{{ object.description|linebreaks }}</p>
+                {% else %}
+                <p>(blank)</p>
                 {% endif %}
-                <li class="h5">Date Uploaded</li>
+                
+                <li class="h4">Date Uploaded.</li>
                 <p class="font-italic">{{ object.upload_dt }}</p>
-
-                <li class="h5">Album Name</li>
-                <p class=""><a href="{% url 'photo:album_detail' object.album.id %}"> {{ object.album.name }}</a>
-                </p>
             </ul>
         </div>
     </section>

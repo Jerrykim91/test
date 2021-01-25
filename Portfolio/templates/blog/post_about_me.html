@@ -2,27 +2,48 @@
 {% extends 'blog/base.html'%}
 
 <!-- title -->
-{% block title %}Post Detail{% endblock %}
-
+{% block title %}aboutme{% endblock %}
+<!-- style -->
 {% load static %}
 
 <!-- contents -->
 {% block content %}
 
-
+<!-- 원본 -->
 <div id="main">
+    <div class="container">
 
-    <!-- Post -->
-    <section class="post">
-        <header class="major">
-            <h2>{{ meposts.title }}</h2>
-            <!-- 다음글 -->
+        <h1 class="my-4">테스트 </h1>
+        <hr />
 
-            <div class="image main"><img src="{% static 'images/pic01.jpg' %}" alt="" /></div>
-            <p>{{ meposts.body|linebreaks }}</p>
-        </header>
-    </section>
+        <div class="wrapper">
+            <div class="three">
+                <img src="http://placehold.it/450x600" alt="">
+            </div>
 
+            <div class="two">
+                <h3 class="my-3">Project Description</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
+                    pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus.
+                    Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+
+                <h3 class="my-3">Project Details</h3>
+                <ul>
+                    <li>Lorem Ipsum</li>
+                    <li>Dolor Sit Amet</li>
+                    <li>Consectetur</li>
+                    <li>Adipiscing Elit</li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <!-- Related Projects Row -->
+        <h3 class="my-4">Related Projects</h3>
+    </div>
+
+    <hr />
 </div>
 
 {% endblock %}

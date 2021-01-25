@@ -50,6 +50,16 @@ class PostLV(ListView):
     paginate_by = 2  # 한페이지에 보여주는 객체 리스트의 개수
 
 
+class AboutDV(TemplateView):
+
+    model = Post
+    template_name = 'blog/post_about_me.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(indexView, self).get_context_data(**kwargs)
+    #     return context
+
+
 # DetailView
 class PostDV(DetailView):
     model = Post

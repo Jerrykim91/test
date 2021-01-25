@@ -26,7 +26,7 @@ urlpatterns = [
     # Search
     path('search/', views.SearchFormView.as_view(), name='search'),
 
-    # melog
-    # path('melog/', views.PostML.as_view(), name='post_melog'), # /blog/melog/
+    # aboutmE
+    path('about/', views.AboutDV.as_view(), name='post_about'), # /blog/about/
 
 ]
