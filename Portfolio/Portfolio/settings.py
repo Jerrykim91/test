@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'linkList.apps.LinklistConfig',
     'melog.apps.MelogConfig',
     # 'port',
     'disqus',
