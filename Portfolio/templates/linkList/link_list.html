@@ -1,0 +1,26 @@
+<!-- extends from base.html -->
+{% extends 'blog/base.html'%}
+
+<!-- title -->
+{% block title %}Link List{% endblock %}
+
+{% load static %}
+
+<!-- contents -->
+{% block content %}
+
+<div id="main">
+    <section class="post">
+        <header class="major">
+            <h2>Link List</h2>
+        </header>
+        <ur>
+            {% for Link in object_list %}
+            <li><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link }}</a></li>
+            {% endfor %}
+        </ur>
+    </section>
+    <br>
+</div>
+
+{% endblock %}

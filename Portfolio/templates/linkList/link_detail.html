@@ -1,0 +1,27 @@
+<!-- extends from base.html -->
+{% extends 'blog/base.html'%}
+
+<!-- title -->
+{% block title %}Lnk Detail{% endblock %}
+
+{% load static %}
+
+<!-- contents -->
+{% block content %}
+
+<div id="main">
+    <section class="post">
+        <header class="major">
+            <h2>{{ object.title }}</h2>
+        </header>
+        <ur>
+            <li> URL : <a href="{{ object.url }}">{{ object.url }}</a></li>
+        </ur>
+    </section>
+    <br>
+</div>
+
+{% endblock %}
+
+
+<!-- 이거 디자인 변경 필요해보임  -->
