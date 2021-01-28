@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'melog.apps.MelogConfig',
     # 'port',
     'disqus',
+    'widget_tweaks',
     'fontawesome-free',
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
@@ -183,6 +184,9 @@ DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000/'
 # STATICFILES_DIRS = [BASE_DIR / 'static_test']
 
 SITE_ID = 1
+
+# LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 ########################################################
 
 
