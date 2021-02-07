@@ -6,6 +6,37 @@
 
 {% load static %}
 
+<!-- style -->
+{% block extra-style %}
+<meta charset="utf-8" />
+<meta name="author" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+<link rel="stylesheet" href="{% static 'assets/css/test.css' %}" />
+{#
+<link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />#}
+{#
+<link rel="stylesheet" href="{% static 'assets/css/icomoon.css' %}" />#}
+{#
+<link rel="stylesheet" href="{% static 'assets/css/animate.css' %}" />#}
+<noscript>
+    <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
+</noscript>
+<!-- ogtag -->
+<!--<meta property="og:title" content="test"/>-->
+<!--<meta property="og:type" content="article"/>-->
+<!--<meta property="og:url" content="http://rootree.net"/>-->
+<!--<meta property="og:description" content="This is a description."/>-->
+<!--<meta property="og:image" content="http://img.jpg"/>-->
+<!--<meta property="og:image:width" content="1200" />-->
+<!--<meta property="og:image:height" content="627" />-->
+
+
+{% endblock %}
+
+
+
 <!-- contents -->
 {% block content %}
 
@@ -16,10 +47,34 @@
         </header>
         <ur>
             {% for Link in object_list %}
-            <li><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link }}</a></li>
+            <li><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></li>
+            <!--<h2>{{ Link.title }}</h2>-->
+            URL : <a href="{{ Link.url }}">{{ Link.url }}</a>
             {% endfor %}
         </ur>
     </section>
+
+    <section class="posts">
+        <article>
+            {% for Link in object_list %}
+            <header>
+                <!--<span class="date">April 24, 2017</span>-->
+<!--                <h2><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h2>-->
+                <h2><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h2>
+
+            </header>
+            <a href="{{ Link.url }}" class="image fit">
+                <img src="{% static 'images/pic02.jpg' %}" alt="" />
+            </a>
+            <p>{{Link.content}}</p>
+            <ul class="actions special">
+                <li><a href="{{ Link.url }}" class="button">유사 링크 보기 </a></li>
+                <li>URL :{{ Link.url }}</li>
+            </ul>
+            {% endfor %}
+        </article>
+    </section>
+
     <br>
 </div>
 
