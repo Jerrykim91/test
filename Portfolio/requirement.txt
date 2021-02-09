@@ -1,0 +1,10 @@
+pip install django
+pip install django-widget-tweaks
+pip install api
+pip install disqus
+pip install fontawesome-free
+pip install django-taggit
+pip install django-taggit-templatetags2
+
+
+pip install -e git+git://github.com/leveille/django-opengraph.git#egg=opengraph
