@@ -12,6 +12,7 @@ urlpatterns = [
     # BLOG  
     path('',views.PostLV.as_view(), name='index'), # /blog/
     path('post/',views.PostLV.as_view(), name='post_list'), # /blog/post/
+    # path('post/',views.PostLV.as_view(), name='post_list'), # /blog/post/
     re_path(r'^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'), #/blog/post/???
     path('archive/', views.PostAV.as_view(), name='post_archive'), # /blog/archive/
     path('archive/<int:year>/', views.PostYAV.as_view(), name='post_year_archive'), # /blog/archive/2020

@@ -12,9 +12,13 @@ from django.contrib.auth import get_user_model
 
 # 1. 클래스형 제네릭뷰
 
-from django.views.generic import ListView, DetailView 
+from django.views.generic import ListView, DetailView,CreateView 
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
+# 추가 
+# from django.views import generic
+from django.urls import reverse
+from .forms import BlogForm
 
 # 2-1. 테이블 조회를 위한 모델 임포트
 from blog.models import Post
@@ -83,6 +87,24 @@ class PostAV(ArchiveIndexView):
     """
     model = Post
     date_field = 'modify_dt'
+
+# # 추가 
+# class PostCreate(CreateView):
+#     model = Post
+#     template_name = 'blog/posting.html'
+#     feilds = ['title', 'description','content','tags'] # 모델에서 가져 올 필드명 작성
+#     template_name_suffix='_create'
+#     #사용하는 탬플릿 명을 '모델명_create.html'로 바꾼다는 의미. 접미사만 바꾼다.
+#     #기본 탬플릿은 '모델명_form.html'로 나타난다.
+        # form_class = ReviewForm
+#     def form_valid(self, form):  # 폼에 이상이 없으면 실행.
+#         temp = form.save(commit=False)  # 임시 저장. 폼 외의 다른 내용을 조작하고 싶을 때 사용한다.
+#         # 조작
+#         temp.save()  # 최종 저장
+#         return super().form_valid(form)
+        
+#     def get_success_url(self):  # 기존 함수를 덧쓴다. 작성 후에 해당 글을 보여주게끔.
+#         return reverse('pool:detail', kwargs={'pk': self.object.blog.pk})
 
 class PostYAV(YearArchiveView):
     """

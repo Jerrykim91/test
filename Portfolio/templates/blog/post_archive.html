@@ -8,7 +8,7 @@
 {% load static %}
 
 <!-- title -->
-{% block title %}Post archive{% endblock %}
+{% block title %}Blog{% endblock %}
 
 <!-- contents -->
 {% block content %}
@@ -27,6 +27,7 @@
             <a href="{% url 'blog:post_year_archive' date|date:'Y' %}"
                class="btn btn-outline-success btn-sm mx-1">Year - {{ date|date:'Y' }}</a>&nbsp;&nbsp;&nbsp;
            {% endfor %}
+           <a href="{% url 'blog:PostCreate' %}" class="btn btn-primary">글쓰기</a>
         </div>
         </header>
 

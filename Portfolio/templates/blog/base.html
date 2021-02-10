@@ -6,8 +6,8 @@
 -->
 <html lang="en">
 {% load static %}
-<!-- head -->
 
+<!-- head -->
 <head>
     <!-- title -->
     <title>{% block title %} Jerry's MELOG {% endblock %}</title>
@@ -23,9 +23,10 @@
 
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/test.css' %}" />
+    
     {# <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />#}
-    {#<link rel="stylesheet" href="{% static 'assets/css/icomoon.css' %}" />#}
-{# <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}" />#}
+    {# <link rel="stylesheet" href="{% static 'assets/css/icomoon.css' %}" />#}
+    {# <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}" />#}
     <noscript>
         <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
     </noscript>
@@ -57,10 +58,10 @@
         <!-- Nav -->
         <nav id="nav">
             <ul class="links">
-                <li class="active"><a href="{% url 'home' %}">This is JERRY</a></li>
+                <li class="active"><a href="{% url 'home' %}">HELLO,</a></li>
                 <!-- <li><a href="elements.html">Elements Reference</a></li> -->
-                <li><a href="{% url 'blog:post_about' %}">ABOUT</a></li>
-                <li><a href="{% url 'blog:post_archive' %}">Archive</a></li>
+                <li><a href="{% url 'blog:post_about' %}">This is JERRY.</a></li>
+                <li><a href="{% url 'blog:post_archive' %}">BLOG</a></li>
                 <li><a href="{% url 'linkList:index' %}">lnk</a></li>
                 <li><a href="{% url 'photo:index' %}">Photo</a></li>
                 <li><a href="{% url 'admin:index' %}">Admin</a></li>
@@ -77,10 +78,12 @@
             </ul>
         </nav>
 
+        <!-- content -->
         {% block content %}{% endblock %}
 
-        {% block footer%}
+
         <!-- Footer -->
+        {% block footer%}
         <footer id="footer">
             <!-- <section>
                 <form method="post" action="#">
@@ -138,9 +141,9 @@
                 <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
             </ul>
         </div>
+
         {% endblock %}
     </div>
-
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
