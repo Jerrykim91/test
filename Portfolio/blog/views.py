@@ -18,6 +18,12 @@ from django.views.generic.dates import DayArchiveView, TodayArchiveView
 # 추가 
 # from django.views import generic
 from django.urls import reverse
+<<<<<<< HEAD
+
+
+# from .forms import BlogForm
+=======
+>>>>>>> 6d4465a8e55d89dd3f721c464765454bc578db41
 from .forms import BlogForm
 
 # 2-1. 테이블 조회를 위한 모델 임포트
