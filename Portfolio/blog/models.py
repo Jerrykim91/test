@@ -1,6 +1,11 @@
 from django.db import models
 from django.urls import reverse  # 빨간색 책 139page + 검색해보기 # URL 패턴을 만들어 주는 내장함수
 from taggit.managers import TaggableManager # 태그
+
+# 추가
+from django.contrib.auth.models import User
+from django.utils.text import slugify
+
 # Create your models here.
 
 """
@@ -56,6 +61,14 @@ class Post(models.Model):
         # get_next_by_필드명()은 Django의 내장함수
         """
         return self.get_next_by_modify_dt()
+
+# 추가
+    def save(self, *args, **kwargs):
+        """
+        객체의 내용을 데이터베이스에 저장
+        """
+        self.slug = slugify(self.title, allow_unicode=True)
+        super().save(*args, **kwargs) # 부모 클래스 save를 호출 테이블에 반영
 
 
 
