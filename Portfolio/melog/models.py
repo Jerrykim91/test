@@ -62,4 +62,3 @@ class Photo(models.Model):
 
 
 
-# 참고 사잍트  https://velog.io/@mongle/Django-web-project-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%806-%ED%8F%AC%ED%86%A0%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80

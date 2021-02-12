@@ -1,10 +1,19 @@
 from django.shortcuts import render
 
 # 1. 클래스형 제네릭뷰
-from django.views.generic import ListView, DetailView
+
 from django.views.generic import TemplateView
+from django.views.generic import ListView, DetailView
+
+# Model
 from linkList.models import LinkList
 
+# App Extend 
+from django.views.generic import CreateView, UpdateView, DeleteView 
+# #/ login_required 기능 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from Portfolio.views import OwnerOnlyMixin
 
 # Create your views here.
 
@@ -19,28 +28,35 @@ class linkDV(DetailView):
     template_name = 'linkList/link_detail.html'
 
 
-class linkCreateView(DetailView):
+class linkCreateView(LoginRequiredMixin,CreateView):
+    model = LinkList
+    feilds = ['title', 'url','content','tags']
+    success_url = reverse_lazy('linkList:index') # redirect
+    
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class linkChangeLV(LoginRequiredMixin,ListView):
     # model = LinkList
+    template_name = 'linkList/link_change_list.html'
+    
+    def get_queryset(self):
+        return LinkList.objects.filter(owner=self.request.user)
+
+
+class linkUpdateView(OwnerOnlyMixin,UpdateView):
+    model = LinkList
+    feilds = ['title', 'url','content','tags']
+    success_url = reverse_lazy('linkList:index') # redirect
     # template_name = 'linkList/link_detail.html'
-    pass
-
-
-class linkChangeLV(DetailView):
-    # model = LinkList
-    # template_name = 'linkList/link_detail.html'
-    pass
-
-
-class linkUpdateView(DetailView):
-    # model = LinkList
-    # template_name = 'linkList/link_detail.html'
-    pass
+    
 
 
 class linkDeleteView(DetailView):
-    # model = LinkList
-    # template_name = 'linkList/link_detail.html'
-    pass
+    model = LinkList
+    success_url = reverse_lazy('linkList:index') # redirect
 
 
 # TAG

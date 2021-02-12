@@ -1,3 +1,54 @@
+
+```html
+{% extends 'blog/base.html'%}
+
+<!-- {% load static %} -->
+{% load widget_tweaks %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+<!-- Main -->
+<div id="main">
+    <article class="special">
+        <h2>테스트 </h2>
+        <h2> ID 와 PW를 입력해주세요. </h2>
+        {% if form.errors %}
+        <div class="alertalert-danger">
+            <div> 아래의 에러를 확인하세요. </div>
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
+        <form action="." method='post' class="card pt-3">{% csrf_token %}
+            <div class="form-grop row">
+                {{ form.username|add_label_class : "col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.username|add_class : "form-control"|attr : "autofocus" }}
+                </div>
+            </div>
+
+            <div class="form-grop row">
+                {{ form.password|add_label_class : "col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-5">
+                    {{ form.password|add_class : "form-control" }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="offset-sm-2 col-sm-5">
+                    <input type="submit" value="Log in" class="button" />
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </div>
+        </form>
+    </article>
+
+</div>
+{% endblock %}
+
+```
+
+
 ```py
 
 # Post_all

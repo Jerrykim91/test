@@ -20,6 +20,13 @@ urlpatterns = [
     path('archive/<int:year>/<str:month>/<int:day>/', views.PostDAV.as_view(), name='post_day_archive'), # /blog/archive/2020/Dec/28
     path('archive/today/', views.PostTAV.as_view(), name='post_today_archive'), # /blog/archive/today/
 
+    # App Extend
+    path('add/', views.PostCreateView.as_view(), name="add"),
+    path('change/', views.PostChangeLV.as_view(), name='change'),
+    path('<int:pk>/update/', views.PostkUpdateView.as_view(), name='update'),
+    path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='delete'),
+
+
     # TAG
     path('tag/', views.TagCloudTV.as_view(), name='tag_cloud'), # /blog/tag/
     path('tag/<str:tag>/', views.TaggedObjectLV.as_view(), name='tagged_object_list'), # /blog/tag/tagname/

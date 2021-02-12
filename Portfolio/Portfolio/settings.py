@@ -51,8 +51,6 @@ INSTALLED_APPS = [
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
     'django.contrib.sites',
-
-    
 ]
 
 MIDDLEWARE = [

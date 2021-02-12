@@ -224,6 +224,13 @@ https://amamov.tistory.com/107
 
 # 이미지 - 참고용 블로그
 https://dheldh77.tistory.com/entry/Django-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%97%85%EB%A1%9C%EB%93%9C
+
+# 참고 사이트 ***  
+https://developer.mozilla.org/ko/docs/Learn/Server-side/Django/Generic_views
+# https://velog.io/@mongle/Django-web-project-%EA%B0%9C%EB%B0%9C%EC%9D%BC%EC%A7%806-%ED%8F%AC%ED%86%A0%EC%95%B1-%EA%B8%B0%EB%8A%A5-%EC%B6%94%EA%B0%80
+
+# 객체형 
+https://velog.io/@trequartista/TIL14-Django-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B8%B0%EB%8A%A5-%EA%B5%AC%ED%98%84
 """
 
 
