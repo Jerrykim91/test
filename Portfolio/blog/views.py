@@ -3,28 +3,16 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 
 # 로그인
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate as auth
-from django.contrib.auth import login as login
-from django.contrib.auth import logout as logout
-from django.contrib.auth import get_user_model
+# from django.contrib.auth.decorators import login_required
+# from django.contrib.auth import authenticate as auth
+# from django.contrib.auth import login as login
+# from django.contrib.auth import logout as logout
+# from django.contrib.auth import get_user_model
 
 # 1. 클래스형 제네릭뷰
-
-from django.views.generic import ListView, DetailView,CreateView 
+from django.views.generic import ListView, DetailView  
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
-# 추가 
-# from django.views import generic
-from django.urls import reverse
-<<<<<<< HEAD
-
-
-# from .forms import BlogForm
-=======
->>>>>>> 6d4465a8e55d89dd3f721c464765454bc578db41
-from .forms import BlogForm
 
 # 2-1. 테이블 조회를 위한 모델 임포트
 from blog.models import Post
@@ -41,15 +29,21 @@ from blog.forms import PostSearchForm
 from django.db.models import Q
 from django.shortcuts import render  # render : 위에 제거하고 다시 작성
 
+# 6. App Extend 
+from django.views.generic import CreateView, UpdateView, DeleteView 
+from django.contrib.auth.mixins import LoginRequiredMixin # login_required 기능 
+from django.urls import reverse_lazy
+from Portfolio.views import OwnerOnlyMixin
+
 
 # Create your views here.
 
- # TemplateView
-class HomeView(TemplateView):
-    """
-    docstring
-    """
-    template_name = 'blog/home.html'
+# TemplateView
+# class HomeView(TemplateView):
+#     """
+#     docstring
+#     """
+#     template_name = 'blog/home.html'
 
 
 #ListView
@@ -94,23 +88,48 @@ class PostAV(ArchiveIndexView):
     model = Post
     date_field = 'modify_dt'
 
-# # 추가 
-# class PostCreate(CreateView):
-#     model = Post
-#     template_name = 'blog/posting.html'
-#     feilds = ['title', 'description','content','tags'] # 모델에서 가져 올 필드명 작성
-#     template_name_suffix='_create'
-#     #사용하는 탬플릿 명을 '모델명_create.html'로 바꾼다는 의미. 접미사만 바꾼다.
-#     #기본 탬플릿은 '모델명_form.html'로 나타난다.
-        # form_class = ReviewForm
-#     def form_valid(self, form):  # 폼에 이상이 없으면 실행.
-#         temp = form.save(commit=False)  # 임시 저장. 폼 외의 다른 내용을 조작하고 싶을 때 사용한다.
-#         # 조작
-#         temp.save()  # 최종 저장
-#         return super().form_valid(form)
+# App Extend
+class PostCreateView(LoginRequiredMixin,CreateView):
+    model       = Post
+    # template_name = 'blog/posting.html'
+    feilds      = ['title', 'description','content','tags'] # 모델에서 가져 올 필드명 작성
+    initial     = ['slug' 'auto-filling-do-not-input']
+    success_url = reverse_lazy('blog :index') # redirect
+
+    # template_name_suffix='_create'
+    # #사용하는 탬플릿 명을 '모델명_create.html'로 바꾼다는 의미. 접미사만 바꾼다.
+    # #기본 탬플릿은 '모델명_form.html'로 나타난다.
+    #     form_class = ReviewForm
+    def form_valid(self, form):  # 폼에 이상이 없으면 실행.
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    #     temp = form.save(commit=False)  # 임시 저장. 폼 외의 다른 내용을 조작하고 싶을 때 사용한다.
+    #     # 조작
+    #     temp.save()  # 최종 저장
+    #     return super().form_valid(form)
         
-#     def get_success_url(self):  # 기존 함수를 덧쓴다. 작성 후에 해당 글을 보여주게끔.
-#         return reverse('pool:detail', kwargs={'pk': self.object.blog.pk})
+    # def get_success_url(self):  # 기존 함수를 덧쓴다. 작성 후에 해당 글을 보여주게끔.
+    #     return reverse('pool:detail', kwargs={'pk': self.object.blog.pk})
+    pass
+
+class PostChangeLV(LoginRequiredMixin,ListView):
+    model         = Post
+    template_name = 'blog/posting_change_list.html'
+    
+    def get_queryset(self):
+        return Post.objects.filter(owner=self.request.user)
+
+
+class PostkUpdateView(OwnerOnlyMixin,UpdateView):
+    model       = Post
+    feilds      = ['title','slug','description','content','tags']
+    success_url = reverse_lazy('blog:index') # redirect
+
+class PostDeleteView(OwnerOnlyMixin, DeleteView):
+    model       = Post
+    success_url = reverse_lazy('blog:index') # redirect
+
 
 class PostYAV(YearArchiveView):
     """
@@ -198,6 +217,10 @@ class SearchFormView(FormView):
 
 """
 https://velog.io/@hwang-eunji/django-views-%ED%95%A8%EC%88%98%ED%98%95-vs-%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%A0%9C%EB%84%A4%EB%A6%AD
+
+https://amamov.tistory.com/107
+
+# on_delete=models.CASCADE 구문이 어떤 동작을 하는지 : https://hashcode.co.kr/questions/1673/%EC%9E%A5%EA%B3%A0-%EA%B5%AC%EB%AC%B8-%EC%A7%88%EB%AC%B8-%EC%9E%85%EB%8B%88%EB%8B%A4
 
 # 이미지 - 참고용 블로그
 https://dheldh77.tistory.com/entry/Django-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%97%85%EB%A1%9C%EB%93%9C
