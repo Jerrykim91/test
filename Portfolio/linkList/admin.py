@@ -5,7 +5,7 @@ from linkList.models import LinkList
 
 @ admin.register(LinkList)
 class LinkListAdmin(admin.ModelAdmin):
-    list_display =('id', 'title', 'url','tag_list')
+    list_display =('id', 'title', 'url', 'tag_list')
     search_fields = ('title', 'content')
 
     def get_queryset(self, request):

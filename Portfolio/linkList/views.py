@@ -21,6 +21,8 @@ from Portfolio.views import OwnerOnlyMixin
 class linkLV(ListView):
     model = LinkList
     template_name = 'linkList/link_list.html'
+    context_object_name = 'links'
+    paginate_by = 2  # 한페이지에 보여주는 객체 리스트의 개수
 
 
 class linkDV(DetailView):
@@ -52,7 +54,6 @@ class linkUpdateView(OwnerOnlyMixin,UpdateView):
     success_url = reverse_lazy('linkList:index') # redirect
     # template_name = 'linkList/link_detail.html'
     
-
 
 class linkDeleteView(DetailView):
     model = LinkList

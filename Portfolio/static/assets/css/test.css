@@ -1,4 +1,27 @@
 /*  커스텀 by 제리 */
+/* .services {
+  margin-bottom: 3em; }
+  .services .icon {
+    float: left;
+    width: 80px;
+    height: 80px;
+    display: table;
+    text-align: center;
+    background: whitesmoke;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%; }
+    .services .icon i {
+      display: table-cell;
+      vertical-align: middle;
+      font-size: 60px;
+      color: #000; }
+  .services .desc {
+    padding-left: 100px; }
+    .services .desc h3 {
+      color: #000;
+      font-size: 28px; } */
 
 .wrapper {
     display: grid;
@@ -30,8 +53,11 @@
     grid-row: 3;
   }
   .five {
-    grid-column: 2;
-    grid-row: 4;
+    width: 65%;
+    font-size : 88%;
+    display     : grid;
+    margin-left : auto;
+    margin-right: auto;
   }
   .six {
     width: 65%;
@@ -40,3 +66,53 @@
     grid-row: 4;
     margin: 5% 50% 5% 18%;
   }
+  .register_form {
+    width: 65%;
+    display: grid;
+    grid-column: 4;
+    grid-row: 4;
+    margin: 5% 50% 12% 18%;
+  }
+
+  .icon_pt {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #000;
+    margin: auto auto;
+    text-align: center;
+    vertical-align: center;
+    display: table; 
+    margin-bottom: 10em;
+    background: #fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%; }
+    .icon_pt i {
+      display: table-cell;
+      vertical-align: middle;
+      font-size: 70px;
+      color: #000; } 
+  .icon_sm i {
+    background: #fff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 70%; 
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    line-height: 2.5rem;
+    display: inline-block;
+    text-align: center;
+    border: 2px solid #000;
+    border-radius: 70%;
+    font-size: 1.5rem;
+    display: table-cell;
+    vertical-align: center;
+    color: #000; } 
+  .desc {
+    padding: 50px; }
+    .desc h3 {
+      color: #000;
+      font-size: 28px; }

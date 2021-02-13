@@ -51,11 +51,10 @@ class PostLV(ListView):
     model = Post
     template_name = 'blog/post_all.html'
     context_object_name = 'posts'
-    paginate_by = 2  # 한페이지에 보여주는 객체 리스트의 개수
+    paginate_by = 5  # 한페이지에 보여주는 객체 리스트의 개수
 
 
 class AboutDV(TemplateView):
-
     model = Post
     template_name = 'blog/post_about_me.html'
 
@@ -96,22 +95,10 @@ class PostCreateView(LoginRequiredMixin,CreateView):
     initial     = ['slug' 'auto-filling-do-not-input']
     success_url = reverse_lazy('blog :index') # redirect
 
-    # template_name_suffix='_create'
-    # #사용하는 탬플릿 명을 '모델명_create.html'로 바꾼다는 의미. 접미사만 바꾼다.
-    # #기본 탬플릿은 '모델명_form.html'로 나타난다.
-    #     form_class = ReviewForm
     def form_valid(self, form):  # 폼에 이상이 없으면 실행.
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
-    #     temp = form.save(commit=False)  # 임시 저장. 폼 외의 다른 내용을 조작하고 싶을 때 사용한다.
-    #     # 조작
-    #     temp.save()  # 최종 저장
-    #     return super().form_valid(form)
-        
-    # def get_success_url(self):  # 기존 함수를 덧쓴다. 작성 후에 해당 글을 보여주게끔.
-    #     return reverse('pool:detail', kwargs={'pk': self.object.blog.pk})
-    pass
 
 class PostChangeLV(LoginRequiredMixin,ListView):
     model         = Post

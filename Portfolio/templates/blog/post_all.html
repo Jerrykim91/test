@@ -16,19 +16,7 @@
         <header class="major">
             <!-- <span class="date">{{ object.modify_dt|date:'j F Y' }}</span> // 오늘 날자 쓸수 있으면 좋겠다-->
             <h2> POST LIST </h2>
-                    <!-- 다음글 -->
-        <div class="action">
-            <br />
-            {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-double-left"></i>&nbsp;&nbsp;</a>
-            {% endif %}
-            &nbsp;
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-            &nbsp;
-            {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
-            {% endif %}
-        </div>
+            <h3><a href="{% url 'blog:post_archive' %}"><i class="far fa-check-circle"></i>&nbsp;archive</a></h3>
         </header>
 
         <div class="table-wrapper">
@@ -38,7 +26,6 @@
                         <th>Date</th>
                         <th>Title</th>
                         <th>Description</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -52,17 +39,46 @@
                     </tr>
 
                 </tbody>
-
-                <!-- <tfoot>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td>100.00</td>
-                    </tr>
-                </tfoot> -->
             </table>
         </div>
-
     </section>
+      
+    <!-- pagination -->
+    <footer>
+        <div class="pagination">
+            <!-- Prev page setting -->
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="previous">Prev</a>
+            {% endif %}
+
+            <!--  main : page pagination   -->
+            {% for page_number in page_obj.paginator.page_range %}
+            <!-- pagination lv control  -->
+                {% if page_number >= page_obj.number|add:-5 and page_number <= page_obj.number|add:5 %}
+                <!-- page number match-->
+                    {% if page_number == page_obj.number %}
+                    <li class="page-item active" >
+                        <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            <!-- next page setting -->
+            {% if page_obj.has_next %}
+            <!-- 마지막 page -->
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a>
+                <!-- 바로 다음 page -->
+                <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
+            {% endif %}
+        </div>
+    </footer>
 </div>
 
 {% endblock %}
+
+

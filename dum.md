@@ -1,5 +1,185 @@
 
 ```html
+<!-- extends from base.html -->
+{% extends 'blog/base.html'%}
+
+<!-- title -->
+{% block title %}Link List{% endblock %}
+
+{% load static %}
+
+
+<!-- contents -->
+{% block content %}
+
+<div id="main">
+    <header class="major">
+        <h1>book mark</h1>
+    </header>
+
+    <section class="posts">
+
+        {% for Link in object_list %}
+        <article>
+            <header>
+                <!--<span class="date">April 24, 2017</span>-->
+                <h2><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h2>
+            </header>
+
+            <div>
+                <a href="{{ Link.url }}" class="image fit">
+                    <!-- <img src="{% static 'images/pic02.jpg' %}" alt="" /> -->
+                </a>
+                <p>{{ Link.content }}</p>
+                <!-- <p id="txt" hidden>{{ Link.url }}</p> -->
+            </div>
+
+            <!-- https://ko.grabz.it/api/python/image-capture-options/ -->
+            <!--테스트 란 만들기-->
+            <!-- <input value="{{ Link.url }}" placeholder="이곳에 ctrl+v로 붙여넣기 테스트" type="text" > -->
+            <br />
+
+            <!--복사할 텍스트 만들기-->
+            <p id="text1">텍스트 복사에 성공 하였습니다. </p>
+
+            <!--// 버튼 만들기-->
+            
+
+            <!--input 란 만들기-->
+            <br /><br /><input placeholder="이곳에 ctrl+v로 붙여넣기 테스트" type="text">
+
+            <!--// 버튼 만들기-->
+            <ul class="actions special">
+                <button onclick="copyToClipboard('text1')">텍스트 복사하기</button>
+                <!-- <li><button onclick="copyToClipboard('txt')"> 링크 복사[X] </button></li> -->
+                <li><a href="{{Link.url}}" class="button" target="_blank"> 링크로 이동 </a></li>
+            </ul>
+        </article>
+        {% endfor %}
+    </section>
+
+    <!-- pagination -->
+    <footer>
+        <div class="pagination">
+            <!-- Prev page setting -->
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="previous">Prev</a>
+            {% endif %}
+
+            <!--  main : page pagination   -->
+            {% for page_number in page_obj.paginator.page_range %}
+            <!-- pagination lv control  -->
+            {% if page_number >= page_obj.number|add:-5 and page_number <= page_obj.number|add:5 %} <!-- page number
+                match-->
+                {% if page_number == page_obj.number %}
+                <li class="page-item active">
+                    <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                <!-- next page setting -->
+                {% if page_obj.has_next %}
+                <!-- 마지막 page -->
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a>
+                <!-- 바로 다음 page -->
+                <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
+                {% endif %}
+        </div>
+    </footer>
+
+    <br />
+</div>
+
+{% endblock %}
+```
+
+```html
+<script>
+
+// 클립보드로 복사하는 기능을 생성
+function copyToClipboard(elementId) {
+
+  // 글을 쓸 수 있는 란을 만든다.
+  var aux = document.createElement("input");
+
+  // 지정된 요소의 값을 할당 한다.
+  aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+
+  // bdy에 추가한다.
+  document.body.appendChild(aux);
+
+  // 지정된 내용을 강조한다.
+  aux.select();
+
+  // 텍스트를 카피 하는 변수를 생성
+  document.execCommand("copy");
+
+  // body 로 부터 다시 반환 한다.
+  document.body.removeChild(aux);
+
+}
+</script>
+
+
+<!--복사할 텍스트 만들기-->
+<p id="text1">텍스트 복사에 성공 하였습니다. </p>
+
+  <!--// 버튼 만들기-->
+<button onclick="copyToClipboard('text1')">텍스트 복사하기</button>
+
+  <!--input 란 만들기-->
+<br /><br /><input placeholder="이곳에 ctrl+v로 붙여넣기 테스트" type="text">
+
+```
+
+
+
+```html
+    <!-- pagination -->
+    <footer>
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="previous">Prev</a>
+                <a href="?page=1" class="page active">1</a>
+            {% endif %}
+            <!-- <span>{{ post.num_pages }}</span> -->
+            <span>{{ page_obj.number }}</span>
+            <!-- <a href="#" class="page active">{{ page_obj.number }}</a> -->
+            {% if page_obj.has_next %}
+            <!-- 마지막 page -->
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a>
+                <!-- 바로 다음 page -->
+                <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
+            {% endif %}
+        </div>
+    </footer>
+```
+
+
+
+
+```html
+ <!-- Errors -->
+        {% if not form.errors %}
+        <h4> Please enter your uername and password twice. </h4>
+        {% else %}
+        <h4>Wrong! Please, correct the error(s) below. Please try again.</h4>
+        <div class="alert alert-danger right" role="alert">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
+```
+
+
+```html
+
 {% extends 'blog/base.html'%}
 
 <!-- {% load static %} -->

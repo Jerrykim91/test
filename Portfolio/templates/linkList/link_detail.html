@@ -17,11 +17,23 @@
         <ur>
             <li> URL : <a href="{{ object.url }}">{{ object.url }}</a></li>
         </ur>
+
+        <!-- Tag system -->
+        <div>
+            <b>TAGS</b> <i class="fas fa-tag"></i>
+            {% load taggit_templatetags2_tags %}
+            {% get_tags_for_object object as "tags"%}
+            {% for tag in tags %}
+            <a href="{% url 'linkList:tagged_object_list' tag.name %}">{{tag.name}}</a>
+            {% endfor %}
+            &emsp;
+            <a href="{% url 'linkList:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
+        </div>
+        
     </section>
     <br>
 </div>
 
 {% endblock %}
-
 
 <!-- 이거 디자인 변경 필요해보임  -->

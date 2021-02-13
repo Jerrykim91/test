@@ -6,28 +6,13 @@
 
 {% load static %}
 
-<!-- style -->
-{% block extra-style %}
-<meta charset="utf-8" />
-<meta name="author" content="" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
-<link rel="stylesheet" href="{% static 'assets/css/test.css' %}" />
-<noscript>
-    <link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" />
-</noscript>
-
-
-{% endblock %}
-
 
 <!-- contents -->
 {% block content %}
 
 <div id="main">
     <header class="major">
-        <h1>book mark</h1> 
+        <h1>book mark</h1>
     </header>
 
     <section class="posts">
@@ -38,35 +23,134 @@
                 <!--<span class="date">April 24, 2017</span>-->
                 <h2><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h2>
             </header>
+
             <div>
                 <a href="{{ Link.url }}" class="image fit">
-                    <!-- <img src="{% static 'images/pic02.jpg' %}" alt="" /> -->
+                    <img src="{% static 'images/pic02.jpg' %}" target="_blank" style="width: 50%;" class="five" alt="[dev-test]" />
                 </a>
-                <p>{{ Link.content }}</p>
+                <h4>{{ Link.content }}</h4>
+                <p id="copyUrl" hidden>{{ Link.url }}</p>
+                
             </div>
-
+            <br />
+            <!-- https://ko.grabz.it/api/python/image-capture-options/ -->
             <!--테스트 란 만들기-->
-            <input id='test' value="{{ Link.url }}" placeholder="이곳에 ctrl+v로 붙여넣기 테스트" type="text">
+            <input id='inputField' value="{{ Link.url }}"  type="text" >
+
             <br />
             <!--// 버튼 만들기-->
             <ul class="actions special">
-                <li><button href="javascript:;" onclick="copyLink('{{Link.url}}')"> 링크 복사[X] </button></li>
-                <li><a href="{{Link.url}}" class="button"> 링크로 이동 </a></li>
+                <!-- <li><input type='button' onclick="clipBoard('copyUrl');" value=" 텍스트 복사하기"/> -->
+                <li><button onclick="InputclipBoard('inputField');"> 링크 복사 [NG] </button></li>
+                <li><a href="{{Link.url}}" class="button" target="_blank"> 링크로 이동 </a></li>
             </ul>
+
+            <!-- Tag system -->
+            <div>
+                <b>TAGS</b> <i class="fas fa-tag"></i>
+                {% load taggit_templatetags2_tags %}
+                {% get_tags_for_object Link as "tags"%}
+                {% for tag in tags %}
+                <a href="{% url 'linkList:tagged_object_list' tag.name %}">{{tag.name}}</a>
+                {% endfor %}
+                &emsp;
+                <a href="{% url 'linkList:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
+            </div>
+            
+            <br />
+            <!--input 란 만들기-->
+            <input placeholder="[dev- test] 이곳에 ctrl+v로 붙여넣기 " type="text">
+            <br />
         </article>
         {% endfor %}
-
     </section>
-    <!-- <div class="card text-center" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">{{ Link.title }}</h5>
-          <p class="card-text">{{ Link.content }}</p>
-          <a href="{{Link.url}}" class="buttony">Go somewhere</a>
+
+    <!-- pagination -->
+    <footer>
+        <div class="pagination">
+            <!-- Prev page setting -->
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="previous">Prev</a>
+            {% endif %}
+
+            <!--  main : page pagination   -->
+            {% for page_number in page_obj.paginator.page_range %}
+                <!-- pagination lv control  -->
+                {% if page_number >= page_obj.number|add:-5 and page_number <= page_obj.number|add:5 %} <!-- page number
+                    match-->
+                    {% if page_number == page_obj.number %}
+                    <li class="page-item active">
+                        <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
+                    </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            <!-- next page setting -->
+            {% if page_obj.has_next %}
+            <!-- 마지막 page -->
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a>
+            <!-- 바로 다음 page -->
+            <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
+            {% endif %}
         </div>
-      </div> -->
-
-
+    </footer>
     <br />
 </div>
+
+{% endblock %}
+
+
+
+<!-- Scripts -->
+{% block extra_js %}
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+<script src="{% static 'assets/js/browser.min.js' %}"></script>
+<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+<script src="{% static 'assets/js/util.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script>
+
+    function InputclipBoard() {
+        var txt = document.getElementById('inputField');
+        txt.select();
+        document.execCommand("copy");
+        alert("test: 복사에 성공 하였습니다.");
+    }
+
+	// 클립보드로 복사하는 기능을 생성
+	function clipBoard(elementId) {
+
+    // 글을 쓸 수 있는 란을 만든다.
+    var aux = document.createElement("input");
+    
+
+    // 지정된 요소의 값을 할당 한다.
+    aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+
+    // body에 추가.
+    document.body.appendChild(aux);
+
+    // 지정된 내용을 강조한다.
+    aux.select();
+    
+    // 텍스트를 카피 하는 변수를 생성
+    document.execCommand("copy");
+
+    // body 로 부터 다시 반환 한다.
+    document.body.removeChild(aux);
+    //alert(aux.value);
+    alert("텍스트 복사에 성공 하였습니다.");
+    
+};
+
+
+</script>
 
 {% endblock %}
