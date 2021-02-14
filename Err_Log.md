@@ -78,3 +78,10 @@ python manage.py shell
 젠장 .... 
 책에도 나와있었네.... 
 성질이 급해서 참 등잔 밑이 어둡네 ... .
+
+
+
+```bash
+sqlite3.OperationalError: no such column: blog_posts.owner_id
+ 이 에러는 모델을 업로드 안해서 생기는 에러 
+```

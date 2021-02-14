@@ -1,22 +1,23 @@
 <!-- extends from base.html -->
 {% extends 'blog/base.html'%}
 
-
 <!-- title -->
 {% block title %}Post_all{% endblock %}
-
 
 <!-- contents -->
 {% block content %}
 
 <div id="main">
-
     <!-- Post -->
     <section class="post">
         <header class="major">
             <!-- <span class="date">{{ object.modify_dt|date:'j F Y' }}</span> // 오늘 날자 쓸수 있으면 좋겠다-->
             <h2> POST LIST </h2>
-            <h3><a href="{% url 'blog:post_archive' %}"><i class="far fa-check-circle"></i>&nbsp;archive</a></h3>
+            <ul class='nav justify-content-center'  >
+            <il class="nav-item"><h3><a href="{% url 'blog:post_archive' %}"><i class="fas fa-landmark"></i></i>&nbsp;archive &nbsp;</a></h3></il>
+            <il class="nav-item"><h3><a href="{% url 'blog:add' %}"><i class="fa fa-plus"></i>&nbsp;add &nbsp;</a></h3></il>
+            <il class="nav-item"><h3><a href="{% url 'blog:change' %}"><i class="fas fa-edit"></i>&nbsp;change &nbsp;</a></h3></il>
+            </ul>
         </header>
 
         <div class="table-wrapper">
@@ -37,7 +38,6 @@
 
                         {% endfor %}
                     </tr>
-
                 </tbody>
             </table>
         </div>
@@ -71,7 +71,7 @@
             <!-- next page setting -->
             {% if page_obj.has_next %}
             <!-- 마지막 page -->
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a>
+                <!-- <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a> -->
                 <!-- 바로 다음 page -->
                 <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
             {% endif %}

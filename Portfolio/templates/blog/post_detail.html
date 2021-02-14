@@ -17,6 +17,9 @@
         <header class="major">
             <span class="date">{{ object.modify_dt|date:'j F Y' }}</span>
             <h2>{{ object.title }}</h2>
+            <ul class="icons">
+                <li><a href="{% url 'blog:update' object.id %}" class="icon solid fas fa-user-edit"><span class="label">Update</span></a></li>
+            </ul>
                     <!-- 다음글 -->
         <div>
             {% if object.get_next %}
@@ -46,7 +49,7 @@
             {% load taggit_templatetags2_tags %}
             {% get_tags_for_object object as "tags"%}
             {% for tag in tags %}
-            <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+            <a href="{% url 'blog:tagged_object_list' tag.name %}"> # {{tag.name}} </a>
             {% endfor %}
             &emsp;
             <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>

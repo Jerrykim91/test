@@ -21,6 +21,7 @@ $ python manage.py makemigrations blog
 
 class Post(models.Model):
 
+    owner        = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER',blank=True, null=True)
     title        = models.CharField(verbose_name='TITLE', max_length=100)
     slug         = models.SlugField('SLUG', unique= True, allow_unicode= True, help_text='one world for title alias.') # 글의 별칭 -> 게시물검색  # 슬러그 자세한 내용은 -> 파란색 75page
     description  = models.CharField('DESCRIPTION', max_length=100,blank= True, help_text= 'simple description text.')

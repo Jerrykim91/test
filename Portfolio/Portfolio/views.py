@@ -31,11 +31,22 @@ class OwnerOnlyMixin(AccessMixin):
     permission_denied_message = '관리자만 수정 & 삭제 가능합니다.'
 
 
-def dispatch(self, request, *args, **kwargs):
-    obj = self.get_object()
-    if request.user != obj.owner:
-        """
-        소유자 검증 
-        """
-        return self.handle_no_permission()
-    return super().dispatch(request, *args,**kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if request.user != obj.owner:
+            """
+            소유자 검증 
+            """
+            return self.handle_no_permission()
+        return super().dispatch(request, *args,**kwargs)
+
+
+# # prevent from other's update/delete
+# class OwnerRequiredMixin(object):
+#     def get(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         if self.request.user != self.object.owner:
+#             return permission_denied(self.request,
+#                                      exception="Only creator of this object can update/delete the object.")
+#         return self.render_to_response(self.get_context_data())
+

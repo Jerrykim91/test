@@ -13,8 +13,13 @@
 <div id="main">
     <header class="major">
         <h1>book mark</h1>
+        <ul class='nav justify-content-center'  >
+            <il class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></il>
+            <il class="nav-item"><h3><a href="{% url 'linkList:add' %}"><i class="fa fa-plus"></i>&nbsp;add &nbsp;</a></h3></il>
+            <il class="nav-item"><h3><a href="{% url 'linkList:change' %}"><i class="fas fa-edit"></i></i>&nbsp;change &nbsp;</a></h3></il>
+        </ul>
     </header>
-
+    
     <section class="posts">
 
         {% for Link in object_list %}
@@ -22,6 +27,7 @@
             <header>
                 <!--<span class="date">April 24, 2017</span>-->
                 <h2><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h2>
+
             </header>
 
             <div>
@@ -51,7 +57,7 @@
                 {% load taggit_templatetags2_tags %}
                 {% get_tags_for_object Link as "tags"%}
                 {% for tag in tags %}
-                <a href="{% url 'linkList:tagged_object_list' tag.name %}">{{tag.name}}</a>
+                <a href="{% url 'linkList:tagged_object_list' tag.name %}"> # {{tag.name}} </a>
                 {% endfor %}
                 &emsp;
                 <a href="{% url 'linkList:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
@@ -93,7 +99,7 @@
             <!-- next page setting -->
             {% if page_obj.has_next %}
             <!-- 마지막 page -->
-            <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a>
+            <!-- <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a> -->
             <!-- 바로 다음 page -->
             <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
             {% endif %}

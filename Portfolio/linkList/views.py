@@ -32,7 +32,8 @@ class linkDV(DetailView):
 
 class linkCreateView(LoginRequiredMixin,CreateView):
     model = LinkList
-    feilds = ['title', 'url','content','tags']
+    template_name = 'linkList/link_form.html'
+    fields = ['title', 'url','content','tags']
     success_url = reverse_lazy('linkList:index') # redirect
     
     def form_valid(self, form):
@@ -50,15 +51,16 @@ class linkChangeLV(LoginRequiredMixin,ListView):
 
 class linkUpdateView(OwnerOnlyMixin,UpdateView):
     model = LinkList
-    feilds = ['title', 'url','content','tags']
+    fields = ['title', 'url','content','tags']
     success_url = reverse_lazy('linkList:index') # redirect
-    # template_name = 'linkList/link_detail.html'
+    # template_name = 'linkList/link_form.html'
     
 
-class linkDeleteView(DetailView):
+class linkDeleteView(OwnerOnlyMixin,DeleteView):
     model = LinkList
+    template_name = 'linkList/link_confirm_delete.html'
     success_url = reverse_lazy('linkList:index') # redirect
-
+    
 
 # TAG
 class TagCloudTV(TemplateView):

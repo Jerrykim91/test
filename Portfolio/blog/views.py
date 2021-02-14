@@ -38,14 +38,6 @@ from Portfolio.views import OwnerOnlyMixin
 
 # Create your views here.
 
-# TemplateView
-# class HomeView(TemplateView):
-#     """
-#     docstring
-#     """
-#     template_name = 'blog/home.html'
-
-
 #ListView
 class PostLV(ListView):
     model = Post
@@ -73,8 +65,8 @@ class PostDV(DetailView):
         """
         context = super().get_context_data(**kwargs)
         context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
-        context['disqus_id'] = f"post-{self.object.id}-{self.object.slug}"
-        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}" #ex)http://127.0.0.1:8000/blog/post/99
+        context['disqus_id']    = f"post-{self.object.id}-{self.object.slug}"
+        context['disqus_url']   = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}" #ex)http://127.0.0.1:8000/blog/post/99
         context['disqus_title'] = f"{self.object.slug}"
         return context
 
@@ -89,11 +81,11 @@ class PostAV(ArchiveIndexView):
 
 # App Extend
 class PostCreateView(LoginRequiredMixin,CreateView):
-    model       = Post
-    # template_name = 'blog/posting.html'
-    feilds      = ['title', 'description','content','tags'] # 모델에서 가져 올 필드명 작성
-    initial     = ['slug' 'auto-filling-do-not-input']
-    success_url = reverse_lazy('blog :index') # redirect
+    model          = Post
+    template_name  = 'blog/post_form.html'
+    fields         = ['title', 'slug','description','content','tags'] # 모델에서 가져 올 필드명 작성
+    initial        = {'slug':'Auto-Filling-Do-Not-input'}
+    success_url    = reverse_lazy('blog:index') # redirect
 
     def form_valid(self, form):  # 폼에 이상이 없으면 실행.
         form.instance.owner = self.request.user
@@ -102,7 +94,7 @@ class PostCreateView(LoginRequiredMixin,CreateView):
 
 class PostChangeLV(LoginRequiredMixin,ListView):
     model         = Post
-    template_name = 'blog/posting_change_list.html'
+    template_name = 'blog/post_change_list.html'
     
     def get_queryset(self):
         return Post.objects.filter(owner=self.request.user)
@@ -110,20 +102,22 @@ class PostChangeLV(LoginRequiredMixin,ListView):
 
 class PostkUpdateView(OwnerOnlyMixin,UpdateView):
     model       = Post
-    feilds      = ['title','slug','description','content','tags']
+    fields      = ['title','slug','description','content','tags']
     success_url = reverse_lazy('blog:index') # redirect
+    # template_name = 'blog/post_form.html'
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):
-    model       = Post
-    success_url = reverse_lazy('blog:index') # redirect
+    model         = Post
+    success_url   = reverse_lazy('blog:index') # redirect
+    template_name = 'blog/post_confirm_delete.html'
 
 
 class PostYAV(YearArchiveView):
     """
     docstring
     """
-    model = Post
-    date_field = 'modify_dt'
+    model            = Post
+    date_field       = 'modify_dt'
     make_object_list = True
 
 class PostMAV(MonthArchiveView):

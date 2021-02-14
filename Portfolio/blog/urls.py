@@ -2,7 +2,7 @@
 
 from django.urls import path, re_path
 from blog import views 
-
+from blog.models import Post
 app_name='blog'
 
 urlpatterns = [
@@ -21,7 +21,7 @@ urlpatterns = [
     path('archive/today/', views.PostTAV.as_view(), name='post_today_archive'), # /blog/archive/today/
 
     # App Extend
-    path('add/', views.PostCreateView.as_view(), name="add"),
+    path('add/', views.PostCreateView.as_view(), name='add'),
     path('change/', views.PostChangeLV.as_view(), name='change'),
     path('<int:pk>/update/', views.PostkUpdateView.as_view(), name='update'),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='delete'),

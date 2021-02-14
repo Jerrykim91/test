@@ -1,0 +1,54 @@
+<!-- extends from base.html -->
+{% extends 'blog/base.html'%}
+
+{% load static %}
+{% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Post form{% endblock %}
+
+<!-- contents -->
+{% block content %}
+
+<div id="main">
+    <header class="major">
+        <h4>hi🖐️, {{ user }} 😉</h4>
+        <h1>Bolg <br />
+            Create & Update</h1>
+        <!-- Errors -->
+        {% if not form.errors %}
+            <h3> This is a creation or update form for your post. </h3>
+        {% else %}
+            <h4>Wrong! Please, correct the error(s) below. Please try again.</h4>
+            <!-- err txt -->
+            <div class="alert alert-danger five" role="alert" style="width: auto%;">
+                {% for field in form %}
+                    {% if field.errors %}
+                        <strong>{{ field.label }}</strong>
+                        {{ field.errors }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </header>
+
+    <!-- form tag -->
+    <form method="post" action=".">
+        {% csrf_token %}
+        <!-- form -->
+        <div class='six'>
+            <table>
+                <!--  일일히 가져 오는것보다 이렇게 접근하는 것이 유용하다.  -->
+                {% for field in form.visible_fields %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td>{{field}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <!-- input -->
+            <input type="submit" value="submit" />
+        </div>
+    </form>
+    <br />
+    {% endblock %}
