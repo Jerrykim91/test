@@ -1,241 +1,279 @@
+<br>
+
+#### portfolio - Test Ver 
+
+
+<br>
+
 # portfolio - Test Ver 
 
 <br>
 
-## 1차 - 배포(deployment)테스트
-
-기본적으로 장고 세팅은 혼자 할 수 있다는 가정하에 진행한다. 
-
-##### 실제로는 3번째 테스트 
-
-git 이 있으면 그냥 진행 없으면 설치 작업 진행 
-
-- `git add` , `git add --all` : 추가      
-- `git status` : 스테이지 된 파일, 브랜치상태 등의 정보를 보여줌 
-- `git commit -m "first commit"` : 커밋 메세지 작성과 동시에 커밋
-
-<br>
+## 1. Django 시작하기   
 <br>
 
-## [PythonAnywhere](www.pythonanywhere.com) 에 가입 
-
+### 1. 초기 파일 생성  
 <br>
 
-3개월마다 갱신! 해야 서버가 살아있다.
+프로젝트 파일 > 애플리케이션 
 
-<br>
-
-## 네비바에 콘솔(`Consoles`)창 이동
-
-가입할때 사용한 내 아이디가 주소가 된다. 
-
-가입하면 상단에 네비바에 콘솔(Consoles)창을 확인가능하다 
-
-거기서 기본세팅을 할것이다. 
-
-<br>
-
-콘솔창을 띄운후 
-
+프로젝트 파일 안에 애플리케이션이 들어가는 형태이다. 
 
 ```bash
-git clone 주소.git 
+# 프로젝트 생성
+$ django-admin startproject 프로젝트이름
+
+# 애플리케이션 생성
+$ django-admin startapp 앱 이름 
+```
+
+파일을 생성하고 나면 변경사항을 적용해야한다. 
+
+<br>
+
+### 마이그레이션  
+
+```bash
+# 마리그레이션을 할때 에러는 없는지 확인한다. 
+$ python manage.py check
+# 모델의 변경 사항을 기반으로 새 마이그레이션을 생성
+$ python manage.py makemigrations 
+# 디비에 반영하기 
+$ python manage.py migrate
 ```
 
 <br>
 
-입력해주고 레퍼지토리가 잘 받아졌는지 tree를 통해서 확인해 본다. `$ tree 폴더이름`
+**가장 중요)  `makemigrations`,`migrate`은 모델을 변경할때마다 작업해주어야 한다.** <br>
+만일 작업하지 않는다면.  아래와 같은 에러 메세지를 확인 할 수 있다. 
+<br>
 
-가상환경을 추가할건데 bash Consoles에서 내 폴더로 이동한 다음 `$ cd 폴더`  
-
-가상환경을 만든다. `$ virtualenv --python=python버.전 가상환경이름`
-
-가상환경을 활성화 시킨다. `$ source 가상환경이름/bin/activate` or `workon 가상환경이름`
-
-중간중간 패키지 설치하고 `pip install 모듈`
-
-데이터베이스 초기화 `$ python manage.py migrate` -> `(가상환경이름) $ python manage.py createsuperuser`
-
-정적파일 수집( 서버가 찾을 수 있는 장소에 집합 ) `python manage.py collectstatic` -> 안될 경우 있음 그럴때는 일단 패스 
+```bash
+# 기존 작업중 모델에 유저를 추가하고 모델을 디비에 반영 안 했을때 나타난 메세지중 하나이다. 
+sqlite3.OperationalError: no such column: blog_posts.owner_id
+```
+항상 에러가 발생 한다면 무슨 에러인지 유심히 보도록 하자 ! => `sqlite3.OperationalError` 
 
 <br>
 
-## 네비바 Web 창 이동 
+### 이제 해야할일은 다했니 실행 해보도록하자!
+<br>
 
-Add a new web app 클릭한다.
+```bash              
+# 런서버
+$ python manage.py runserver
+```
 
-그다음은 manual configuration 클릭한 후 파이썬 버전을 선택한다. (1차 세팅 완료) 
+<br><br>
 
-가상환경 경로를 설정해준다. 
+## 2. 기본 구조 
 
 <br>
 
-## WSGI 설정 파일(WSGI configuration file) 설정 
+### 1. 프로젝트 기본 구성 
+<br>
+
+```bash
+# 프로젝트 구성 
+Django web project
+    ㄴ Web01 => 이름을 변경하는것이 공통으로 통제하기 수월함
+        ㄴ Web01
+            - 프로젝트 설계를 위한 python 패키지들이 저장    
+            ㄴ __init__.py 
+                - 디렉토리를 패키지처럼 다루라고 알려주는 파일 
+                => 이름이 중복되는것을 피하게 하는 모듈의 모음 
+            ㄴ asgi.py
+                -
+
+            ㄴ setting.py 
+                - 프로젝트의 환경 및 구성을 저장
+                - 환경 설정이 어떻게 동작하는지 확인
+                - 데이터베이스, 사이트 언어 설정 
+            ㄴ urls.py
+                - 설정파일 
+                    - 현재 Django project 의 URL 선언을 저장 => 사이트의 '목차'
+                    - url주소와 장고의 기능을 연결 시켜주는 역활 
+                    - 장고의 강력한 기능**
+            ㄴ views.py
+                - 사용자 설정 -> 생성 
+            ㄴ wsgi.py
+                - 
+
+        ㄴ manage.py
+            - 프로젝트를 관리하는 스크립트 admin.py와 코드를 공유 
+```
+
+<br><br>
+
+### 2. 어플리케이션 기본 구성 
 
 <br>
 
-참고로 장고 아님 PythonAnywhere Web 에서의 설정임 
+어플리케이션을 다루는 데에는 두가지 방법이 있다. <br>
+사람마다 다른데 나는 1번 방식을 쓰다가 2번 방식으로 변경 하였다. <br>
+<br>
+
+좀더 직관적이고 접근하기 수월하기 때문에 2번 방식으로 작업 방식을 변경하였다. <br>
+이 테스트 사이트는 1번 방식으로 작업이 진행 되어있다. <br>
+어느것도 나쁘지 않다. 당신이 편하다면 1번이든  2번이든 중요하지 않다. 
+
+<br>
+
+### 1번 방식 
+<br>
+
+```bash
+# 어플리케이션 구성
+Django web project 
+어플리케이션이름 => 변경 가능 
+        ㄴ어플리케이션이름(127.0.0.1:8000)
+                ㄴ  __init__.py 
+                ㄴ asgi.py
+                ㄴ setting.py
+                ㄴ urls.py
+                ㄴ views.py
+                ㄴ wsgi.py
+        ㄴ manage.py
+        ㄴ Member(앱1)
+                ㄴ # 구성은 프로젝트와 유사 
+                ㄴ  __init__.py 
+                ㄴ admin.py (어드민 뷰)
+                ㄴ apps.py
+                ㄴ models.py (모델)
+                ㄴ test.py (모델)
+                ㄴ views.py (함수형 뷰 & 클래스형 뷰 & 제네릭 뷰)
+                ㄴ urls.py  
+                    - 사용자 생성 -> 생성하는 것이 더욱 직관적이다. 
+                
+        ㄴ Static (CSS, js 등 )
+            - css, js 같은 파일을 보관한다. 
+                ㄴ CSS
+                ㄴ js
+                ㄴ sass
+                ㄴ fonts
+
+        ㄴ Templates(HTML)
+                ㄴ member(앱1)
+                    ㄴ index.html (member의 index)
+                ㄴ (앱2)
+                ㄴ (앱3)
+
+        ㄴ Board(앱2)
+                ㄴ # 구성은 member(앱1)와 동일 
+                # 만약 추가 된다면. 아래의 항목들등이 추가 될 수 있음.. 
+                ㄴ fields.py  
+                ㄴ forms.py
+        ㄴ Blog (앱3)
+        ㄴ Poll (앱4)
+```
+<br>
+
+
+### 2번 방식 
+
+<br>
+
+이 방식은 어플리케이션 파일안에 `Templates`, `Static` 파일이 들어있다. 
+
+<br>
+
+```bash
+# 어플리케이션 구성
+Django web project 
+어플리케이션이름 => 변경 가능 
+        ㄴ어플리케이션이름(127.0.0.1:8000)
+                ㄴ  __init__.py 
+                ㄴ asgi.py
+                ㄴ setting.py
+                ㄴ urls.py
+                ㄴ views.py
+                ㄴ wsgi.py
+        ㄴ manage.py
+        ㄴ Member(앱1)
+                ㄴ # 구성은 프로젝트와 유사 
+                ㄴ  __init__.py 
+                ㄴ admin.py (어드민 뷰)
+                ㄴ apps.py
+                ㄴ models.py (모델)
+                ㄴ test.py (모델)
+                ㄴ views.py (함수형 뷰 & 클래스형 뷰 & 제네릭 뷰)
+                ㄴ urls.py  
+                    - 사용자 생성 -> 생성하는 것이 더욱 직관적이다. 
+                # 추가
+                ㄴ Static (CSS, js 등 )
+                - css, js 같은 파일을 보관한다. 
+                        ㄴ CSS
+                        ㄴ js
+                        ㄴ sass
+                        ㄴ fonts
+
+                ㄴ Templates(HTML)
+                        ㄴ member(앱1)
+                        ㄴ index.html (member의 index)
+
+        ㄴ Board(앱2)
+                ㄴ # 구성은 member(앱1)와 동일 
+                # 만약 추가 된다면. 아래의 항목들등이 추가 될 수 있음.. 
+                ㄴ fields.py  
+                ㄴ forms.py
+                # 추가
+                ㄴ Static (CSS, js 등 )
+                - css, js 같은 파일을 보관한다. 
+                ㄴ Templates(HTML)
+                        ㄴ Board(앱2)
+                        ㄴ index.html (Board index)
+        ㄴ Blog (앱3)
+        ㄴ Poll (앱4)
+```
+
+<br>
+
+어플리케이션을 추가는  <br>
+위에서 언급 했다 싶이 `$ django-admin startapp 앱 이름 `을   <br>
+터미널에 입력하면 된다. 여기서 주의 할점음 입력하기 전에는 <br>
+항상 프로젝트 내부인지를 확인하고 올바른 위치에 설치 하기바란다. 
+
+<br><br>
+
+## 3. 
+
+<br>
 
 ```py
 
-import os
-import sys
-
-path = '/home/아이디/폴더이름'  
-# /home/jerrykim91/Portfolio/myenv/bin/python
-if path not in sys.path:
-    sys.path.append(path)
-
-os.environ['DJANGO_SETTINGS_MODULE'] = '설정폴더이름(=폴더이름).settings' # 에러발생 
-
-from django.core.wsgi import get_wsgi_application
-from django.contrib.staticfiles.handlers import StaticFilesHandler
-application = StaticFilesHandler(get_wsgi_application())
-
 ```
 
-<br>
-
-## Static files 설정 
-
-본인의 경로에 맞게 정해서 해주는것이 포인트 !!! 
+<br><br>
 
 
-| URL |	Directory	|
-|:----:|:----------------------------------------:|
-|`/static/`|`/home/아이디/폴더이름/static`|
-|`/templates/`|`/home/아이디/폴더이름/templates`|
+
+## 4.
 
 <br>
-
-일단 완료 -> 템플릿 설정 없이 성공 
-
-<br>
-<br>
-
-## 데이터 베이스 설정 하기 
-
-<br>
-
-MySQL 이기 때문에 모듈 설치를 하고 -> `pip install mysqlclient `
-
-장고폴더.setting.py 에 들어가서 데이터 베이스 설정을 진행한다.
-
 
 ```py
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-
-    # 초기설정
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    #     }
-
-    # mysql
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '유저계정이름$데이터베이스이름',
-        'USER': '유저계정이름',
-        'PASSWORD': '데이터 베이스 생성시 PW',
-        'HOST': '유저계정이름.mysql.pythonanywhere-services.com' # 데이터 베이스 생성하면 주는 호스트이름 ,
-    }
-
-    # mysql 가이드 
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.mysql',
-    #         'NAME': '<your_username>$<your_database_name>',
-    #         'USER': '<your_username>',
-    #         'PASSWORD': '<your_mysql_password>',
-    #         'HOST': '<your_mysql_hostname>',
-    #           }
-}
-
 ```
 
+<br><br>
+
+
+
+
 
 <br>
-<br>
-
-## SECRET_KEY 의 보안을 위한 재설정 
-
-
-(추후)
 
 ---
 
-## 에러 발생 
-
-작업 진행중 발생한 에러 
-
 <br>
 
-### [에러발생] 1. `python manage.py check ` or `python manage.py makemigrations` 를 진행했는데 아래와 같은 애러발생
+## Reference <br>
 
-[참고링크](https://stackoverflow.com/questions/49189402/auth-user-groups-fields-e304-reverse-accessor-for-user-groups-clashes-with)
-
-<br>
-
-```py
-
-SystemCheckError: System check identified some issues:
-ERRORS:
-ToyMain.join.groups: (fields.E304) Reverse accessor for 'modelsClassName.groups' clashes with reverse accessor for 'User.groups'.
-        HINT: Add or change a related_name argument to the definition for 'modelsClassName.groups' or 'User.groups'.
-ToyMain.join.user_permissions: (fields.E304) Reverse accessor for 'modelsClassName.user_permissions' clashes with reverse accessor for 'User.user_permissions'.
-        HINT: Add or change a related_name argument to the definition for 'modelsClassName.user_permissions' or 'User.user_permissions'.
-auth.User.groups: (fields.E304) Reverse accessor for 'User.groups' clashes with reverse accessor for 'modelsClassName.groups'.
-        HINT: Add or change a related_name argument to the definition for 'User.groups' or 'modelsClassName.groups'.
-auth.User.user_permissions: (fields.E304) Reverse accessor for 'User.user_permissions' clashes with reverse accessor for 'modelsClassName.user_permissions'.
-        HINT: Add or change a related_name argument to the definition for 'User.user_permissions' or 'modelsClassName.user_permissions'.
-
-
-# [해결] 만약 모델을 만든다면 만든 모델 명시!!! -> 아니면 에러발생 
-# AUTH_USER_MODEL = 'YourAppName.modelsClassName'
-
-```
-
-<br>
-
-### [에러발생] 2. Strict Mode가 데이터베이스 연결 'default'에 대해 설정되지 않았습니다.
-
-`python manage.py migrate ` 작업 수행 시 발생
-
-[참고링크_1](https://stackoverflow.com/questions/23022858/force-strict-sql-mode-in-django)
-[참고링크_2](https://docs.djangoproject.com/en/3.1/ref/databases/#mysql-sql-mode)
-
-```py
-(mysql.W002) MySQL Strict Mode is not set for database connection 'default'
-        HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/3.1/ref/databases/#mysql-sql-mode
-
-# settings.py에서 Databases 항목에서 아래의 옵션 추가
-DATABASES = { 
-	...
-	'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-             # 'sql_mode': 'traditional'
-        },
-```
+- name &nbsp; : &nbsp;<https://> <br>
 
 <br>
 <br>
 
----
+## Practice makes perfect! <br>
 
-#### 완료하기 전 에러 
-
-이것 말고 기존에 있는 작업물로 진행하려다 하루를 날렸는데     
-
-오늘 작업하다 확인한것이 Django 버전이 2.x 에서 3.x로 바뀌면서     
-os 모듈을 이용하는 방식에서 path 모듈이용방식으로 바뀌었다. 
-
-이부분을 재설정해주니까 탬플릿의 경로를 찾지 못하는 에러가 해결되었다(여기서만...)
-
-이 프로젝트 같은경우 가상환경안에서 Django 프로젝트 폴더를 생성하고 한것이라 
-기존에 있는 실패?한 프로젝트를 하나씩 엎어 가면서 오류를 찾아보고자 한다. 
-
-역시 컴퓨터는 죄가 없다.... 내가 죄지... 모르는죄 크흡.....
-
+- [내용](주소)

@@ -34,23 +34,23 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    # 'ToyMain',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
-    'linkList.apps.LinklistConfig',
-    'melog.apps.MelogConfig',
-    # 'port',
     'disqus',
     'widget_tweaks',
     'fontawesome-free',
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
     'django.contrib.sites',
+    # app
+    'blog',
+    'linkList.apps.LinklistConfig',
+    'photo.apps.PhotoConfig',
+    'melog.apps.MelogConfig',
 ]
 
 MIDDLEWARE = [

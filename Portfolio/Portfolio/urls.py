@@ -39,7 +39,7 @@ urlpatterns = [
     # 커스텀
     path('', HomeView.as_view(), name='home'),
     path('blog/', include('blog.urls')), # blog
-    path('photo/', include('melog.urls')), # blog
+    path('photo/', include('photo.urls')), # blog
     path('lnk/', include('linkList.urls')), # linkList
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
