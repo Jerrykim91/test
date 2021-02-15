@@ -1,0 +1,85 @@
+<!-- extends from base.html -->
+{% extends 'blog/base.html'%}
+
+<!-- title -->
+{% block title %}Photo Form{% endblock %}
+{% load widget_tweaks %}
+{% load static %}
+
+<!-- contents -->
+{% block content %}
+
+<div id="main">
+    <header class="major">
+        <h4>hi🖐️, {{ user }} 😉</h4>
+        <h1>photo <br />
+            Create & Update</h1>
+
+        <ul class='nav justify-content-center'  >
+            <li class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></li>
+            <li class="nav-item"><h3><a href="{% url 'photo:photo_add' %}"><i class="fa fa-plus"></i>&nbsp;photo_add &nbsp;</a></h3></li>
+            <li class="nav-item"><h3><a href="{% url 'photo:photo_change' %}"><i class="fas fa-edit"></i></i>&nbsp;photo_change &nbsp;</a></h3></li>
+        </ul>
+
+        <!-- Errors -->
+        {% if not form.errors %}
+        <h3> This is a creation or update form for your bookmark. </h3>
+        {% else %}
+        <h4>Wrong! Please, correct the error(s) below. Please try again.</h4>
+        <!-- err txt -->
+        <div class="alert alert-danger five" role="alert" style="width: auto;">
+            {% for field in form %}
+            {% if field.errors %}
+            <strong>{{ field.label }}</strong>
+            {{ field.errors }}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    <div class='post'>
+        <!-- form tag -->
+        {% if form.is_multipart %}
+        <form enctype="multipart/form-data" action="" method='post'>
+            {% else %}
+            <form action="." method='post'>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <!-- form -->
+                <div class='six'>
+                    {% if form.album.value == None %}
+                    
+                    <table>
+                        <tr>
+                            <td>{{ form.album.label_tag }}<a href="{% url 'photo:album_list' %}" class="btn fa fa-plus" ></a></td>
+                            <td>{{ form.album }} </td>
+                            {% else%}
+                            <td>{{ form.album.label_tag }}</td>
+                            <td>{{ form.album }}</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>{{ form.title.label_tag }}</td>
+                            <td>{{ form.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.image.label_tag }}</td>
+                            <td>{{ form.image }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{ form.description.label_tag }}</td>
+                            <td>{{ form.description }}</td>
+                        </tr>
+                    </table>
+                    <!-- input -->
+                    <input type="submit" value="submit" />
+                </div>
+            </form>
+            <br />
+    </div>
+</div>
+{% endblock %}

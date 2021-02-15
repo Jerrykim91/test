@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'blog',
     'linkList.apps.LinklistConfig',
     'photo.apps.PhotoConfig',
-    'melog.apps.MelogConfig',
+    # 'melog.apps.MelogConfig',
 ]
 
 MIDDLEWARE = [

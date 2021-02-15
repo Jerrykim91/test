@@ -1,4 +1,45 @@
+```html
+   <!-- Post -->
+    <section class="post">
+        <header class="major">
+            <!-- <span class="date">{{ object.modify_dt|date:'j F Y' }}</span> // 오늘 날자 쓸수 있으면 좋겠다-->
+            <h1> Album LIST </h1>
+            <ul class='nav justify-content-center'  >
+                <li class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></li>
+                <li class="nav-item"><h3><a href="{% url 'photo:photo_add' %}"><i class="fa fa-plus"></i>&nbsp;photo_add &nbsp;</a></h3></li>
+                <li class="nav-item"><h3><a href="{% url 'photo:photo_change' %}"><i class="fas fa-edit"></i></i>&nbsp;photo_change &nbsp;</a></h3></li>
+                
+            </ul>
+            <br/>
+            <ul class='nav justify-content-center'  >
+                <li class="nav-item"><h3><a href="{% url 'photo:album_add' %}"><i class="fa fa-plus"></i>&nbsp;album_add &nbsp;</a></h3></li>
+                <li class="nav-item"><h3><a href="{% url 'photo:album_change' %}"><i class="fas fa-edit"></i></i>&nbsp;album_change &nbsp;</a></h3></li>
+            </ul>
 
+        </header>
+
+        {% for item in object_list%}
+        <div class="mt-5">
+            <a class="h2" href="{% url 'photo:album_detail' item.id %}">{{ item.name }}</a>&emsp;
+            <span class="h5">{{ item.description }}</span>
+        </div>
+
+        <hr style="margin: 0 0 20px 0;">
+
+        <div class="row">
+            {% for photo in item.photo_set.all|slice:":5" %}
+            <div class="ml-5">
+                <div class="thumbnail">
+                    <a href=" {{photo.get_absolute_url }}">
+                        <img src="{{ photo.image.thumb_url }}" style="width: 100%;">
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </section>
+```
 ```html
 <!-- extends from base.html -->
 {% extends 'blog/base.html'%}

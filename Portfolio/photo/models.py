@@ -7,8 +7,9 @@ class Album(models.Model):
     """
     docstring
     """
-    name = models.CharField(max_length=50)
+    name        = models.CharField(max_length=50)
     description = models.CharField('One Line Description', max_length=100, blank=True)  # 설명
+    owner       = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='OWNER',blank=True, null=True)
 
     class Meta:
         """
@@ -38,6 +39,7 @@ class Photo(models.Model):
     description = models.TextField('Photo Description', blank=True)
     image       = ThumbnailImageField(upload_to='photo/%y/%m')
     upload_dt   = models.DateTimeField('Upload Date', auto_now_add=True)
+    owner       = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='OWNER',blank=True, null=True)
 
     class Meta:
         """

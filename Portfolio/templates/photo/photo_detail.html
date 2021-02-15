@@ -16,8 +16,13 @@
         <header class="major">
             <!-- <span class="date">{{ object.modify_dt|date:'j F Y' }}</span> // 오늘 날자 쓸수 있으면 좋겠다-->
             <h2 class="mt-5"> Photo Detail </h2>
-            <div class="h4">
-                Album__<a href="{% url 'photo:album_detail' object.album.id %}"> {{ object.album.name }}</a>
+            <ul class='nav justify-content-center'  >
+                <li class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></li>
+                <li class="nav-item"><h3><a href="{% url 'photo:photo_add' %}"><i class="fa fa-plus"></i>&nbsp;photo_add &nbsp;</a></h3></li>
+                <li class="nav-item"><h3><a href="{% url 'photo:photo_change' %}"><i class="fas fa-edit"></i></i>&nbsp;photo_change &nbsp;</a></h3></li>
+            </ul>
+            <div class="h3">
+                Album__<h3><a href="{% url 'photo:album_detail' object.album.id %}">{{ object.album.name }}</a></h3>
             </div>
         </header>
 
@@ -36,9 +41,9 @@
             <ul class="two">
                 <li class="h4">Photo Description.</li>
                 {% if object.description %}
-                <p>{{ object.description|linebreaks }}</p>
+                    <p>{{ object.description|linebreaks }}</p>
                 {% else %}
-                <p>(blank)</p>
+                    <p>(blank)</p>
                 {% endif %}
                 
                 <li class="h4">Date Uploaded.</li>

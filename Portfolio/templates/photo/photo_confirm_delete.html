@@ -1,0 +1,35 @@
+<!-- extends from base.html -->
+{% extends 'blog/base.html'%}
+
+<!-- title -->
+{% block title %}delete Form{% endblock %}
+{% load widget_tweaks %}
+{% load static %}
+
+<!-- contents -->
+{% block content %}
+
+<div id="main">
+    <header class="major">
+        <h4>hi🖐️, {{ user }} 😉</h4>
+        <h1>Photo Delete</h1>
+        <ul class='nav justify-content-center'>
+            <li class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></li>
+            <li class="nav-item"><h3><a href="{% url 'photo:photo_add' %}"><i class="fa fa-plus"></i>&nbsp;photo_add &nbsp;</a></h3></li>
+            <li class="nav-item"><h3><a href="{% url 'photo:album_list' %}"><i class="fa fa-home"></i></i>&nbsp;album_list &nbsp;</a></h3></li>
+        </ul>
+    </header>
+
+    <section class="post">
+        <!-- form tag -->
+        <div class="five">
+            <form method="post" action=".">
+                {% csrf_token %}
+                <h3> Are you <strong>sure</strong> you want to delete "{{ object }}"</h3>
+                <input type="submit" value="Confirm" class="button primary fit small"/>
+            </form>
+            <br />
+        </div>
+    </section>
+</div>
+{% endblock %}
