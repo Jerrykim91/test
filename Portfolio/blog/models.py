@@ -18,9 +18,28 @@ $ python manage.py makemigrations blog
 
 """
 
+# models.py
+class Category(models.Model):
+    name          = models.CharField(max_length=30)
+    slug          = models.SlugField()
+    parent        = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+
+        unique_together     = ['slug', 'parent'] # 위에 존재하는 속성 만으로만 작성 가능 
+        verbose_name_plural = "categories"     
+
+    def __str__(self):                           
+        full_path = [self.name]                  
+        k = self.parent
+        while k is not None:
+            full_path.append(k.name)
+            k = k.parent
+        return ' -> '.join(full_path[::-1])
+
 
 class Post(models.Model):
-
+    category     = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,  blank=True)
     owner        = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER',blank=True, null=True)
     title        = models.CharField(verbose_name='TITLE', max_length=100)
     slug         = models.SlugField('SLUG', unique= True, allow_unicode= True, help_text='one world for title alias.') # 글의 별칭 -> 게시물검색  # 슬러그 자세한 내용은 -> 파란색 75page
@@ -29,7 +48,9 @@ class Post(models.Model):
     create_dt    = models.DateTimeField('CREATE DATE', auto_now_add=True) # 글 작성시간
     modify_dt    = models.DateTimeField('MODIFY DATE', auto_now=True) # 글 수정 시간 
     tags         = TaggableManager(blank=True)
-
+    # 이미지 
+    photo_Art    = models.ImageField(upload_to='photo/%y/%m', blank=True, null=True)    
+    
     class Meta:
 
         verbose_name = 'post'
@@ -71,5 +92,16 @@ class Post(models.Model):
         self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs) # 부모 클래스 save를 호출 테이블에 반영
 
+
+    def get_cat_list(self):
+        k = self.category # for now ignore this instance method
+
+        breadcrumb = ["dummy"]
+        while k is not None:
+            breadcrumb.append(k.slug)
+            k = k.parent
+        for i in range(len(breadcrumb)-1):
+            breadcrumb[i] = '/'.join(breadcrumb[-1:i-1:-1])
+        return breadcrumb[-1:0:-1]
 
 # 게시는 글 작업해보고 올리자!

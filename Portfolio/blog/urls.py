@@ -37,4 +37,7 @@ urlpatterns = [
     # aboutmE
     path('about/', views.AboutDV.as_view(), name='post_about'), # /blog/about/
 
+    path(r'^category/(?P<hierarchy>.+)/$', views.show_category, name='category'),
+
+
 ]

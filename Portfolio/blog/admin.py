@@ -1,5 +1,6 @@
 from django.contrib import admin
 from blog.models import Post
+from .models import Category
 
 # Register your models here.
 
@@ -25,3 +26,6 @@ class PostAdmin(admin.ModelAdmin):
         docstring
         """
         return ','.join(o.name for o in obj.tags.all())
+
+
+admin.site.register(Category)
