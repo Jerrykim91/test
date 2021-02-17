@@ -35,6 +35,15 @@
                 {{object.get_previous }}&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
             {% endif %}
             </div>
+
+            <ul class="breadcrumbs">
+            <li><a href="{%  url 'home' %}">Home</a></li>
+                {% for slug, name in breadcrumbs %}
+                    <li><a href="blog/category/{{ slug }}">{{ name }}</a></li>
+                    {% comment %} <li><a href="{% url 'blog:category' object.slug.name %}">{{ name }}</a></li> {% endcomment %}
+                {% endfor %}
+            </ul>
+
         </header>
 
 

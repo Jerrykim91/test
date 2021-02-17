@@ -38,6 +38,10 @@ from Portfolio.views import OwnerOnlyMixin
 
 # Create your views here.
 
+
+
+
+
 #ListView
 class PostLV(ListView):
     model = Post
@@ -90,6 +94,42 @@ class PostCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):  # 폼에 이상이 없으면 실행.
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+
+
+def show_category(request,hierarchy= None):
+    category_slug = hierarchy.split('/')
+    category_queryset = list(Category.objects.all())
+    all_slugs = [ x.slug for x in category_queryset ]
+    parent = None
+    for slug in category_slug:
+        if slug in all_slugs:
+            parent = get_object_or_404(Category,slug=slug,parent=parent)
+        else:
+            instance = get_object_or_404(Post, slug=slug)
+            breadcrumbs_link = instance.get_cat_list()
+            category_name = [' '.join(i.split('/')[-1].split('-')) for i in breadcrumbs_link]
+            breadcrumbs = zip(breadcrumbs_link, category_name)
+            return render(request, "postDetail.html", {'instance':instance,'breadcrumbs':breadcrumbs})
+
+    return render(request,"blog/categories.html",{'post_set':parent.post_set.all(),'sub_categories':parent.children.all()})
+
+
+""""
+# slug
+https://cedo.tistory.com/43
+https://djangopy.org/how-to/how-to-implement-categories-in-django/#conclusion
+https://pjs21s.github.io/category-recursive/
+https://docs.djangoproject.com/en/3.1/topics/http/urls/
+""""
+
+# class showCategoryLV(ListView):
+#     model         = Category
+#     template_name = 'blog/categories.html'
+    
+#     def get_queryset(self):
+#         return Category.objects.filter(owner=self.request.user)
+
 
 
 class PostChangeLV(LoginRequiredMixin,ListView):
