@@ -10,9 +10,11 @@ class PostAdmin(admin.ModelAdmin):
     admin 사이트에서 어떤모습으로 
     보여줄지를 정의하는 클래스
     """
-    list_display = ('id', 'title', 'modify_dt','tag_list')
+    # 보여줄 필드 
+    list_display = ('id', 'title', 'owner','modify_dt','tag_list','category')
     list_filter = ('modify_dt',)
     search_fields = ('title', 'content')
+    # 자동으로 채워질 필드 설정 
     prepopulated_fields = {'slug':('title',)}
 
     def get_queryset(self, request):
@@ -28,4 +30,8 @@ class PostAdmin(admin.ModelAdmin):
         return ','.join(o.name for o in obj.tags.all())
 
 
-admin.site.register(Category)
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name','parent')
+    prepopulated_fields = {'slug': ('name',)}
+    # search_fields = ('name')

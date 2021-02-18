@@ -21,8 +21,8 @@ $ python manage.py makemigrations blog
 # models.py
 class Category(models.Model):
     name          = models.CharField(max_length=30)
-    slug          = models.SlugField()
-    parent        = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    slug          = models.SlugField(unique=True, allow_unicode=True)
+    parent        = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True,related_name='children' )
 
     class Meta:
 
@@ -37,8 +37,11 @@ class Category(models.Model):
             k = k.parent
         return ' -> '.join(full_path[::-1])
 
+    # def get_absolute_url(self):
+    #     return reverse('blog:category', args=(self.slug,)) 
 
 class Post(models.Model):
+
     category     = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,  blank=True)
     owner        = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER',blank=True, null=True)
     title        = models.CharField(verbose_name='TITLE', max_length=100)

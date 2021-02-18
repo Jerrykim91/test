@@ -15,7 +15,7 @@ from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthA
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
 # 2-1. 테이블 조회를 위한 모델 임포트
-from blog.models import Post
+from blog.models import Post, Category
 
 # 2-2. 템플릿 뷰
 from django.views.generic import TemplateView
@@ -40,6 +40,53 @@ from Portfolio.views import OwnerOnlyMixin
 
 
 
+"""
+# slug
+https://cedo.tistory.com/43
+https://djangopy.org/how-to/how-to-implement-categories-in-django/#conclusion
+https://pjs21s.github.io/category-recursive/
+https://docs.djangoproject.com/en/3.1/topics/http/urls/
+"""
+
+# def show_category(request,hierarchy= None):
+#     category_slug = hierarchy.split('/')
+#     category_queryset = list( Category.objects.all() )
+#     # print(category_queryset)
+#     all_slugs = [ x.slug for x in category_queryset ]
+#     parent = None
+#     for slug in category_slug:
+#         if slug in all_slugs:
+#             parent = get_object_or_404(Category,slug=slug,parent=parent)
+#         else:
+#             instance = get_object_or_404(Post, slug=slug)
+#             breadcrumbs_link = instance.get_cat_list()
+#             category_name = [' '.join(i.split('/')[-1].split('-')) for i in breadcrumbs_link]
+#             breadcrumbs = zip(breadcrumbs_link, category_name)
+#             return render(request, "blog/post_detail.html", {'instance':instance,'breadcrumbs':breadcrumbs})
+
+#     return render(request,"blog/categories.html",{'post_set':parent.post_set.all(),'sub_categories':parent.children.all()})
+
+class CategoryLV(ListView):
+    model         = Category
+    template_name = 'blog/categories.html'
+    
+# class showCategoryLV(ListView):
+#     model         = Category
+#     template_name = 'blog/categories.html'
+#     # template_name = 'blog/home.html'
+#     context_object_name = 'categories'
+
+#     def get_queryset(self):
+#         return Category.objects.filter(owner=self.request.user)
+    
+        
+#     def get_context_data(self, **kwargs):
+#         """
+#         docstring
+#         """
+#         context = super().get_context_data(**kwargs)
+#         context['']
+#         return context
 
 
 #ListView
@@ -94,42 +141,6 @@ class PostCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):  # 폼에 이상이 없으면 실행.
         form.instance.owner = self.request.user
         return super().form_valid(form)
-
-
-
-def show_category(request,hierarchy= None):
-    category_slug = hierarchy.split('/')
-    category_queryset = list(Category.objects.all())
-    all_slugs = [ x.slug for x in category_queryset ]
-    parent = None
-    for slug in category_slug:
-        if slug in all_slugs:
-            parent = get_object_or_404(Category,slug=slug,parent=parent)
-        else:
-            instance = get_object_or_404(Post, slug=slug)
-            breadcrumbs_link = instance.get_cat_list()
-            category_name = [' '.join(i.split('/')[-1].split('-')) for i in breadcrumbs_link]
-            breadcrumbs = zip(breadcrumbs_link, category_name)
-            return render(request, "postDetail.html", {'instance':instance,'breadcrumbs':breadcrumbs})
-
-    return render(request,"blog/categories.html",{'post_set':parent.post_set.all(),'sub_categories':parent.children.all()})
-
-
-""""
-# slug
-https://cedo.tistory.com/43
-https://djangopy.org/how-to/how-to-implement-categories-in-django/#conclusion
-https://pjs21s.github.io/category-recursive/
-https://docs.djangoproject.com/en/3.1/topics/http/urls/
-""""
-
-# class showCategoryLV(ListView):
-#     model         = Category
-#     template_name = 'blog/categories.html'
-    
-#     def get_queryset(self):
-#         return Category.objects.filter(owner=self.request.user)
-
 
 
 class PostChangeLV(LoginRequiredMixin,ListView):

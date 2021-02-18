@@ -37,7 +37,11 @@ urlpatterns = [
     # aboutmE
     path('about/', views.AboutDV.as_view(), name='post_about'), # /blog/about/
 
-    path(r'^category/(?P<hierarchy>.+)/$', views.show_category, name='category'),
+    # category
+    path('category/',views.CategoryLV.as_view(), name='category'), # /blog/post/
+    # re_path(r'^category/(?P<hierarchy>[-\w]+)/$', views.show_category, name='category'),
+    # path('category/',views.CategoryLV.as_view(), name='category'), # /blog/post/
+    # re_path(r'^category/(?P<hierarchy>[-\w]+)/$', views.showCategoryLV.as_view(), name='category_test'),
 
 
 ]

@@ -11,10 +11,46 @@
 
 <div id="main">
     <header class="major">
-        <h1>Link List</h1>
+        <h1>카테고리 테스트 </h1>
+
+         
+
     </header>
 
-    <section class="posts">
+    <section class="post">
+
+    <div class='six'>
+
+            <p>// 카테고리2 </p>
+            
+            {% for category in categories %}
+            {{category.slug}}
+            <a href="{% url 'blog:category category.slug '%}">{{ category.name }}</a>
+            {% endfor %}
+            <p>테스트 // </p>
+            {% comment %}  test {% endcomment %}
+
+                <ul class="breadcrumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {{category}}
+                    {% comment %} {% for slug, name in breadcrumbs %}
+                    {{ slug}}
+                    {{ name}}
+                        <li><a href="blog/category/{{ slug }}">{{ name }}</a></li>
+                        <li><a href="{{ category.get_absolute_url }}">{{ category.get_absolute_url.name }}</a></li>
+                    {% endfor %} {% endcomment %}
+                </ul>
+
+
+            {% if sub_categories %}
+                <h3>Sub Categories</h3>
+                {% for i in sub_categories %}
+                    {% comment %} <a href="{{ i.slug }}"> {{ i.name }} </a> {% endcomment %}
+                    <li><a href="{{ category.get_absolute_url }}">{{ category.get_absolute_url.name }}</a></li>
+                {% endfor %}
+            {% endif %}
+        </div>
+
             <br>
             {% if sub_categories %}
                 <h3>Sub Categories</h3>
