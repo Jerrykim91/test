@@ -66,9 +66,9 @@ def CategoryView(request, cats):
     """
     함수 사용 
     """
-    category_posts = Post.objects.filter(category=cats)
+    category_posts = Post.objects.filter(category=cats.replace('-',' '))
 
-    return render(request,"blog/categories.html",{'cats':cats.title(),'category_posts':category_posts})
+    return render(request,"blog/categories.html",{'cats':cats.title().replace('-',' '),'category_posts':category_posts})
 
 # def show_category(request,hierarchy= None):
 #     category_slug = hierarchy.split('/')

@@ -15,18 +15,16 @@
     </header>
 
     <section class="post">
-
     {% if user.is_authenticated %}
     <div class='six'>
         <form method='POST'>
         {% csrf_token %} 
         {{ form.as_p }}
         <button class='btn btn-seccondary'>ADD category</button>
-        </div>
+    </div>
     {% else %}
         <p> 로그인 하삼 </p>
     {% endif %}
-
     </section>
     <br/>
 </div>

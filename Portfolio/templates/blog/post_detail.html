@@ -16,8 +16,9 @@
     <section class="post">
         <header class="major">
             <span class="date">{{ object.modify_dt|date:'j F Y' }}</span>
-            <h2>{{ object.title }}</h2>
             <h5><a href= "{% url 'blog:category' post.category %}" >{{ object.category }}</a></h5>
+            <h2>{{ object.title }}</h2>
+            
             <ul class="icons">
                 <li><a href="{% url 'blog:update' object.id %}" class="icon solid fas fa-user-edit"><span class="label">Update</span></a></li>
             </ul>
