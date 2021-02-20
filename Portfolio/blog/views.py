@@ -15,7 +15,7 @@ from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthA
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
 # 2-1. 테이블 조회를 위한 모델 임포트
-from blog.models import Post, Category
+from blog.models import Post, Category, PhotoArt
 
 # 2-2. 템플릿 뷰
 from django.views.generic import TemplateView
@@ -25,7 +25,9 @@ from django.conf import settings
 
 # 4. search
 from django.views.generic import FormView
-from blog.forms import PostSearchForm
+from blog.forms import PostSearchForm 
+from blog.forms import PostForm, PostEdit
+
 from django.db.models import Q
 from django.shortcuts import render  # render : 위에 제거하고 다시 작성
 
@@ -38,7 +40,7 @@ from Portfolio.views import OwnerOnlyMixin
 
 # Create your views here.
 
-
+# cats = Category.objects.all().values_list('name','name')
 
 """
 # slug
@@ -47,6 +49,26 @@ https://djangopy.org/how-to/how-to-implement-categories-in-django/#conclusion
 https://pjs21s.github.io/category-recursive/
 https://docs.djangoproject.com/en/3.1/topics/http/urls/
 """
+
+class addCategoryView(LoginRequiredMixin,CreateView):
+    model       = Category
+    template_name = 'blog/category.html'
+    fields = '__all__'
+
+    # form_class  =   categoryUpdate
+    # fields      = ['title','slug','description','content','tags']
+    # success_url = reverse_lazy('blog:index') # redirect
+
+
+
+
+def CategoryView(request, cats):
+    """
+    함수 사용 
+    """
+    category_posts = Post.objects.filter(category=cats)
+
+    return render(request,"blog/categories.html",{'cats':cats.title(),'category_posts':category_posts})
 
 # def show_category(request,hierarchy= None):
 #     category_slug = hierarchy.split('/')
@@ -66,28 +88,6 @@ https://docs.djangoproject.com/en/3.1/topics/http/urls/
 
 #     return render(request,"blog/categories.html",{'post_set':parent.post_set.all(),'sub_categories':parent.children.all()})
 
-class CategoryLV(ListView):
-    model         = Category
-    template_name = 'blog/categories.html'
-    
-# class showCategoryLV(ListView):
-#     model         = Category
-#     template_name = 'blog/categories.html'
-#     # template_name = 'blog/home.html'
-#     context_object_name = 'categories'
-
-#     def get_queryset(self):
-#         return Category.objects.filter(owner=self.request.user)
-    
-        
-#     def get_context_data(self, **kwargs):
-#         """
-#         docstring
-#         """
-#         context = super().get_context_data(**kwargs)
-#         context['']
-#         return context
-
 
 #ListView
 class PostLV(ListView):
@@ -98,6 +98,9 @@ class PostLV(ListView):
 
 
 class AboutDV(TemplateView):
+    """
+    포트 폴리오
+    """
     model = Post
     template_name = 'blog/post_about_me.html'
 
@@ -109,6 +112,8 @@ class AboutDV(TemplateView):
 # DetailView
 class PostDV(DetailView):
     model = Post
+    # person = PhotoArt.objects.get(user=request.user)
+    img_posts = PhotoArt.objects.filter()
 
     def get_context_data(self, **kwargs):
         """
@@ -125,23 +130,36 @@ class PostDV(DetailView):
 # ArchiveView
 class PostAV(ArchiveIndexView):
     """
-    docstring
+    Archive
     """
     model = Post
     date_field = 'modify_dt'
 
 # App Extend
 class PostCreateView(LoginRequiredMixin,CreateView):
-    model          = Post
+    # model          = Post # 생략가능 
+    form_class     = PostForm
     template_name  = 'blog/post_form.html'
-    fields         = ['title', 'slug','description','content','tags'] # 모델에서 가져 올 필드명 작성
-    initial        = {'slug':'Auto-Filling-Do-Not-input'}
     success_url    = reverse_lazy('blog:index') # redirect
+
+    # form(원본)
+    # category_queryset = Category.objects.all().values_list('name','name')
+    # fields         = ['category','title', 'slug','description','content','tags'] # 모델에서 가져 올 필드명 작성
+    # initial        = {'slug':'Auto-Filling-Do-Not-input' }
+    # widgets = {
+    #         'category' :
+    #             }
 
     def form_valid(self, form):  # 폼에 이상이 없으면 실행.
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+# class PosteditView(LoginRequiredMixin,ListView):
+#     model         = Post
+#     template_name = 'blog/post_change_list.html'
+    
+#     def get_queryset(self):
+#         return Post.objects.filter(owner=self.request.user)
 
 class PostChangeLV(LoginRequiredMixin,ListView):
     model         = Post
@@ -150,10 +168,10 @@ class PostChangeLV(LoginRequiredMixin,ListView):
     def get_queryset(self):
         return Post.objects.filter(owner=self.request.user)
 
-
-class PostkUpdateView(OwnerOnlyMixin,UpdateView):
-    model       = Post
-    fields      = ['title','slug','description','content','tags']
+class PostUpdateView(OwnerOnlyMixin,UpdateView):
+    model       = Post # 생략하면 에러 발생  : django.core.exceptions.ImproperlyConfigured 'someting'is missing a QuerySet.
+    form_class  = PostEdit
+    # fields      = ['category','title','slug','description','content','tags']
     success_url = reverse_lazy('blog:index') # redirect
     # template_name = 'blog/post_form.html'
 
@@ -162,7 +180,7 @@ class PostDeleteView(OwnerOnlyMixin, DeleteView):
     success_url   = reverse_lazy('blog:index') # redirect
     template_name = 'blog/post_confirm_delete.html'
 
-
+# date
 class PostYAV(YearArchiveView):
     """
     docstring
@@ -199,7 +217,6 @@ class TagCloudTV(TemplateView):
     docstring
     """
     template_name = 'blog/taggit/taggit_cloud.html'
-
 
 class TaggedObjectLV(ListView):
     """

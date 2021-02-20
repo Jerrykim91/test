@@ -39,6 +39,7 @@
         <div class='six'>
             <table>
                 <!--  일일히 가져 오는것보다 이렇게 접근하는 것이 유용하다.  -->
+                
                 {% for field in form.visible_fields %}
                 <tr>
                     <td>{{ field.label_tag }}</td>

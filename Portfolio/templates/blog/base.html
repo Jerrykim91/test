@@ -70,7 +70,7 @@
 
         
         <!-- Header -->
-        {% if  user.is_active %}
+        {% if  user.is_authenticated %}
             <!-- After Login -->
             <header id="header">
                 <a href="{% url 'home' %}" class="logo">{% firstof user.get_short_name user.get_username %}</a>
@@ -85,7 +85,7 @@
         <!-- Nav -->
         <nav id="nav">
         
-            {% if not user.is_active %}
+            {% if not user.is_authenticated %}
             <!-- before Login -->
             <ul class="links">
                 <li class="active"><a href="{% url 'home' %}">HELLO,</a></li>
@@ -109,7 +109,8 @@
                 <li><a href="{% url 'blog:post_list' %}">BLOG</a></li>
                 <li><a href="{% url 'linkList:index' %}">lnk</a></li>
                 <li><a href="{% url 'photo:index' %}">Photo</a></li>
-                <li><a href="{% url 'blog:category' %}" >category</a></li>
+                {% comment %} <li><a href="{% url 'blog:category' %}" >category</a></li> {% endcomment %}
+                <li><a href="{% url 'blog:add_category' %}" >add_category</a></li>
 
                 {% if user.is_authenticated %}
                     <!-- 지정 계정 열람 -->

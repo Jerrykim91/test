@@ -17,6 +17,7 @@
         <header class="major">
             <span class="date">{{ object.modify_dt|date:'j F Y' }}</span>
             <h2>{{ object.title }}</h2>
+            <h5><a href= "{% url 'blog:category' post.category %}" >{{ object.category }}</a></h5>
             <ul class="icons">
                 <li><a href="{% url 'blog:update' object.id %}" class="icon solid fas fa-user-edit"><span class="label">Update</span></a></li>
             </ul>
@@ -38,9 +39,11 @@
 
 
         </header>
-
-
-        <div class="image main"><img src="{% static 'images/pic01.jpg' %}" alt="" /></div>
+{% comment %} 이미지가 안나온다ㅏㅏㅏㅏㅏ {% endcomment %}
+        <div class="image main"> <img src="{{ img_posts.image.url }}" >
+                <a href="{{ img_posts.image.url }}"> </a> 
+            </div>
+        {% comment %} <div class="image main"><img src="{{ object.image.url }}" alt="" /></div> {% endcomment %}
         <p>{{ object.content|linebreaks }}</p>
 
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse  # 빨간색 책 139page + 검색해보기 # URL 패턴을 만들어 주는 내장함수
 from taggit.managers import TaggableManager # 태그
+from photo.fields import ThumbnailImageField
 
 # 추가
 from django.contrib.auth.models import User
@@ -20,29 +21,32 @@ $ python manage.py makemigrations blog
 
 # models.py
 class Category(models.Model):
-    name          = models.CharField(max_length=30)
-    slug          = models.SlugField(unique=True, allow_unicode=True)
-    parent        = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True,related_name='children' )
+    name          = models.CharField(max_length=150)
+    # slug          = models.SlugField(unique=True, allow_unicode=True)
+    # parent        = models.ForeignKey('auth.User', on_delete=models.CASCADE, blank=True, null=True,related_name='children' )
 
-    class Meta:
+    # class Meta:
 
-        unique_together     = ['slug', 'parent'] # 위에 존재하는 속성 만으로만 작성 가능 
-        verbose_name_plural = "categories"     
+    #     unique_together     = ['parent'] # 위에 존재하는 속성 만으로만 작성 가능 
+    #     verbose_name_plural = "categories"     
 
-    def __str__(self):                           
-        full_path = [self.name]                  
-        k = self.parent
-        while k is not None:
-            full_path.append(k.name)
-            k = k.parent
-        return ' -> '.join(full_path[::-1])
+    def __str__(self):    
+        return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse('blog:category', args=(self.slug,)) 
+    def get_absolute_url(self):
+        return reverse('blog:post_list') # args=(self.slug,)
+
+        # def __str__(self):                           
+    #     full_path = [self.name]                  
+    #     k = self.parent
+    #     while k is not None:
+    #         full_path.append(k.name)
+    #         k = k.parent
+    #     return ' -> '.join(full_path[::-1])
+
 
 class Post(models.Model):
 
-    category     = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,  blank=True)
     owner        = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER',blank=True, null=True)
     title        = models.CharField(verbose_name='TITLE', max_length=100)
     slug         = models.SlugField('SLUG', unique= True, allow_unicode= True, help_text='one world for title alias.') # 글의 별칭 -> 게시물검색  # 슬러그 자세한 내용은 -> 파란색 75page
@@ -50,10 +54,15 @@ class Post(models.Model):
     content      = models.TextField('CONTENT')
     create_dt    = models.DateTimeField('CREATE DATE', auto_now_add=True) # 글 작성시간
     modify_dt    = models.DateTimeField('MODIFY DATE', auto_now=True) # 글 수정 시간 
-    tags         = TaggableManager(blank=True)
-    # 이미지 
-    photo_Art    = models.ImageField(upload_to='photo/%y/%m', blank=True, null=True)    
+    tags         = TaggableManager(blank=True, help_text="A comma-separated list of tags.")
     
+    # 이미지 
+    image    = models.ImageField(upload_to='photo/%y/%m', blank=True, null=True)    
+    
+    # category 
+    # category     = models.ForeignKey(Category, default=1, on_delete=models.CASCADE, null=True, blank=True)
+    category     = models.CharField(max_length=150, null=True, blank=True, default='code')
+
     class Meta:
 
         verbose_name = 'post'
@@ -96,15 +105,19 @@ class Post(models.Model):
         super().save(*args, **kwargs) # 부모 클래스 save를 호출 테이블에 반영
 
 
-    def get_cat_list(self):
-        k = self.category # for now ignore this instance method
+# 이미지 
+class PhotoArt(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(upload_to='post/%y/%m', blank=True, null=True)
 
-        breadcrumb = ["dummy"]
-        while k is not None:
-            breadcrumb.append(k.slug)
-            k = k.parent
-        for i in range(len(breadcrumb)-1):
-            breadcrumb[i] = '/'.join(breadcrumb[-1:i-1:-1])
-        return breadcrumb[-1:0:-1]
+    # def __str__(self):
+    #     """
+    #     docstring
+    #     """
+    #     return self.title
 
-# 게시는 글 작업해보고 올리자!
+    # def get_absolute_url(self):
+    #     """
+    #     docstring
+    #     """
+    #     return reverse('blog:post_detail')

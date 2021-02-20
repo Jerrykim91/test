@@ -13,6 +13,8 @@ urlpatterns = [
     path('',views.PostLV.as_view(), name='index'), # /blog/
     path('post/',views.PostLV.as_view(), name='post_list'), # /blog/post/
     # path('post/',views.PostLV.as_view(), name='post_list'), # /blog/post/
+    # re_path(r'^category/(?P<hierarchy>[-\w]+)/^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'), #/blog/post/???
+
     re_path(r'^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'), #/blog/post/???
     path('archive/', views.PostAV.as_view(), name='post_archive'), # /blog/archive/
     path('archive/<int:year>/', views.PostYAV.as_view(), name='post_year_archive'), # /blog/archive/2020
@@ -23,7 +25,7 @@ urlpatterns = [
     # App Extend
     path('add/', views.PostCreateView.as_view(), name='add'),
     path('change/', views.PostChangeLV.as_view(), name='change'),
-    path('<int:pk>/update/', views.PostkUpdateView.as_view(), name='update'),
+    path('<int:pk>/update/', views.PostUpdateView.as_view(), name='update'),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name='delete'),
 
 
@@ -38,10 +40,8 @@ urlpatterns = [
     path('about/', views.AboutDV.as_view(), name='post_about'), # /blog/about/
 
     # category
-    path('category/',views.CategoryLV.as_view(), name='category'), # /blog/post/
-    # re_path(r'^category/(?P<hierarchy>[-\w]+)/$', views.show_category, name='category'),
-    # path('category/',views.CategoryLV.as_view(), name='category'), # /blog/post/
-    # re_path(r'^category/(?P<hierarchy>[-\w]+)/$', views.showCategoryLV.as_view(), name='category_test'),
-
+    path('addCategory/',views.addCategoryView.as_view(), name='add_category'), # /blog/addCategory/
+    path('<str:cats>/',views.CategoryView, name='category'), # /blog/category_name/
+    # re_path(r'^post/(?P<str:cats>[-\w]+/$', views.CategoryView, name='category'),
 
 ]

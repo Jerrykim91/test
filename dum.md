@@ -1,3 +1,99 @@
+
+```html
+<!-- extends from base.html -->
+{% extends 'blog/base.html'%}
+
+<!-- title -->
+{% block title %}Link List{% endblock %}
+{% load widget_tweaks %}
+{% load static %}
+
+<!-- contents -->
+{% block content %}
+
+<div id="main">
+    <header class="major">
+        <h1>카테고리 테스트 </h1>
+
+    </header>
+
+    <section class="post">
+
+    <div class='six'>
+
+            <p>// 카테고리2 </p>
+            
+            {% for category in categories %}
+            {{category.slug}}
+            <a href="{% url 'blog:category category.slug '%}">{{ category.name }}</a>
+            {% endfor %}
+            <p>테스트 // </p>
+            {% comment %}  test {% endcomment %}
+
+                <ul class="breadcrumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {{category}}
+                    {% comment %} {% for slug, name in breadcrumbs %}
+                    {{ slug}}
+                    {{ name}}
+                        <li><a href="blog/category/{{ slug }}">{{ name }}</a></li>
+                        <li><a href="{{ category.get_absolute_url }}">{{ category.get_absolute_url.name }}</a></li>
+                    {% endfor %} {% endcomment %}
+                </ul>
+
+
+            {% if sub_categories %}
+                <h3>Sub Categories</h3>
+                {% for i in sub_categories %}
+                    {% comment %} <a href="{{ i.slug }}"> {{ i.name }} </a> {% endcomment %}
+                    <li><a href="{{ category.get_absolute_url }}">{{ category.get_absolute_url.name }}</a></li>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+            <br>
+            {% if sub_categories %}
+                <h3>Sub Categories</h3>
+                {% for i in sub_categories %}
+                    <a href="{{ i.slug }}"> {{ i.name }} </a>
+                {% endfor %}
+            {% endif %}
+
+            <div class="row small-up-1 medium-up-3" >
+            {% if post_set %}
+            {% for i in post_set %}
+                <div class="columns">
+                    <div class=" card-article-hover card">
+                    <a href="{{ i.slug }}">
+                        <img  src="{{ i.cover_photo.url }}">
+                    </a>
+                    <div class="card-section">
+                        <a href="{{ i.slug }}">
+                        <h6 class="article-title">{{ i.title | truncatechars:30}}</h6>
+                        </a>
+                    </div>
+                    <div class="card-divider flex-container align-middle">
+                        <a href="" class="author">{{ i.user.get_full_name }}</a>
+                    </div>
+                    <div class="hover-border">
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% endif %}
+            </div>
+    </section>
+    <br/>
+</div>
+
+{% endblock %}
+
+
+
+
+
+```
+
 ```html
    <!-- Post -->
     <section class="post">
