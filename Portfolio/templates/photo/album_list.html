@@ -9,48 +9,53 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
 
-    <!-- Post -->
-    <section class="post">
+<section id="two">
         <header class="major">
-            <!-- <span class="date">{{ object.modify_dt|date:'j F Y' }}</span> // 오늘 날자 쓸수 있으면 좋겠다-->
-            <h1> Album LIST </h1>
-            <ul class='nav justify-content-center'  >
-                <li class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></li>
-                <li class="nav-item"><h3><a href="{% url 'photo:photo_add' %}"><i class="fa fa-plus"></i>&nbsp;photo_add &nbsp;</a></h3></li>
-                <li class="nav-item"><h3><a href="{% url 'photo:photo_change' %}"><i class="fas fa-edit"></i></i>&nbsp;photo_change &nbsp;</a></h3></li>
-                
-            </ul>
-            <br/>
-            <ul class='nav justify-content-center'  >
-                <li class="nav-item"><h3><a href="{% url 'photo:album_add' %}"><i class="fa fa-plus"></i>&nbsp;album_add &nbsp;</a></h3></li>
-                <li class="nav-item"><h3><a href="{% url 'photo:album_change' %}"><i class="fas fa-edit"></i></i>&nbsp;album_change &nbsp;</a></h3></li>
-            </ul>
-
+            <h1> ALBUm. </h1>
+            <h4>Hi🖐️, {{ user }} 😉</h4>
+            <p>Album LISt.</p>
+            <p>
+                <tr>
+                    <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'photo:album_change' %}">&nbsp;album_change
+                            &nbsp;</a></th>
+                    <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'photo:album_add' %}">&nbsp;album_add
+                            &nbsp;</a></th>
+                    <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'photo:photo_change' %}">&nbsp;photo_change
+                            &nbsp;</a></th>
+                    <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'photo:photo_add' %}">&nbsp;photo_add
+                            &nbsp;</a></th>
+                </tr></p>
         </header>
-
-        {% for item in object_list%}
-        <div class="mt-5">
-            <a class="h2" href="{% url 'photo:album_detail' item.id %}">{{ item.name }}</a>&emsp;
-            <span class="h5">{{ item.description }}</span>
-        </div>
 
         <hr style="margin: 0 0 20px 0;">
 
-        <div class="row">
-            {% for photo in item.photo_set.all|slice:":5" %}
-            <div class="ml-5">
-                <div class="thumbnail">
-                    <a href=" {{photo.get_absolute_url }}">
-                        <img src="{{ photo.image.thumb_url }}" style="width: 100%;">
-                    </a>
-                </div>
+
+    <div class="box alt">
+
+        {% for item in object_list%}
+            <a href="{% url 'photo:album_detail' item.id %}"><h2>{{ item.name }}</h2></a>
+            
+            <hr style="margin: 0 0 20px 0;"><br/>
+            <p>{{ item.description }}</p>
+
+            <div class="row gtr-50 gtr-uniform">
+                {% for photo in item.photo_set.all|slice:":5" %}
+                    <div class="col-4 work-item">
+                        <a href="{{ photo.get_absolute_url }}"><span class="image fit">
+                            <img src="{{ photo.image.thumb_url }}" alt="" /></span>
+                        </a>
+                    </div>
+                    
+                {% endfor %}
             </div>
-            {% endfor %}
+            <br/><br/>
+        {% endfor %}    
         </div>
-        {% endfor %}
-    </section>
-</div>
+        
+    <hr style="margin: 0 0 20px 0;">
+
+</section>
+
 
 {% endblock %}

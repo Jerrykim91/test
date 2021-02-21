@@ -10,121 +10,104 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
     <header class="major">
-        <h1>book mark</h1>
-         <p>
-            메모 : edwith 디자인과 유사하게 
-            </p>
-        <ul class='nav justify-content-center'  >
-            <li class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'linkList:add' %}"><i class="fa fa-plus"></i>&nbsp;add &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'linkList:change' %}"><i class="fas fa-edit"></i></i>&nbsp;change &nbsp;</a></h3></li>
-        </ul>
-        
+        <h4>Hi🖐️, {{ user }} 😉</h4>
+        <h1>Link mark</h1>
+        <p>
+        <tr>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'linkList:add' %}">&nbsp;add &nbsp;</a></th>
+            <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'linkList:change' %}">&nbsp;change &nbsp;</a></th>
+        </tr>
+        </p>
     </header>
-    
-    <section class="posts">
 
-        {% for Link in object_list %}
-        <article>
-            <header>
-                <!--<span class="date">April 24, 2017</span>-->
-                <h2><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h2>
 
-            </header>
 
-            <div>
-                <a href="{{ Link.url }}" class="image fit">
-                    <img src="{% static 'images/pic02.jpg' %}" target="_blank" style="width: 50%;" class="five" alt="[dev-test]" />
+    <section>
+        <!--input 란 만들기-->
+        <input placeholder="[dev- test] 이곳에 ctrl+v로 붙여넣기 " type="text">
+        <br />
+        <div class="row-center">
+            {% for Link in object_list %}
+            <article class="col-4 col-4-xsmall work-item">
+            <div class="alt">
+                <h3><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h3>
+                <a href="{{ Link.url }}" class="image fit thumb" target="_blank">
+                    <img src="{% static 'main/images/pic01.jpg' %}"  alt="[dev-test]" />
                 </a>
-                <h4>{{ Link.content }}</h4>
-                <p id="copyUrl" hidden>{{ Link.url }}</p>
                 
-            </div>
-            <br />
-            <!-- https://ko.grabz.it/api/python/image-capture-options/ -->
-            <!--테스트 란 만들기-->
-            <input id='inputField' value="{{ Link.url }}"  type="text" >
+                <p>{{ Link.content }}</p>
 
-            <br />
-            <!--// 버튼 만들기-->
-            <ul class="actions special">
-                <!-- <li><input type='button' onclick="clipBoard('copyUrl');" value=" 텍스트 복사하기"/> -->
-                <li><button onclick="InputclipBoard('inputField');"> 링크 복사 [NG] </button></li>
-                <li><a href="{{Link.url}}" class="button" target="_blank"> 링크로 이동 </a></li>
-            </ul>
+                <div>
+                    <p id="copyUrl" hidden>{{ Link.url }}</p>
+                    {% comment %} 카피 안되서 임시  {% endcomment %}
+                    <input id='inputField' value="{{ Link.url }}"  type="text" >
+                </div>
+                <br />
+                
+                <!--// 버튼 만들기-->
+                {% comment %} <ul class="actions fit">
+                    <li><a href="{{Link.url}}" class="button primary fit" target="_blank"> See </a></li>
+                </ul> {% endcomment %}
 
-            <!-- Tag system -->
-            <div>
-                <b>TAGS</b> <i class="fas fa-tag"></i>
-                {% load taggit_templatetags2_tags %}
-                {% get_tags_for_object Link as "tags"%}
-                {% for tag in tags %}
-                <a href="{% url 'linkList:tagged_object_list' tag.name %}"> # {{tag.name}} </a>
-                {% endfor %}
-                &emsp;
-                <a href="{% url 'linkList:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
-            </div>
+                <!-- Tag system -->
+                <div>
+                    <b>TAGS</b> <i class="fas fa-tag"></i>
+                    {% load taggit_templatetags2_tags %}
+                    {% get_tags_for_object Link as "tags"%}
+                    {% for tag in tags %}
+                    <a href="{% url 'linkList:tagged_object_list' tag.name %}"> # {{tag.name}} </a>
+                    {% endfor %}
+                    &emsp;
+                    <a href="{% url 'linkList:tag_cloud' %}">TagCloud</a>
+                </div>
+                 </div>
+                <br />
+                <hr style="margin: 0 0 20px 0;">
+            </article>
+             <br />
             
-            <br />
-            <!--input 란 만들기-->
-            <input placeholder="[dev- test] 이곳에 ctrl+v로 붙여넣기 " type="text">
-            <br />
-        </article>
-        {% endfor %}
+            {% endfor %}
     </section>
 
-    <!-- pagination -->
-    <footer>
-        <div class="pagination">
+     <!-- pagination // 가운데로!  -->
+     <footer >
+        <ul class="pagination">
             <!-- Prev page setting -->
             {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}" class="previous">Prev</a>
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="button">Prev</a></li>            
             {% endif %}
-
             <!--  main : page pagination   -->
             {% for page_number in page_obj.paginator.page_range %}
-                <!-- pagination lv control  -->
-                {% if page_number >= page_obj.number|add:-5 and page_number <= page_obj.number|add:5 %} <!-- page number
-                    match-->
+            <!-- pagination lv control  -->
+                {% if page_number >= page_obj.number|add:-5 and page_number <= page_obj.number|add:5 %}
+                <!-- page number match-->
                     {% if page_number == page_obj.number %}
-                    <li class="page-item active">
-                        <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
-                    </li>
+                    <li><a class="page active" href="?page={{ page_number }}">{{ page_number }}</a></li>
                     {% else %}
-                    <li class="page-item">
-                        <a class="page" href="?page={{ page_number }}">{{ page_number }}</a>
-                    </li>
+                    <li><a class="page" href="?page={{ page_number }}">{{ page_number }}</a></li>
                     {% endif %}
                 {% endif %}
             {% endfor %}
-
+   
             <!-- next page setting -->
             {% if page_obj.has_next %}
             <!-- 마지막 page -->
-            <!-- <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a> -->
-            <!-- 바로 다음 page -->
-            <a href="?page={{ page_obj.next_page_number }}" class="next">Next</a>
+                <!-- <a href="?page={{ page_obj.paginator.num_pages }}" class="page">{{ page_obj.paginator.num_pages }}</a> -->
+                <!-- 바로 다음 page -->
+                <li><a href="?page={{ page_obj.next_page_number }}" class="button">Next</a></li>
             {% endif %}
-        </div>
+        </ul>
+        <br/>
     </footer>
-    <br />
-</div>
-
+</section>
 {% endblock %}
 
 
 
 <!-- Scripts -->
 {% block extra_js %}
-<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
-<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
-<script src="{% static 'assets/js/browser.min.js' %}"></script>
-<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
-<script src="{% static 'assets/js/util.js' %}"></script>
-<script src="{% static 'assets/js/main.js' %}"></script>
 <script>
 
     function InputclipBoard() {

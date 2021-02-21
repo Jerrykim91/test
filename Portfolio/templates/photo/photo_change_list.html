@@ -9,19 +9,24 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
     <header class="major">
-        <h4>hi🖐️, {{ user }} 😉</h4>
-        <h1>photo Change!</h1>
-        <ul class='nav justify-content-center'  >
-            <li class="nav-item"><h3><a href="{% url 'photo:album_list' %}"><i class="fa fa-home"></i>&nbsp;album_list &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'photo:photo_add' %}"><i class="fa fa-plus"></i>&nbsp;photo_add &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'photo:photo_change' %}"><i class="fas fa-edit"></i></i>&nbsp;photo_change &nbsp;</a></h3></li>
-        </ul>
+        <h4>Hi🖐️, {{ user }} 😉</h4>
+        <h1>You Can Change photo.</h1>
+        <p>
+        <tr>
+            <th><i class="fa fa-home"></i>&nbsp;&nbsp;<a href="{% url 'photo:album_list' %}">&nbsp;album_list &nbsp;</a></th>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'photo:album_add' %}">&nbsp;album_add &nbsp;</a></th>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'photo:photo_add' %}">&nbsp;photo_add &nbsp;</a></th>
+        </tr>
+        </p>
+
     </header>
 
+    <hr style="margin: 0 0 20px 0;">
+
     <!-- form tag -->
-    <section class="post">
+    <section class="content">        
         <div class="table-wrapper">
             <table class="alt">
                 <thead>
@@ -30,8 +35,7 @@
                         <th>TITLE</th>
                         <th>DESCRIPTION</th>
                         <th>OWNER</th>
-                        <th>UPDATE</th>
-                        <th>DELETE</th>
+                        <th>UPDATE & DELETE</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,8 +45,7 @@
                         <td>{{ item.title }}</td>
                         <td>{{ item.description }}</td>
                         <td>{{ item.owner }}</td>
-                        <td><a href="{% url 'photo:photo_update' item.id %}">Update</a></td>
-                        <td><a href="{% url 'photo:photo_delete' item.id %}">Delete</a></td>
+                        <td><a href="{% url 'photo:photo_update' item.id %}">Update</a> / <a href="{% url 'photo:photo_delete' item.id %}">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -50,5 +53,6 @@
         </div>
         <br />
     </section>
-</div>
+    <hr style="margin: 0 0 20px 0;">
+</section>
 {% endblock %}

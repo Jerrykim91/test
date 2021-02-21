@@ -9,59 +9,59 @@
 <!-- contents -->
 {% block content %}
 
-
 <div id="main">
+    <section>
+            <header class="main">
+                <br/>
+                <div>
+                <h3><a href= "{% url 'blog:category' post.category %}" >{{ object.category }}</a></h3>
+                {% if  user.is_authenticated %}
+                    <h3> <a href="{% url 'blog:delete' object.id %}" >Delete</a>| <a href="{% url 'blog:update' object.id %}" >Update</a></h3>
+                {% endif %}
+                </div>
+                
+                <span class="date">{{ object.modify_dt|date:'j F Y' }}</span>
+                
+                <br/>
+                    <h1>{{ object.title }}</h1>
 
-    <!-- Post -->
-    <section class="post">
-        <header class="major">
-            <span class="date">{{ object.modify_dt|date:'j F Y' }}</span>
-            <h5><a href= "{% url 'blog:category' post.category %}" >{{ object.category }}</a></h5>
-            <h2>{{ object.title }}</h2>
-            
-            <ul class="icons">
-                <li><a href="{% url 'blog:update' object.id %}" class="icon solid fas fa-user-edit"><span class="label">Update</span></a></li>
-            </ul>
-                    <!-- 다음글 -->
-        <div>
-            {% if object.get_next %}
-            <a href=" {{object.get_next.get_absolute_url }}" title="View previous post">
-                <i class="fas fa-angle-double-left"></i>&nbsp;&nbsp;{{ object.get_next }}
-            </a>
-            {% endif %}
+                <!-- 다음글 -->
+                <div>
+                    {% if object.get_next %}
+                    <a href=" {{object.get_next.get_absolute_url }}" title="View previous post">
+                        <i class="fas fa-angle-double-left"></i>&nbsp;&nbsp;{{ object.get_next }}
+                    </a>
+                    {% endif %}
 
-            &nbsp;
+                    &nbsp;
 
-            {% if object.get_previous %}
-            | &nbsp; <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">
-                {{object.get_previous }}&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
-            {% endif %}
+                    {% if object.get_previous %}
+                    | &nbsp; <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">
+                        {{object.get_previous }}&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
+                    {% endif %}
+            </header>
+
+            <!-- Post -->
+            <span class="image main"><img src="{{ img_posts.image.url }}" alt="" /></span>
+            <p>{{ object.content|linebreaks }}</p>
+
+        <br>
+
+            <!-- Tag system -->
+            <div>
+                <b>TAGS</b> <i class="fas fa-tag"></i>
+                {% load taggit_templatetags2_tags %}
+                {% get_tags_for_object object as "tags"%}
+                {% for tag in tags %}
+                <a href="{% url 'blog:tagged_object_list' tag.name %}"> # {{tag.name}} </a>
+                {% endfor %}
+                &emsp;
+                <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
             </div>
-
-
-        </header>
-{% comment %} 이미지가 안나온다ㅏㅏㅏㅏㅏ {% endcomment %}
-        <div class="image main"> <img src="{{ img_posts.image.url }}" >
-                <a href="{{ img_posts.image.url }}"> </a> 
-            </div>
-        {% comment %} <div class="image main"><img src="{{ object.image.url }}" alt="" /></div> {% endcomment %}
-        <p>{{ object.content|linebreaks }}</p>
-
-
-
-        <!-- Tag system -->
-        <div>
-            <b>TAGS</b> <i class="fas fa-tag"></i>
-            {% load taggit_templatetags2_tags %}
-            {% get_tags_for_object object as "tags"%}
-            {% for tag in tags %}
-            <a href="{% url 'blog:tagged_object_list' tag.name %}"> # {{tag.name}} </a>
-            {% endfor %}
-            &emsp;
-            <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
-        </div>
+ 
     </section>
-
+    
+    <hr class="major" />
     <br>
 
     <!-- Comment -->
@@ -69,14 +69,14 @@
     <div id="disqus_thread">
         {% disqus_show_comments %}
     </div>
-</div>
+    
+    <hr class="major" />
 
 {% endblock %}
 
 
 
 {% block extra-script %}
-
 <script>
 
     var disqus_config = function () {
