@@ -9,11 +9,19 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
     <header class="major">
         <h4>hi🖐️, {{ user }} 😉</h4>
         <h1>bookmark Change!</h1>
+        <p>
+        <tr>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'linkList:add' %}">&nbsp;add &nbsp;</a></th>
+            {% comment %} <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'linkList:change' %}">&nbsp;change &nbsp;</a></th> {% endcomment %}
+        </tr>
+        </p>
     </header>
+
+<hr style="margin: 0 0 20px 0;">
 
     <!-- form tag -->
     <section class="post">
@@ -21,21 +29,19 @@
             <table class="alt">
                 <thead>
                     <tr>
-                        <th>TITLE</th>
-                        <th>URL</th>
+                        <th>TITLE(URL)</th>
+                        <th>CONTENT</th>
                         <th>OWNER</th>
-                        <th>UPDATE</th>
-                        <th>DELETE</th>
+                        <th>UPDATE & DELETE</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in object_list %}
                     <tr>
-                        <td>{{ item.title }}</td>
-                        <td><a a href="{{ item.url }}">{{ item.url }}</td>
+                        <td><a href="{{ item.url }}">{{ item.title }}</td>
+                        <td>{{ item.content }}</td>
                         <td>{{ item.owner }}</td>
-                        <td><a href="{% url 'linkList:update' item.id %}">Update</a></td>
-                        <td><a href="{% url 'linkList:delete' item.id %}">Delete</a></td>
+                        <td><a href="{% url 'linkList:update' item.id %}">Update</a> / <a href="{% url 'linkList:delete' item.id %}">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -43,5 +49,5 @@
         </div>
         <br />
     </section>
-</div>
+ </section>
 {% endblock %}

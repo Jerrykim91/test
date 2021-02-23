@@ -9,14 +9,26 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
-    <section class="post">
-        <header class="major">
+<section>
+    <header class="major">
+        <h4>Hi🖐️, {{ user }} 😉</h4>
+        <h1>Link mark</h1>
+        
+        <p>
+        <tr>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'linkList:add' %}">&nbsp;add &nbsp;</a></th>
+            <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'linkList:change' %}">&nbsp;change &nbsp;</a></th>
+        </tr>
+        </p>
+    </header>
+    <hr style="margin: 0 0 20px 0;">
+
+        <div class="content">
+        <br>
             <h2>{{ object.title }}</h2>
-        </header>
-        <ur>
-            <li> URL : <a href="{{ object.url }}">{{ object.url }}</a></li>
-        </ur>
+            <p>URL : <a href="{{ object.url }}">{{ object.url }}</a></p>
+            <p>CONTENT : <a href="{{ object.content }}">{{ object.content }}</a></p>
+        </div>
 
         <!-- Tag system -->
         <div>
@@ -24,16 +36,12 @@
             {% load taggit_templatetags2_tags %}
             {% get_tags_for_object object as "tags"%}
             {% for tag in tags %}
-            <a href="{% url 'linkList:tagged_object_list' tag.name %}">{{tag.name}}</a>
+            <a href="{% url 'linkList:tagged_object_list' tag.name %}"># {{tag.name}}</a>
             {% endfor %}
             &emsp;
-            <a href="{% url 'linkList:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
+            <a href="{% url 'linkList:tag_cloud' %}">TagCloud</a>
         </div>
-        
-    </section>
-    <br>
-</div>
-
+        <br/>
+        <hr style="margin: 0 0 20px 0;">
+</section>
 {% endblock %}
-
-<!-- 이거 디자인 변경 필요해보임  -->

@@ -9,11 +9,19 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
     <header class="major">
-        <h4>hi🖐️, {{ user }} 😉</h4>
-        <h1>bookmark <br />
-            Create & Update</h1>
+        <h4>Hi🖐️, {{ user }} 😉</h4>
+        <h1>Link Mark Create & Update</h1>
+        
+        <p>
+        <tr>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'linkList:add' %}">&nbsp;add &nbsp;</a></th>
+            <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'linkList:change' %}">&nbsp;change &nbsp;</a></th>
+        </tr>
+        </p>
+    <hr style="margin: 0 0 20px 0;">
+           
         <!-- Errors -->
         {% if not form.errors %}
         <h3> This is a creation or update form for your bookmark. </h3>
@@ -30,7 +38,8 @@
         </div>
         {% endif %}
     </header>
-
+    <hr style="margin: 0 0 20px 0;">
+    <div class="content">
     <!-- form tag -->
     <form method="post" action=".">
         {% csrf_token %}
@@ -51,5 +60,7 @@
         </div>
     </form>
     <br />
-</div>
+    </div>
+        <hr style="margin: 0 0 20px 0;">
+    </section>
 {% endblock %}
