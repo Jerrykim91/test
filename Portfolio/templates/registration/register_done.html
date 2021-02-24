@@ -5,18 +5,19 @@
 {% block title %} Register Done {% endblock %}
 
 {% block content %}
-<div id="main">
+<section>
     <article class="special" style="width: auto;">
         <br />
         <header class="major">
             <h2> REGISTION Completed successfully </h2>
             <h3> Thank you for registering! </h3>
-            <ul class="icons">
-                <!-- icon 참조 : https://fontawesome.com/ -->
-                <li><a href="{% url 'home' %}" class="icon solid fas fa-home"><span class="label">Home</span></a></li>
-                <li><a href="{% url 'login' %}" class="icon solid fa fa-user"><span class="label">Login</span></a></li>
-            </ul>
+            <p>
+        <tr>
+            <th><a href="{% url 'home' %}" class="icon solid fas fa-home"><span class="label">Home</span></a></th>
+            <th><a href="{% url 'login' %}" class="icon solid fa fa-user"><span class="label">Login</span></a></th>
+        </tr>
+        </p>
         </header>
     </article>
-</div>
+</section>
 {% endblock %}

@@ -69,10 +69,13 @@
                     {% endif %} 
                     <br>
                     <ul>
+                        <li><a href="{% url 'home' %}" class="icon solid fa fa-home"> &nbsp; Home</a></li>
+                        <li><a href="{% url 'logout' %}" class="icon solid fas fa-sign-out-alt"> &nbsp; Logout</a></li>
                         {% comment %} <li><a href="{% url 'home' %}">Home</a></li> {% endcomment %}
+                        
                         <li><a href="{% url 'blog:post_list' %}">Posts</a></li>
                         <li><a href="{% url 'linkList:index' %}">LinkMark</a></li>
-                        <li><a href="{% url 'logout' %}" class="icon solid fas fa-sign-out-alt"> &nbsp; Logout</a></li>
+                        
                     {% comment %} <li>
                         <span class="opener">Submenu-notyet</span>
                         <ul>
@@ -84,7 +87,7 @@
                 {% else %}
                     
                 <ul>
-                    <li><span class="opener">Visiter</span></li>
+                    <li><a href="{% url 'home' %}" class="icon solid fa fa-home"> &nbsp; Visiter</a></li>
                     <li><a href="{% url 'login' %}" class="icon solid fa fa-user"> &nbsp; Login</a></li>
                 </ul>
                 

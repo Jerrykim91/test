@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import date, datetime, time
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'disqus',
     'widget_tweaks',
     'fontawesome-free',
+    'markdownx', # 마크 다운 
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
     'django.contrib.sites',
@@ -50,7 +52,7 @@ INSTALLED_APPS = [
     'blog',
     'linkList.apps.LinklistConfig',
     'photo.apps.PhotoConfig',
-    # 'melog.apps.MelogConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -166,6 +168,7 @@ STATICFILES_FINDERS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MARKDOWNX_MEDIA_PATH = datetime.now().strftime('markdownx/%Y/%m/%d')
 
 TAGGIT_CASE_INSENSITIVE= True
 TAGGIT_LIMIT = 50 
@@ -175,8 +178,21 @@ DISQUS_WEBSITE_SHORTNAME = "http-127-0-0-1-8000-yssnmdadoy"
 DISQUS_SHORTNAME = "http-127-0-0-1-8000-yssnmdadoy"
 DISQUS_MY_DOMAIN = 'http://127.0.0.1:8000/'
 
-# STATIC_URL  = '/static_test/'
-# STATICFILES_DIRS = [BASE_DIR / 'static_test']
+# 마크다운
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra', # 각주 
+    'markdown.extensions.toc', # 테이블 컨텐츠
+    'markdown.extensions.codehilite', # 문법 하이라이팅 
+    'markdown.extensions.fenced_code', # 코드블락
+]
+
+MARKDOWNX_MARKDOWN_EXTENSION_CONFIGS = {
+    'markdown.extensions.codehilite': {
+        'linenums': True,
+        'use_pygments': True,
+        'noclasses': True
+    }
+}
 
 SITE_ID = 1
 

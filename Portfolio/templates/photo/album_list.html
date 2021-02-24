@@ -9,7 +9,6 @@
 <!-- contents -->
 {% block content %}
 
-
 <section id="two">
         <header class="major">
             <h1> ALBUm. </h1>
@@ -30,15 +29,13 @@
 
         <hr style="margin: 0 0 20px 0;">
 
-
     <div class="box alt">
 
         {% for item in object_list%}
             <a href="{% url 'photo:album_detail' item.id %}"><h2>{{ item.name }}</h2></a>
-            
             <hr style="margin: 0 0 20px 0;"><br/>
-            <p>{{ item.description }}</p>
 
+            <p>{{ item.description }}</p>
             <div class="row gtr-50 gtr-uniform">
                 {% for photo in item.photo_set.all|slice:":5" %}
                     <div class="col-4 work-item">
@@ -46,16 +43,11 @@
                             <img src="{{ photo.image.thumb_url }}" alt="" /></span>
                         </a>
                     </div>
-                    
                 {% endfor %}
             </div>
             <br/><br/>
         {% endfor %}    
         </div>
-        
     <hr style="margin: 0 0 20px 0;">
-
 </section>
-
-
 {% endblock %}

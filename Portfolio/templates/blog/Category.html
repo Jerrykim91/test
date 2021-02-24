@@ -9,28 +9,29 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
     <header class="major">
+        <h4>hi🖐️, {{ user }} 😉</h4>
         <h1>ADD Category</h1>
     </header>
 
-    <section class="post">
+
+    <div class="content">
 
     {% if user.is_authenticated %}
-    <div class='six'>
         <form method='POST'>
         {% csrf_token %} 
         {{ form.as_p }}
-        <button class='btn btn-seccondary'>ADD category</button>
-        </div>
+        <input type="submit" value="Add Category" />
+        {% comment %} <button class='btn btn-seccondary'>ADD category</button> {% endcomment %}
+        
     {% else %}
         <p> 로그인 하삼 </p>
     {% endif %}
+    </div>
 
-    </section>
     <br/>
-</div>
-
+</section>
 {% endblock %}
 
 

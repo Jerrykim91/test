@@ -5,9 +5,12 @@
 {% block title %} Logged Out {% endblock %}
 
 {% block content %}
-<div id="main">
+<section>
+    {% comment %} <header class="major"> {% endcomment %}
     <article class="special" style="width: auto;">
+        <hr style="margin: 0 20px 20px 0;">
         <br />
+
         <ul class="icons">
             <!-- icon 참조 : https://fontawesome.com/ -->
             <!-- <li><a href="{% url 'home' %}" class="icon solid fas fa-home"><span class="label">Home</span></a></li> -->
@@ -19,9 +22,9 @@
             
             <h4> Thank you for visiting this Blog Today,  Have a nice day!</h4>
             <br />
-            
         </header>
     </article>
     <br />
-</div>
+</section>
+    <hr style="margin: 0 20px 20px 0;">
 {% endblock %}

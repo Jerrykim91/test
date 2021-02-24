@@ -12,7 +12,7 @@
 <section>
     <header class="major">
         <h4>hi🖐️, {{ user }} 😉</h4>
-        <h1>bookmark Change!</h1>
+        <h1>LinkMark Change!</h1>
         <p>
         <tr>
             <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'linkList:add' %}">&nbsp;add &nbsp;</a></th>
@@ -37,9 +37,10 @@
                 </thead>
                 <tbody>
                     {% for item in object_list %}
-                    <tr>
+                    
+                    <tr> 
                         <td><a href="{{ item.url }}">{{ item.title }}</td>
-                        <td>{{ item.content }}</td>
+                        <td>{{ item.formatted_markdown|safe  }}</td>
                         <td>{{ item.owner }}</td>
                         <td><a href="{% url 'linkList:update' item.id %}">Update</a> / <a href="{% url 'linkList:delete' item.id %}">Delete</a></td>
                     </tr>

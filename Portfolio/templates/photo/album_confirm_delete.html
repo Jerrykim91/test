@@ -9,27 +9,34 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
     <header class="major">
         <h4>hi🖐️, {{ user }} 😉</h4>
         <h1>Album Delete</h1>
-        <ul class='nav justify-content-center' >
-            <li class="nav-item"><h3><a href="{% url 'home' %}"><i class="fa fa-home"></i>&nbsp;Home &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'photo:album_add' %}"><i class="fas fa-edit"></i></i>&nbsp;album_add &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'photo:album_list' %}"><i class="fa fa-home"></i>&nbsp;album_list &nbsp;</a></h3></li>
-        </ul>
+        <p>
+        <tr>
+            <th><i class="fa fa-landmark"></i>&nbsp;&nbsp;<a href="{% url 'photo:album_list' %}">&nbsp;album_list &nbsp;</a></th>
+            <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'photo:album_add' %}">&nbsp;album_add &nbsp;</a></th>
+        </tr>
+        </p>
     </header>
 
-    <section class="post">
+<hr style="margin: 0 20px 20px 0;">
+
+    <section>
+        <div class="content">
         <!-- form tag -->
-        <div class="five">
+         <br>
             <form method="post" action=".">
                 {% csrf_token %}
                 <h3> Are you <strong>sure</strong> you want to delete "{{ object }}"</h3>
+                 <br>
                 <input type="submit" value="Confirm" class="button primary fit small"/>
             </form>
             <br />
         </div>
     </section>
-</div>
+</section>
+    <hr style="margin: 0 20px 20px 0;">
+
 {% endblock %}

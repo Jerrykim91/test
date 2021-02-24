@@ -9,18 +9,23 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
     <header class="major">
+        <h4>hi🖐️, {{ user }} 😉</h4>
         <h1>{{ cats }}</h1>
-        <ul class='nav justify-content-center' >
-            <li class="nav-item"><h3><a href="{% url 'blog:post_list' %}"><i class="fas fa-landmark"></i></i>&nbsp;post_list &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'blog:add_category' %}"><i class="fa fa-plus"></i>&nbsp;add_category &nbsp;</a></h3></li>
-            <li class="nav-item"><h3><a href="{% url 'blog:change' %}"><i class="fas fa-edit"></i>&nbsp;change &nbsp;</a></h3></li>
-        </ul>
+        <p>
+        <tr>
+            <th><i class="fa fa-landmark"></i>&nbsp;&nbsp;<a href="{% url 'blog:post_archive' %}">&nbsp;archive &nbsp;</a></th>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'blog:change' %}">&nbsp;change &nbsp;</a></th>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'blog:add_category' %}">&nbsp;add_category &nbsp;</a></th>
+            <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'blog:post_list' %}">&nbsp;post_list &nbsp;</a></th>
+        </tr>
+        </p>
     </header>
+    
+<hr style="margin: 0 20px 20px 0;">
 
     <section class="post">
-    <div class='six'>
         <div class="table-wrapper">
                     <table>
                         <thead>
@@ -48,7 +53,7 @@
     </div>
     </section>
     <br/>
-</div>
+</section>
 
 {% endblock %}
 

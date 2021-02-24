@@ -32,14 +32,13 @@ class linkDV(DetailView):
 
 class linkCreateView(LoginRequiredMixin,CreateView):
     model = LinkList
-    template_name = 'linkList/link_form.html'
+    template_name = 'linkList/linklist_form.html'
     fields = ['title', 'url','content','tags']
     success_url = reverse_lazy('linkList:index') # redirect
     
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
-
 
 class linkChangeLV(LoginRequiredMixin,ListView):
     # model = LinkList

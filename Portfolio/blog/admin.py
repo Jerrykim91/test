@@ -1,13 +1,16 @@
 from django.contrib import admin
 from blog.models import Post
-from .models import Category,PhotoArt
+from .models import Category, PhotoArt
+
+# 마크다운
+from markdownx.admin import MarkdownxModelAdmin
 
 # Register your models here.
 class PhotoInline(admin.TabularInline):
     model = PhotoArt
 
 @ admin.register(Post) # 데코레이터
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(MarkdownxModelAdmin):
     """
     admin 사이트에서 어떤모습으로 
     보여줄지를 정의하는 클래스
@@ -26,6 +29,8 @@ class PostAdmin(admin.ModelAdmin):
 
     def tag_list(self, obj):
         return ','.join(o.name for o in obj.tags.all())
+
+
 
 # Category
 admin.site.register(Category)

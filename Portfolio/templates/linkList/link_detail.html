@@ -24,11 +24,16 @@
     <hr style="margin: 0 0 20px 0;">
 
         <div class="content">
-        <br>
-            <h2>{{ object.title }}</h2>
+            <h2> 🖐️ {{ object.title }}</h2>
             <p>URL : <a href="{{ object.url }}">{{ object.url }}</a></p>
-            <p>CONTENT : <a href="{{ object.content }}">{{ object.content }}</a></p>
+            <hr style="margin: 0 0 30px 0;">
+
+            <p> # CONTENT </p>
+            <p>{{ object.formatted_markdown|safe }}</p>
+
+            <br>
         </div>
+        <hr style="margin: 0 0 20px 0;">
 
         <!-- Tag system -->
         <div>
@@ -42,6 +47,5 @@
             <a href="{% url 'linkList:tag_cloud' %}">TagCloud</a>
         </div>
         <br/>
-        <hr style="margin: 0 0 20px 0;">
 </section>
 {% endblock %}

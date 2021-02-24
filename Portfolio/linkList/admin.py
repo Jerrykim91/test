@@ -1,10 +1,14 @@
 from django.contrib import admin
 from linkList.models import LinkList
 
+
+# 마크다운
+from markdownx.admin import MarkdownxModelAdmin
+
 # Register your models here.
 
 @ admin.register(LinkList)
-class LinkListAdmin(admin.ModelAdmin):
+class LinkListAdmin(MarkdownxModelAdmin):
     list_display =('id', 'title', 'url', 'tag_list')
     search_fields = ('title', 'content')
 

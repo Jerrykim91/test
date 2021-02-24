@@ -3,9 +3,13 @@ from django.urls import reverse  # 빨간색 책 139page + 검색해보기 # URL
 from taggit.managers import TaggableManager # 태그
 from photo.fields import ThumbnailImageField
 
-# 추가
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+
+
+# 마크다운
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 
 # Create your models here.
 
@@ -51,7 +55,8 @@ class Post(models.Model):
     title        = models.CharField(verbose_name='TITLE', max_length=100)
     slug         = models.SlugField('SLUG', unique= True, allow_unicode= True, help_text='one world for title alias.') # 글의 별칭 -> 게시물검색  # 슬러그 자세한 내용은 -> 파란색 75page
     description  = models.CharField('DESCRIPTION', max_length=100,blank= True, help_text= 'simple description text.')
-    content      = models.TextField('CONTENT')
+    # content      = models.TextField('CONTENT')
+    content      = MarkdownxField('CONTENT')
     create_dt    = models.DateTimeField('CREATE DATE', auto_now_add=True) # 글 작성시간
     modify_dt    = models.DateTimeField('MODIFY DATE', auto_now=True) # 글 수정 시간 
     tags         = TaggableManager(blank=True, help_text="A comma-separated list of tags.")
@@ -103,6 +108,12 @@ class Post(models.Model):
         """
         self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs) # 부모 클래스 save를 호출 테이블에 반영
+
+    def formatted_markdown(self):
+        """
+        마크다운
+        """
+        return markdownify(self.content)
 
 
 # 이미지 

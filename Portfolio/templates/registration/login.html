@@ -5,11 +5,13 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
-<!-- Main -->
+<section>    
     <article class="special" style="width: auto;">
         <br />
         <header class="major">
             <h1> LOGIN </h1>
+            <hr style="margin: 0 20px 20px 0;">
+
             {% if form.errors %}
             <p><strong> Errors &nbsp; </strong>: &nbsp; Your username and password didn't match. 
                 <br><strong>Please, Try again.</strong></p>
@@ -45,4 +47,5 @@
             <input type="hidden" name="next" value="{{ next }}" />
         </form>
     </article>
+    </section>
 {% endblock %}

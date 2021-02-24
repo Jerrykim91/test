@@ -9,44 +9,60 @@
 <!-- contents -->
 {% block content %}
 
-<div id="main">
+<section>
+    <header class="major">
+        <h4>hi🖐️, {{ user }} 😉</h4>
+        <h1>Post Delete</h1>
+        <hr style="margin: 0 20px 20px 0;">
+        {% comment %} {% if user.is_authenticated %}
+        <h5><a href="{% url 'blog:delete' object.id %}">Delete</a>| <a
+                href="{% url 'blog:update' object.id %}">Update</a></h5>
+        {% endif %} {% endcomment %}
+        <p>
+            <tr>
+                <th><i class="fa fa-landmark"></i>&nbsp;&nbsp;<a href="{% url 'blog:post_list' %}">&nbsp;List
+                        &nbsp;</a></th>
+                <th><i class="fa fa-edit"></i>&nbsp;&nbsp;<a href="{% url 'blog:add' %}">&nbsp;Add
+                        &nbsp;</a></th>
+            </tr>
+        </p>
+       <hr style="margin: 0 20px 20px 0;">
+
+       
+    </header>
+
     <section>
-            <header class="main">
-                <br/>
-                <div>
-                <h3><a href= "{% url 'blog:category' post.category %}" >{{ object.category }}</a></h3>
-                {% if  user.is_authenticated %}
-                    <h3> <a href="{% url 'blog:delete' object.id %}" >Delete</a>| <a href="{% url 'blog:update' object.id %}" >Update</a></h3>
-                {% endif %}
-                </div>
-                
-                <span class="date">{{ object.modify_dt|date:'j F Y' }}</span>
-                
-                <br/>
-                    <h1>{{ object.title }}</h1>
+        <div class="content">
+            
+            <!-- 다음글 -->
+            <a href="{% url 'blog:category' post.category %}">
+                <h4># {{ object.category }}</h4>
+            </a>
+            <span class="date">{{ object.modify_dt|date:'j F Y' }}</span>
+            <h1>{{ object.title }}</h1>
 
-                <!-- 다음글 -->
-                <div>
-                    {% if object.get_next %}
-                    <a href=" {{object.get_next.get_absolute_url }}" title="View previous post">
-                        <i class="fas fa-angle-double-left"></i>&nbsp;&nbsp;{{ object.get_next }}
-                    </a>
-                    {% endif %}
-
-                    &nbsp;
-
-                    {% if object.get_previous %}
-                    | &nbsp; <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">
-                        {{object.get_previous }}&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
-                    {% endif %}
-            </header>
-
-            <!-- Post -->
             <span class="image main"><img src="{{ img_posts.image.url }}" alt="" /></span>
-            <p>{{ object.content|linebreaks }}</p>
+            {% comment %} <p>{{ object.content|linebreaks }}</p> {% endcomment %}
+            <p>{{ object.formatted_markdown|safe }}</p>
+            
+            <!-- Post -->
+            <div>
+                {% if object.get_next %}
+                <a href=" {{object.get_next.get_absolute_url }}" title="View previous post">
+                    <i class="fas fa-angle-double-left"></i>
+                    &nbsp;&nbsp;{{ object.get_next }}</a>
+                {% endif %}
 
-        <br>
+                &nbsp;
 
+                {% if object.get_previous %}
+                | &nbsp; <a href=" {{ object.get_previous.get_absolute_url }}" title="View next post">
+                    {{object.get_previous }}&nbsp;&nbsp;<i class="fas fa-angle-double-right"></i></a>
+                {% endif %}
+            </div>
+            <br>
+            <hr style="margin: 0 20px 20px 0;">
+    
             <!-- Tag system -->
             <div>
                 <b>TAGS</b> <i class="fas fa-tag"></i>
@@ -58,10 +74,9 @@
                 &emsp;
                 <a href="{% url 'blog:tag_cloud' %}"><span class="btn btn-success btn-sm">TagCloud</span></a>
             </div>
- 
+        </div>
     </section>
-    
-    <hr class="major" />
+    </section>
     <br>
 
     <!-- Comment -->
@@ -69,9 +84,9 @@
     <div id="disqus_thread">
         {% disqus_show_comments %}
     </div>
-    
-    <hr class="major" />
 
+    <hr class="major" />
+</section>
 {% endblock %}
 
 

@@ -13,7 +13,7 @@
 <section>
     <header class="major">
         <h4>Hi🖐️, {{ user }} 😉</h4>
-        <h1>Link mark</h1>
+        <h1>LinkMark.</h1>
         <p>
         <tr>
             <th><i class="fa fa-plus"></i>&nbsp;&nbsp;<a href="{% url 'linkList:add' %}">&nbsp;add &nbsp;</a></th>
@@ -27,33 +27,37 @@
         <input placeholder="[dev- test] 이곳에 ctrl+v로 붙여넣기 " type="text">
         <br />
         <div class="row-center">
-            {% for Link in object_list %}
+            {% for item in object_list %}
             <article class="col-4 col-4-xsmall work-item">
             <div class="alt">
-                <h3><a href="{% url 'linkList:link_detail' Link.id %}">{{ Link.title }}</a></h3>
-                <a href="{{ Link.url }}" class="image fit thumb" target="_blank">
+                <h2>{{ item.title }} &nbsp;&nbsp; </h2>
+                <a href="{{ item.url }}" class="image fit thumb" target="_blank">
                     <img src="{% static 'main/images/pic01.jpg' %}"  alt="[dev-test]" />
                 </a>
-                
-                <p>{{ Link.content }}</p>
+                <br>
+                <p>{{ item.content }}</p>
+                <br>
+                <p><a href="{% url 'linkList:link_detail' item.id %}">Go.Detail</a></p>
+
+                <br>
 
                 <div>
-                    <p id="copyUrl" hidden>{{ Link.url }}</p>
+                    <p id="copyUrl" hidden>{{ item.url }}</p>
                     {% comment %} 카피 안되서 임시  {% endcomment %}
-                    <input id='inputField' value="{{ Link.url }}"  type="text" >
+                    <input id='inputField' value="{{ item.url }}"  type="text" >
                 </div>
                 <br />
                 
                 <!--// 버튼 만들기-->
                 {% comment %} <ul class="actions fit">
-                    <li><a href="{{Link.url}}" class="button primary fit" target="_blank"> See </a></li>
+                    <li><a href="{{item.url}}" class="button primary fit" target="_blank"> See </a></li>
                 </ul> {% endcomment %}
 
                 <!-- Tag system -->
                 <div>
                     <b>TAGS</b> <i class="fas fa-tag"></i>
                     {% load taggit_templatetags2_tags %}
-                    {% get_tags_for_object Link as "tags"%}
+                    {% get_tags_for_object item as "tags"%}
                     {% for tag in tags %}
                     <a href="{% url 'linkList:tagged_object_list' tag.name %}"> # {{tag.name}} </a>
                     {% endfor %}
