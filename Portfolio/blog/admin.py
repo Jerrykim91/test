@@ -16,10 +16,14 @@ class PostAdmin(MarkdownxModelAdmin):
     보여줄지를 정의하는 클래스
     """
     # 보여줄 필드 
-    list_display = ('id', 'title', 'owner','modify_dt','tag_list','category')
+    list_display = ('id','category', 'title', 'owner','modify_dt','tag_list')
+    list_display_links = ['id', 'title']
     list_filter = ('modify_dt',)
     search_fields = ('title', 'content')
     inlines = [PhotoInline, ] # Post 클래스는 해당하는 Photo 객체를 리스트로 관리하는 한다. 
+    # fieldsets = [
+    #     (None, {'fields': ['category'], 'classes': ['collapse']}),
+    #     ]
 
     # 자동으로 채워질 필드 설정 
     prepopulated_fields = {'slug':('title',)}
@@ -30,6 +34,25 @@ class PostAdmin(MarkdownxModelAdmin):
     def tag_list(self, obj):
         return ','.join(o.name for o in obj.tags.all())
 
+    # def custom_dropdown(self, obj):
+    #     return format_html(
+    # '<a  href="{0}" class="button">Profile Link</a>&nbsp;',
+    #         obj.category
+    #     )
+    # actions = ['make_published', 'make_draft']
+
+    # # admin action 추가
+    # def make_published(self, request, queryset):
+    #     updated_count = queryset.update(Mystatus='p') #queryset.update
+    #     self.message_user(request, '{}건의 포스팅을 Published 상태로 변경'.format(updated_count)) #django message framework 활용
+    # make_published.short_description = '지정 포스팅을 Published 상태로 변경'
+
+    # def make_draft(self, request, queryset):
+    #     updated_count = queryset.update(Mystatus='d') #queryset.update
+    #     self.message_user(request, '{}건의 포스팅을 draft 상태로 변경'.format(updated_count)) #django message framework 활용
+    # make_draft.short_description = '지정 포스팅을 draft 상태로 변경'
+
+    
 
 
 # Category

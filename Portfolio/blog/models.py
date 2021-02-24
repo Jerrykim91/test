@@ -27,7 +27,7 @@ $ python manage.py makemigrations blog
 class Category(models.Model):
     name          = models.CharField(max_length=150)
     # slug          = models.SlugField(unique=True, allow_unicode=True)
-    # parent        = models.ForeignKey('auth.User', on_delete=models.CASCADE, blank=True, null=True,related_name='children' )
+    # parent        = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True )
 
     # class Meta:
 
@@ -59,13 +59,20 @@ class Post(models.Model):
     content      = MarkdownxField('CONTENT')
     create_dt    = models.DateTimeField('CREATE DATE', auto_now_add=True) # 글 작성시간
     modify_dt    = models.DateTimeField('MODIFY DATE', auto_now=True) # 글 수정 시간 
-    tags         = TaggableManager(blank=True, help_text="A comma-separated list of tags.")
+    tags         = TaggableManager(blank=True)
     
+    # STATUS_CHOICES = (
+    #     ('d', '비공개'),
+    #     ('p', '회원 공개'),
+    #     ('w', '모두에게 공개')
+    # )
+    # Mystatus = models.CharField(max_length=1, choices=STATUS_CHOICES)
+
     # 이미지 
     image    = models.ImageField(upload_to='photo/%y/%m', blank=True, null=True)    
     
     # category 
-    # category     = models.ForeignKey(Category, default=1, on_delete=models.CASCADE, null=True, blank=True)
+    # category     = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, default='code')
     category     = models.CharField(max_length=150, null=True, blank=True, default='code')
 
     class Meta:
@@ -74,6 +81,8 @@ class Post(models.Model):
         verbose_name_plural = 'posts'
         db_table = 'blog_posts'
         ordering = ('-modify_dt',)
+
+   
 
     def __str__(self):
 
