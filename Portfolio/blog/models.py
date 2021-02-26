@@ -30,7 +30,6 @@ class Category(models.Model):
     # parent        = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True )
 
     # class Meta:
-
     #     unique_together     = ['parent'] # 위에 존재하는 속성 만으로만 작성 가능 
     #     verbose_name_plural = "categories"     
 

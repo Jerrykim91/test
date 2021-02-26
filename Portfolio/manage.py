@@ -24,3 +24,7 @@ if __name__ == '__main__':
 # id: jerrykim91 / gkdnjs4131
 # 메일 : sun4131@gmail.com
 #지4131
+
+# 서버 
+# id:gkdnjs4131
+# 삐:지4131

@@ -16,7 +16,7 @@ class PostAdmin(MarkdownxModelAdmin):
     보여줄지를 정의하는 클래스
     """
     # 보여줄 필드 
-    list_display = ('id','category', 'title', 'owner','modify_dt','tag_list')
+    list_display = ('id', 'title', 'owner','category','modify_dt','tag_list')
     list_display_links = ['id', 'title']
     list_filter = ('modify_dt',)
     search_fields = ('title', 'content')
@@ -34,11 +34,6 @@ class PostAdmin(MarkdownxModelAdmin):
     def tag_list(self, obj):
         return ','.join(o.name for o in obj.tags.all())
 
-    # def custom_dropdown(self, obj):
-    #     return format_html(
-    # '<a  href="{0}" class="button">Profile Link</a>&nbsp;',
-    #         obj.category
-    #     )
     # actions = ['make_published', 'make_draft']
 
     # # admin action 추가

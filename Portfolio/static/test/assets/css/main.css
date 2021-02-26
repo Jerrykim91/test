@@ -2659,7 +2659,7 @@ input, select, textarea {
 		/* text-align: right; */
 		text-align: left;
 		top: 0;
-		width: 35%;
+		/* width: 35%; */
 	}
 
 		#header > * {
